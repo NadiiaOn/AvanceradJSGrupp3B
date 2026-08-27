@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Navbar from "./Navbar";
 import DisplayProducts from "./components/displayProducts";
 import fetchAllProducts from "./api/fetchProducts";
 
@@ -24,10 +25,14 @@ function App() {
   useEffect(() => {
     getProducts();
   }, []);
+
   return (
-    <main className="flex justify-center">
-      <DisplayProducts products={products} errorMessage={errorMessage} />
-    </main>
+    <>
+      <Navbar />
+      <main className="flex justify-center">
+        <DisplayProducts products={products} errorMessage={errorMessage} />
+      </main>
+    </>
   );
 }
 
