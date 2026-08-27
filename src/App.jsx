@@ -12,7 +12,6 @@ function App() {
       const fetchedProducts = await fetchAllProducts();
 
       setProducts(fetchedProducts);
-      console.log(fetchedProducts);
     } catch (error) {
       setErrorMessage(error.message);
     }
