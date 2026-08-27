@@ -23,14 +23,13 @@ export default function Navbar() {
         {/* Hamburgarmeny, sök */}
         <div className="flex items-center gap-4 text-text order-2 sm:contents">
           <div className="flex items-center gap-4 sm:order-1 sm:justify-self-start">
-            <div className="py-2 px-2 rounded-full hover:bg-card">
+            <div className="py-2 px-2 rounded-full cursor-pointer hover:bg-card">
               <ListIcon
                 weight="thin"
                 className="w-[26px] h-[26px] xl:w-8 xl:h-8"
               />
             </div>
-
-            <div className="flex items-center px-2 py-2 rounded-full gap-2 hover:bg-card ">
+            <div className="flex items-center px-2 py-2 rounded-full gap-2 cursor-pointer hover:bg-card ">
               <MagnifyingGlassIcon
                 weight="thin"
                 className="w-[26px] h-[26px] xl:w-8 xl:h-8"
@@ -40,14 +39,14 @@ export default function Navbar() {
           </div>
           {/* Kundvagn */}
           <div className="flex gap-2 sm:order-3 sm:justify-self-end">
-            <div className="hidden xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
+            <div className="hidden cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
               <UserIcon
                 weight="thin"
                 className="w-[26px] h-[26px] xl:w-8 xl:h-8"
               />
               <p className="text-text font-body">Log In</p>
             </div>
-            <div className="py-2 px-2 rounded-full hover:bg-card">
+            <div className="py-2 px-2 rounded-full cursor-pointer hover:bg-card">
               <ShoppingCartIcon
                 weight="thin"
                 className="w-[26px] h-[26px] xl:w-8 xl:h-8"
