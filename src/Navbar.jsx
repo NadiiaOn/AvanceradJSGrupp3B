@@ -9,15 +9,51 @@ import {
 export default function Navbar() {
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
-      <div className="flex justify-between w-[90%]">
-        <div className="flex items-center gap-1">
-          <TagIcon size={26} weight="bold" className="text-olive" />
-          <h1 className="font-semibold font-heading text-3xl">Fakestore</h1>
+      <div className="flex justify-between items-center sm:grid sm:grid-cols-3 w-[90%]">
+        {/* Logga */}
+        <div className="flex items-center gap-1 order-1 sm:order-2 sm:justify-self-center">
+          <TagIcon
+            weight="bold"
+            className="w-[26px] h-[26px] xl:w-8 xl:h-8 text-olive"
+          />
+          <h1 className="font-semibold font-heading text-3xl xl:text-4xl">
+            Fakestore
+          </h1>
         </div>
-        <div className="flex items-center gap-6 text-text">
-          <MagnifyingGlassIcon weight="thin" size={26} />
-          <ShoppingCartIcon weight="thin" size={26} />
-          <ListIcon weight="thin" size={26} />
+        {/* Hamburgarmeny, sök */}
+        <div className="flex items-center gap-4 text-text order-2 sm:contents">
+          <div className="flex items-center gap-4 sm:order-1 sm:justify-self-start">
+            <div className="py-2 px-2 rounded-full hover:bg-card">
+              <ListIcon
+                weight="thin"
+                className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+              />
+            </div>
+
+            <div className="flex items-center px-2 py-2 rounded-full gap-2 hover:bg-card ">
+              <MagnifyingGlassIcon
+                weight="thin"
+                className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+              />
+              <p className="hidden sm:block text-text font-body">Search</p>
+            </div>
+          </div>
+          {/* Kundvagn */}
+          <div className="flex gap-2 sm:order-3 sm:justify-self-end">
+            <div className="hidden xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
+              <UserIcon
+                weight="thin"
+                className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+              />
+              <p className="text-text font-body">Log In</p>
+            </div>
+            <div className="py-2 px-2 rounded-full hover:bg-card">
+              <ShoppingCartIcon
+                weight="thin"
+                className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </nav>
