@@ -2,7 +2,7 @@ import ProductCard from "./productCard";
 
 const DisplayProducts = ({ products, errorMessage }) => {
   return (
-    <section className="flex justify-center items-center gap-5 flex-wrap py-10 px-10">
+    <section className="flex justify-center items-center gap-5 w-350 flex-wrap py-10 px-10">
       {errorMessage ? (
         <p>{errorMessage}</p>
       ) : (
