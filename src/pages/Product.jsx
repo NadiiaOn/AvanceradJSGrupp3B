@@ -1,9 +1,30 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-export default function Product() {
+export default function ProductModal() {
+    const [isOpen, setIsOpen] = useState(false);
+    
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
     return (
         <div>
-            <h1>Product Page</h1>
+            <button onClick={openModal}>Product Modal</button>
+            {isOpen && (
+                <div className="modal">
+                    <div className="modal-product">
+                        <span className="close" onClick={closeModal}>
+                            &times;
+                        </span>
+                        <p>Modal Content</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
