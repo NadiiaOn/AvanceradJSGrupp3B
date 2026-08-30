@@ -1,4 +1,4 @@
-const fetchAllProducts = async () => {
+const fetchProducts = async () => {
   try {
     let response = await fetch("http://localhost:3000/products");
 
@@ -7,10 +7,10 @@ const fetchAllProducts = async () => {
     }
 
     let result = await response.json();
-    return result;
+    return result[0];
   } catch (error) {
     throw new Error("Kunde inte ansluta till servern!");
   }
 };
 
-export default fetchAllProducts;
+export default fetchProducts;

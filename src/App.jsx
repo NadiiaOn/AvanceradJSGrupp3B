@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Navbar";
 import DisplayProducts from "./components/displayProducts";
-import fetchAllProducts from "./api/fetchProducts";
+import fetchProducts from "./api/fetchProducts";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -10,18 +10,13 @@ function App() {
 
   const getProducts = async () => {
     try {
-      const fetchedProducts = await fetchAllProducts();
-
+      const fetchedProducts = await fetchProducts();
       setProducts(fetchedProducts);
-      console.log(fetchedProducts);
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
 
-  {
-    /* Körs vid start */
-  }
   useEffect(() => {
     getProducts();
   }, []);
