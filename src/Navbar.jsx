@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
-      {isMenuOpen && <NavMenu onClose={() => setIsMenuOpen(false)} />}
+      <NavMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       <div className="flex justify-between items-center sm:grid sm:grid-cols-3 w-[90%]">
         {/* Logga */}
         <div className="flex items-center gap-1 order-1 sm:order-2 sm:justify-self-center">
