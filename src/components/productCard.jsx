@@ -1,3 +1,5 @@
+import { ShoppingCartIcon } from "@phosphor-icons/react";
+
 const ProductCard = ({ product, width, height }) => {
   return (
     <div
@@ -14,13 +16,19 @@ const ProductCard = ({ product, width, height }) => {
         alt={product.title}
       />
 
-      <p className="flex justify-start ml-3 font-bold text-sm text-text hover:underline pt-3 w-auto">
-        {product.title}
-      </p>
-
-      <p className="flex justify-start ml-3 pt-1 text-sm text-text italic">
-        ${product.price}
-      </p>
+      <div className="flex flex-row justify-between items-center">
+        <div>
+          <p className="flex justify-start ml-3 font-bold text-sm text-text hover:underline pt-3 w-auto">
+            {product.title}
+          </p>
+          <p className="flex justify-start ml-3 pt-1 text-sm text-text italic">
+            ${product.price}
+          </p>
+        </div>
+        <button className="rounded-sm w-10 h-10 p-2 cursor-pointer border transition-all duration-300 hover:text-gray-400">
+          <ShoppingCartIcon size={24} />
+        </button>
+      </div>
     </div>
   );
 };

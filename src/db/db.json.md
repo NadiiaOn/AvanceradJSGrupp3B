@@ -28,7 +28,7 @@ Alla olika kategorier som existerar i db.json:
 Övergripande kategorier och vad de innehåller:
 
 Clothes: mens-shirts, tops, womens-dresses.
-Shoess: mens-shoes, womens-shoes.
+Shoes: mens-shoes, womens-shoes.
 Accessories: sunglasses, womens-bags, womens-jewellery, mens-watches, womens-watches.
 Beauty: beauty, fragrances, skin-care.
 Home: furniture, home-decoration, kitchen-accessories.
