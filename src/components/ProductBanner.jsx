@@ -1,0 +1,29 @@
+const ProductBanner = ({ banner }) => {
+  return (
+    <section className="flex gap-4 py-10 mx-auto text-bg cursor-pointer">
+      {banner.map((item, idx) => {
+        return (
+          <div key={idx} className="relative">
+            <img src={item.img} className="h-90 w-140" alt={item.name} />
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/30" />
+
+            {/* Content */}
+            <div className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center">
+              <p className="text-4xl font-bold mt-10 border border-dashed w-50">
+                {item.text}
+              </p>
+
+              <button className="relative top-20 rounded-sm bg-button text-text p-2 font-semibold transition-all duration-300 cursor-pointer hover:animate-pulse">
+                {item.cta}
+              </button>
+            </div>
+          </div>
+        );
+      })}
+    </section>
+  );
+};
+
+export default ProductBanner;

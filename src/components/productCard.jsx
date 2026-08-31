@@ -19,7 +19,7 @@ const ProductCard = ({ product, width, height }) => {
       </p>
 
       <p className="flex justify-start ml-3 pt-1 text-sm text-text italic">
-        {product.price}
+        ${product.price}
       </p>
     </div>
   );
