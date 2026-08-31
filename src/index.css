@@ -13,4 +13,8 @@
   --color-footer: #343434; /* Background footer */
   --color-cta: #3f7d5f; /* CTA-buttons */
   --color-text: #343434; /* Text */
+
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-xl: 1200px;
 }

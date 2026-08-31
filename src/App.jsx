@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Navbar from "./Navbar";
 import DisplayProducts from "./components/displayProducts";
 import fetchProducts from "./api/fetchProducts";
 
@@ -21,9 +22,12 @@ function App() {
   }, []);
 
   return (
-    <main className="flex justify-center">
-      <DisplayProducts products={products} errorMessage={errorMessage} />
-    </main>
+    <>
+      <Navbar products={products} errorMessage={errorMessage} />
+      <main className="flex justify-center">
+        <DisplayProducts products={products} errorMessage={errorMessage} />
+      </main>
+    </>
   );
 }
 
