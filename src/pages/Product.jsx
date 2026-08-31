@@ -24,7 +24,7 @@ export default function ProductPage() {
 
     return (
         <div className= "min-h-screen bg-bg text-text font-body text-[24px]">
-            <div className="REA bg-olive flex justify-center text-heading text-[28px] font-semibold"> REA</div>
+            <div className="REA bg-olive flex justify-center text-heading text-[28px] font-semibold text-white"> REA</div>
             <div className="navbar flex justify-center text-text">Navbar</div>
             <div className="products-categories flex justify-center">Products Categories</div>
             <div className="product-container " >
@@ -34,20 +34,25 @@ export default function ProductPage() {
                                 <img src={product.images} alt={product.title} />
                             </div>  
                             <div className="product-details w-full md:w-[40%] p-8 flex flex-col gap-3">
-                        <p className="product-brand text-sm uppercase font-semibold">Brand: {product.brand}</p>    
-                        <h3 className="product-name font-heading text-2xl">{product.title}</h3>
-                        <p className="product-description text-xl opacity-75">{product.description}</p>
-                        <p className="product-price font-heading text-2xl font-semibold">${product.price}</p>
-                        <p className="product-delivery text-sm opacity-75">Delivery: {product.shippingInformation}</p>
-                        <p className="product-discount text-sm text-cta font-semibold">Discount: ${product.discount}</p>
+                        <p className="product-brand text-sm uppercase font-bold mb-10">Brand: {product.brand}</p>    
+                        <h3 className="product-name font-heading text-4xl mb-10">{product.title}</h3>
+                        <p className="product-description text-xl opacity-75 mb-6 ">{product.description}</p>
+                        <p className="product-price font-heading text-2xl font-semibold mb-10">${product.price}</p>
+                        <p className="product-delivery text-sm opacity-75 mb-2">Delivery: {product.shippingInformation}</p>
+                        <p className="product-discount text-xl text-cta font-semibold mb-2">Discount: ${product.discount}</p>
                         <p className="product-stock text-sm" hidden>Stock: {product.stock}</p> 
-                        <p className="product-availability-status text-sm opacity-75" >Availability: {product.availabilityStatus}</p>
-                        <p className="product-rating text-sm" >Rating: {product.rating}</p>
-                        <button className="all-reviews">All Reviews</button>
-                        <p className="product-return-policy text-sm opacity-75">Return Policy: {product.returnPolicy}</p>
-                        <button>Add to cart</button>
-                        <button>Buy</button>
-                        <button>Favorites</button> 
+                        <p className="product-availability-status text-sm opacity-75 mb-2" >Availability: {product.availabilityStatus}</p>
+                        <div className="flex flex-row items-center gap-2"> <p className="product-rating text-sm w-full md:w-[40%] font-body" >Rating: {product.rating}</p>
+                                <button className="all-reviews bg-cta gap-2 p-2 rounded-md text-[14px] text-text text-white text-sm w-full md:w-[60%]">All Reviews</button>
+                        </div>
+                        
+                        <p className="product-return-policy text-sm opacity-75 mb-2">Return Policy: {product.returnPolicy}</p>
+                            <button className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] ">Add to cart</button>
+                        <div className="flex flex-row ">
+                            <button className="buy bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[80%] ">Buy</button>
+                            <button className="favorites bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[15%] ml-10"></button> 
+                        </div>
+                       
                         </div>
                             
                     </div>
@@ -56,7 +61,7 @@ export default function ProductPage() {
             
             
             <div className="bye-together">
-                <h4>Products related to this item</h4>
+                <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">Products related to this item</h4>
                 {products.filter((product) => product.category === "beauty")
                     .slice(0, 4) // Limit to 4 products
                     .map((product) => (
@@ -70,15 +75,14 @@ export default function ProductPage() {
                 ))}
             </div>
             <div className="reviews bg-card p-4 rounded-lg font-body text-[24px] text-text">
-                <h4 className="text-lg font-semibold text-[20px] ">Reviews</h4>
-                {products.filter((product) => product.id === 1)
-                    .map((product) => (
-                        <div key={product.id} className="review-card">
-                            <p className="reviewer-name">Reviewer: {product.reviews[0].reviewerName}</p>
-                            <p className="reviewer-email">Reviewer Email: {product.reviews[0].reviewerEmail}</p>
-                            <p className="review-comment">Comment: {product.reviews[0].comment}</p>
-                            <p className="review-rating">Rating: {product.reviews[0].rating}</p>
-                            <p className="review-date">Date: {product.reviews[0].date}</p>
+                <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">Reviews</h4>
+                {products.find((p) => p.id === 1)?.reviews.map((review, index) => (
+                    <div key={index} className="review-card mb-4 p-4 bg-card rounded-lg">
+                        <p className="reviewer-name">Reviewer: {review.reviewerName}</p>
+                        <p className="reviewer-email">Reviewer Email: {review.reviewerEmail}</p>
+                        <p className="review-comment">Comment: {review.comment}</p>
+                            <p className="review-rating">Rating: {review.rating}</p>
+                            <p className="review-date">Date: {new Date(review.date).toLocaleDateString('sv-SE')}</p>
                         </div>
                 ))}
             </div>
