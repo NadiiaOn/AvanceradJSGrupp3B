@@ -87,7 +87,7 @@ const Carousel = ({ products, errorMessage }) => {
   };
 
   return (
-    <section className="relative flex items-center gap-4 w-full max-w-7xl mx-auto py-10 px-5 sm:px-10">
+    <section className="relative flex items-center gap-4 w-full max-w-7xl mx-auto py-10 px-0 sm:px-10">
       {/* Left button */}
       <div className="relative left-8 w-14 shrink-0 flex justify-center z-100">
         {goPrev && (

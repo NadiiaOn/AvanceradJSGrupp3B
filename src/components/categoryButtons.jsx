@@ -29,11 +29,11 @@ const categories = [
 
 const CategoryButtons = () => {
   return (
-    <section className="flex flex-col mx-auto gap-5 mt-5 text-text">
+    <section className="flex flex-col mx-auto gap-5 mt-5 max-w-200 text-text">
       <p className="mx-auto text-2xl font-semibold tracking-wide font-heading">
         Our categories
       </p>
-      <div className="flex gap-2">
+      <div className="flex justify-center gap-2 flex-wrap">
         {categories.map((category, idx) => {
           return (
             <button

@@ -50,10 +50,11 @@ function App() {
   }, [products]);
 
   return (
-    <main className="flex flex-col justify-center w-full border font-body">
+    <main className="flex flex-col justify-center w-full font-body">
       <CategoryButtons />
 
       <ProductBanner banner={banners.slice(0, 2)} />
+
       <Carousel
         products={productsByCategory[13]?.products}
         errorMessage={errorMessage}
@@ -66,6 +67,7 @@ function App() {
       {/* Kan raderas senare då denna renderar ut alla 193 produkter. */}
       {/*<DisplayProducts products={products} errorMessage={errorMessage} /> */}
       <ProductBanner banner={banners.slice(2, 4)} />
+
       <Carousel
         products={productsByCategory[19]?.products}
         errorMessage={errorMessage}
