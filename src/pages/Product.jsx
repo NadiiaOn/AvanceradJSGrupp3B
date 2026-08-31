@@ -23,7 +23,7 @@ export default function ProductPage() {
 
 
     return (
-        <div className= "min-h-screen bg-bg text-text font-body text-[24px]">
+        <div className= "min-h-screen bg-bg text-text font-body text-[24px] px-2 py-2">
             <div className="REA bg-olive flex justify-center text-heading text-[28px] font-semibold text-white"> REA</div>
             <div className="navbar flex justify-center text-text">Navbar</div>
             <div className="products-categories flex justify-center">Products Categories</div>
@@ -43,7 +43,12 @@ export default function ProductPage() {
                         <p className="product-stock text-sm" hidden>Stock: {product.stock}</p> 
                         <p className="product-availability-status text-sm opacity-75 mb-2" >Availability: {product.availabilityStatus}</p>
                         <div className="flex flex-row items-center gap-2"> <p className="product-rating text-sm w-full md:w-[40%] font-body" >Rating: {product.rating}</p>
-                                <button className="all-reviews bg-cta gap-2 p-2 rounded-md text-[14px] text-text text-white text-sm w-full md:w-[60%]">All Reviews</button>
+                                <button onClick={() => {
+                                    const reviewsSection = document.getElementById('productReviews');
+                                    if (reviewsSection) {
+                                        reviewsSection.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                }} className="all-reviews gap-2 p-2 rounded-md text-[14px] text-text text-sm w-full md:w-[60%] underline">{product.reviews?.length ?? 0} reviews</button>
                         </div>
                         
                         <p className="product-return-policy text-sm opacity-75 mb-2">Return Policy: {product.returnPolicy}</p>
@@ -59,25 +64,24 @@ export default function ProductPage() {
                 ))}
             </div>
             
-            
-            <div className="bye-together">
-                <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">Products related to this item</h4>
+            <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">Products related to this item</h4>
+            <div className="bye-together flex flex-row gap-4 font-body text-[20px] text-text p-4 ">
                 {products.filter((product) => product.category === "beauty")
                     .slice(0, 4) // Limit to 4 products
                     .map((product) => (
-                        <div key={product.id} className="product-card">
+                        <div key={product.id} className="product-card border-1 border-card rounded-lg bg-card">
                         <img src={product.images} alt={product.title} />  
-                        <h3 className="product-name">{product.title}</h3>
-                        <p className="product-price">Price: ${product.price}</p>
-                        <p className="product-delivery">Delivery: {product.shippingInformation}</p>
-                        <p className="product-rating">Rating: {product.rating}</p>
+                        <h3 className="product-name font-heading font-semibold mb-1">{product.title}</h3>
+                        <p className="product-price mb-3">Price: ${product.price}</p>
+                        <p className="product-delivery opacity-75 text-sm">Delivery: {product.shippingInformation}</p>
+                        <p className="product-rating opacity-75 text-sm mb-1">Rating: {product.rating}</p>
                     </div>
                 ))}
             </div>
-            <div className="reviews bg-card p-4 rounded-lg font-body text-[24px] text-text">
-                <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">Reviews</h4>
+            <div id="productReviews" className="reviews p-4 rounded-lg font-body text-[24px] text-text">
+                <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading">Reviews</h4>
                 {products.find((p) => p.id === 1)?.reviews.map((review, index) => (
-                    <div key={index} className="review-card mb-4 p-4 bg-card rounded-lg">
+                    <div key={index} className="review-card mb-4 p-4 rounded-lg bg-card">
                         <p className="reviewer-name">Reviewer: {review.reviewerName}</p>
                         <p className="reviewer-email">Reviewer Email: {review.reviewerEmail}</p>
                         <p className="review-comment">Comment: {review.comment}</p>
