@@ -23,7 +23,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar products={products} errorMessage={errorMessage} />
       <main className="flex justify-center">
         <DisplayProducts products={products} errorMessage={errorMessage} />
       </main>
