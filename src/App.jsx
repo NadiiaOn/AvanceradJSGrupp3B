@@ -9,8 +9,6 @@ import CategoryButtons from "./components/categoryButtons";
 import ProductBanner from "./components/ProductBanner";
 import Banners from "./utils/banners";
 
-// Kan behöva skapa en "Ad banner" för att fylla ut plats och skapa mellanrum från våra framtida "Carousels" som renderar produkter?
-
 function App() {
   // Alla produkter.
   const [products, setProducts] = useState([]);
@@ -57,7 +55,7 @@ function App() {
 
       <ProductBanner banner={banners.slice(0, 2)} />
       <Carousel
-        products={productsByCategory[17]?.products}
+        products={productsByCategory[13]?.products}
         errorMessage={errorMessage}
       />
       <Carousel
