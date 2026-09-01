@@ -21,14 +21,17 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-bg text-text font-body px-2 py-2">
-      <div className="REA bg-olive flex justify-center text-heading text-2xl font-semibold text-white">
+      <div className="bg-olive flex justify-center text-heading text-2xl font-semibold text-white">
         REA
       </div>
 
       {/* Uppdatera med knapparna */}
-      <CategoryButtons />
+          <CategoryButtons />
+          
 
-      <div className="product-container mt-5">
+      {/* Produkt div*/}
+
+      <div className="mt-5">
         <div
           key={product.id}
           className="product-card flex flex-col md:flex-row bg-card rounded-2xl overflow-hidden"
@@ -106,7 +109,7 @@ export default function ProductPage() {
 
       <div
         id="productReviews"
-        className="reviews p-4 rounded-lg font-body text-[24px] text-text"
+        className="p-2 rounded-lg font-body sm:text-[20px] text-text"
       >
         <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading">
           Reviews
@@ -119,7 +122,7 @@ export default function ProductPage() {
               className="flex flex-col mb-4 p-4 rounded-lg bg-card"
             >
               <p >Reviewer: {review.reviewerName}</p>
-              <p >
+              <p className="overflow-wrap break-words">
                 Reviewer Email: {review.reviewerEmail}
               </p>
               <p >Comment: {review.comment}</p>
