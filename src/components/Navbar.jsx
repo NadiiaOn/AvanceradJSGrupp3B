@@ -24,7 +24,7 @@ export default function Navbar({ products, errorMessage }) {
         <div className="flex items-center gap-1 order-1 sm:order-2 sm:justify-self-center">
           <TagIcon
             weight="bold"
-            className="w-[26px] h-[26px] xl:w-8 xl:h-8 text-olive"
+            className="w-6.5 h-6.5 xl:w-8 xl:h-8 text-olive"
           />
           <h1 className="font-semibold font-heading text-3xl xl:text-4xl">
             Fakestore
@@ -37,14 +37,14 @@ export default function Navbar({ products, errorMessage }) {
               <button onClick={() => setIsMenuOpen((prev) => !prev)}>
                 <ListIcon
                   weight="thin"
-                  className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+                  className="w-6.5 h-6.5 xl:w-8 xl:h-8"
                 />
               </button>
             </div>
             <button className="flex items-center px-2 py-2 rounded-full gap-2 cursor-pointer hover:bg-card ">
               <MagnifyingGlassIcon
                 weight="thin"
-                className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+                className="w-6.5 h-6.5 xl:w-8 xl:h-8"
               />
               <p className="hidden sm:block text-text font-body">Search</p>
             </button>
@@ -54,7 +54,7 @@ export default function Navbar({ products, errorMessage }) {
             <button className="hidden cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
               <UserIcon
                 weight="thin"
-                className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+                className="w-6.5 h-6.5 xl:w-8 xl:h-8"
               />
               <p className="text-text font-body">Log In</p>
             </button>
@@ -62,7 +62,7 @@ export default function Navbar({ products, errorMessage }) {
               <button>
                 <ShoppingCartIcon
                   weight="thin"
-                  className="w-[26px] h-[26px] xl:w-8 xl:h-8"
+                  className="w-6.5 h-6.5 xl:w-8 xl:h-8"
                 />
               </button>
             </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";
 import DisplayProducts from "./components/displayProducts";
 import fetchProducts from "./api/fetchProducts";
 import Carousel from "./components/carousel";
@@ -61,23 +61,23 @@ function App() {
         <Carousel
           products={productsByCategory[13]?.products}
           errorMessage={errorMessage}
-      />
-      <Carousel
-        products={productsByCategory[7]?.products}
-        errorMessage={errorMessage}
-      />
+        />
+        <Carousel
+          products={productsByCategory[7]?.products}
+          errorMessage={errorMessage}
+        />
 
-      {/* Kan raderas senare då denna renderar ut alla 193 produkter. */}
-      {/*<DisplayProducts products={products} errorMessage={errorMessage} /> */}
-      <ProductBanner banner={banners.slice(2, 4)} />
+        {/* Kan raderas senare då denna renderar ut alla 193 produkter. */}
+        {/*<DisplayProducts products={products} errorMessage={errorMessage} /> */}
+        <ProductBanner banner={banners.slice(2, 4)} />
 
-      <Carousel
-        products={productsByCategory[19]?.products}
-        errorMessage={errorMessage}
-      />
-    </main>
-  </>
-);  
+        <Carousel
+          products={productsByCategory[19]?.products}
+          errorMessage={errorMessage}
+        />
+      </main>
+    </>
+  );
 }
 
 export default App;
