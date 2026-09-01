@@ -104,30 +104,6 @@ export default function ProductPage() {
 
       <Carousel products={relatedProducts} errorMessage={errorMessage} />
 
-      {/* 
-      <div className="bye-together flex flex-row gap-4 font-body text-[20px] text-text p-4">
-        {products
-          .filter((product) => product.category === category)
-          .slice(0, 5) // Limit to 5 products
-          .map((product) => (
-            <div
-              key={product.id}
-              className="product-card border-1 border-card rounded-lg bg-card"
-            >
-              <img src={product.images} alt={product.title} />
-              <h3 className="product-name font-heading font-semibold mb-1">
-                {product.title}
-              </h3>
-              <p className="product-price mb-3">Price: ${product.price}</p>
-              <p className="product-delivery opacity-75 text-sm">
-                Delivery: {product.shippingInformation}
-              </p>
-              <p className="product-rating opacity-75 text-sm mb-1">
-                Rating: {product.rating}
-              </p>
-            </div>
-          ))}
-      </div>*/}
       <div
         id="productReviews"
         className="reviews p-4 rounded-lg font-body text-[24px] text-text"
@@ -136,19 +112,19 @@ export default function ProductPage() {
           Reviews
         </h4>
         {products
-          .find((p) => p.id === 1)
+          .find((p) => p.id === Number(id))
           ?.reviews.map((review, index) => (
             <div
               key={index}
               className="flex flex-col mb-4 p-4 rounded-lg bg-card"
             >
-              <p className="reviewer-name">Reviewer: {review.reviewerName}</p>
-              <p className="reviewer-email">
+              <p >Reviewer: {review.reviewerName}</p>
+              <p >
                 Reviewer Email: {review.reviewerEmail}
               </p>
-              <p className="review-comment">Comment: {review.comment}</p>
-              <p className="review-rating">Rating: {review.rating}</p>
-              <p className="review-date">
+              <p >Comment: {review.comment}</p>
+              <p >Rating: {review.rating}</p>
+              <p >
                 Date: {new Date(review.date).toLocaleDateString("sv-SE")}
               </p>
             </div>
