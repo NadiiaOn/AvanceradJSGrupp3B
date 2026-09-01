@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import DisplayProducts from "./components/displayProducts";
 import fetchProducts from "./api/fetchProducts";
-import Carousel from "./components/carousel";
 import Categories from "./utils/categories";
 import getProductsByCategory from "./utils/getProductsByCategory";
-import CategoryButtons from "./components/categoryButtons";
-import ProductBanner from "./components/ProductBanner";
 import Banners from "./utils/banners";
+import { Outlet } from "react-router";
 
 function App() {
   // Alla produkter.
@@ -17,10 +14,11 @@ function App() {
   const [productsByCategory, setProductsByCategory] = useState([]);
   // Produkter för subkategorier.
   const [productsBySubCategories] = useState([]);
-  // Ad banners / för utfyllnad av innehållet.
-  const [banners, setBanners] = useState(Banners);
   // Fel meddelande som renderas.
   const [errorMessage, setErrorMessage] = useState(null);
+
+  // Ad banners / för utfyllnad av innehållet.
+  const banners = Banners;
 
   // Hämtar alla produkter.
   const getProducts = async () => {
@@ -52,30 +50,21 @@ function App() {
 
   return (
     <>
-      <Navbar products={products} errorMessage={errorMessage} />
-      <main className="flex flex-col justify-center w-full font-body">
-        <CategoryButtons />
+      <div>
+        <header>
+          <Navbar products={products} errorMessage={errorMessage} />
+        </header>
 
-        <ProductBanner banner={banners.slice(0, 2)} />
+        <div>
+          <Outlet
+            context={{ products, errorMessage, productsByCategory, banners }}
+          />
+        </div>
+      </div>
 
-        <Carousel
-          products={productsByCategory[13]?.products}
-          errorMessage={errorMessage}
-        />
-        <Carousel
-          products={productsByCategory[7]?.products}
-          errorMessage={errorMessage}
-        />
-
-        {/* Kan raderas senare då denna renderar ut alla 193 produkter. */}
-        {/*<DisplayProducts products={products} errorMessage={errorMessage} /> */}
-        <ProductBanner banner={banners.slice(2, 4)} />
-
-        <Carousel
-          products={productsByCategory[19]?.products}
-          errorMessage={errorMessage}
-        />
-      </main>
+      <footer>
+        <p>Placeholder footer</p>
+      </footer>
     </>
   );
 }

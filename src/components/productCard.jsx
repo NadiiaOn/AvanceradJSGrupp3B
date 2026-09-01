@@ -1,8 +1,12 @@
 import { ShoppingCartIcon } from "@phosphor-icons/react";
+import { useNavigate } from "react-router";
 
 const ProductCard = ({ product, width, height }) => {
+  const navigate = useNavigate();
+
   return (
     <div
+      onClick={() => navigate(`/product/${product.id}`)}
       style={{
         width: `${width}rem`,
         minWidth: `${width}rem`,
