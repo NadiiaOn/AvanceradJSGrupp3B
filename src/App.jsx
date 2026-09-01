@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Navbar from "./Navbar";
 import DisplayProducts from "./components/displayProducts";
 import fetchProducts from "./api/fetchProducts";
 import Carousel from "./components/carousel";
@@ -50,14 +51,16 @@ function App() {
   }, [products]);
 
   return (
-    <main className="flex flex-col justify-center w-full font-body">
-      <CategoryButtons />
+    <>
+      <Navbar products={products} errorMessage={errorMessage} />
+      <main className="flex flex-col justify-center w-full font-body">
+        <CategoryButtons />
 
-      <ProductBanner banner={banners.slice(0, 2)} />
+        <ProductBanner banner={banners.slice(0, 2)} />
 
-      <Carousel
-        products={productsByCategory[13]?.products}
-        errorMessage={errorMessage}
+        <Carousel
+          products={productsByCategory[13]?.products}
+          errorMessage={errorMessage}
       />
       <Carousel
         products={productsByCategory[7]?.products}
@@ -73,7 +76,8 @@ function App() {
         errorMessage={errorMessage}
       />
     </main>
-  );
+  </>
+);  
 }
 
 export default App;
