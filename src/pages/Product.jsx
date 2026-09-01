@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import fetchProducts from "../api/fetchProducts";
+import {Heart } from "@phosphor-icons/react"
 //import CreateProductForm from "../components/CreateProductForm"; //ToDo: create product form component
 
 export default function ProductPage() {
@@ -13,11 +14,11 @@ export default function ProductPage() {
         });
     }, []);
 
-    function openModal() {
+    const openProductPage = () => {
         setIsOpen(true);
     }
 
-    function closeModal() {
+    const closeProductPage = () => {
         setIsOpen(false);
     }
 
@@ -55,7 +56,7 @@ export default function ProductPage() {
                             <button className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] ">Add to cart</button>
                         <div className="flex flex-row ">
                             <button className="buy bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[80%] ">Buy</button>
-                            <button className="favorites bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[15%] ml-10"></button> 
+                            <button className="favorites bg-cta gap-2 rounded-md text-white text-[20px] w-full md:w-[15%] ml-10 flex items-center justify-center"><Heart weight="fill" /></button> 
                         </div>
                        
                         </div>
@@ -65,9 +66,9 @@ export default function ProductPage() {
             </div>
             
             <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">Products related to this item</h4>
-            <div className="bye-together flex flex-row gap-4 font-body text-[20px] text-text p-4 ">
+            <div className="bye-together flex flex-row gap-4 font-body text-[20px] text-text p-4">
                 {products.filter((product) => product.category === "beauty")
-                    .slice(0, 4) // Limit to 4 products
+                    .slice(0, 5) // Limit to 5 products
                     .map((product) => (
                         <div key={product.id} className="product-card border-1 border-card rounded-lg bg-card">
                         <img src={product.images} alt={product.title} />  
@@ -95,5 +96,6 @@ export default function ProductPage() {
         </div>
     );
 }
+
 
 
