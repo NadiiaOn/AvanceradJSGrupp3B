@@ -45,7 +45,7 @@ const product = products.find((product) => product.id === Number(id));
               {product.title ?? "Information saknas"}
             </h3>
             <p className="product-description text-xl opacity-75 mb-10 ">
-              {product.description }
+              {product.description ?? "Information saknas"}
             </p>
             <p className="product-price font-heading text-2xl font-semibold mb-10">
               ${product.price ?? "Information saknas"}
@@ -85,8 +85,7 @@ const product = products.find((product) => product.id === Number(id));
             <p className="product-return-policy text-sm opacity-75 mb-5">
               Return Policy: {product.returnPolicy ?? "Ingen returpolicy"}
             </p>
-            <button className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] cursor-pointer hover:bg-olive" onClick={() => {addToCart(Number(id), 1)}}>
-                          
+            <button className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] cursor-pointer hover:bg-olive" onClick={() => {addToCart(Number(id), 1)}}>            
               Add to cart
             </button>
             <div className="flex flex-row ">
@@ -102,7 +101,7 @@ const product = products.find((product) => product.id === Number(id));
       </div>
 
       <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">
-        Products related to this item
+        Frequently bought together 
       </h4>
 
       <Carousel products={relatedProducts} errorMessage={errorMessage} />
