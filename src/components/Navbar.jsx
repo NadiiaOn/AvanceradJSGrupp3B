@@ -11,7 +11,7 @@ import { useCart } from "../context/CartContext";
 
 export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { toggleCart } = useCart();
+  const { toggleCart, totalItems } = useCart();
 
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
@@ -60,12 +60,24 @@ export default function Navbar({ products, errorMessage }) {
               />
               <p className="text-text font-body">Log In</p>
             </button>
+            
             <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
-              <button onClick={toggleCart}>
-                <ShoppingCartIcon
-                  weight="thin"
-                  className="w-6.5 h-6.5 xl:w-8 xl:h-8"
-                />
+              <button
+                onClick={toggleCart}
+                className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card"
+              >
+                <span className="relative">
+                  <ShoppingCartIcon
+                    weight="thin"
+                    className="w-6.5 h-6.5 xl:w-8 xl:h-8"
+                  />
+
+                  {totalItems > 0 ? (
+                    <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-xs font-bold">
+                      {totalItems}
+                    </span>
+                  ) : null}
+                </span>
               </button>
             </div>
           </div>
