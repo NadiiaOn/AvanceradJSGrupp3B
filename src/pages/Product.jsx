@@ -35,37 +35,37 @@ const product = products.find((product) => product.id === Number(id));
           className="product-card flex flex-col md:flex-row bg-card rounded-2xl overflow-hidden"
         >
           <div className="product-image w-full md:w-[60%] flex items-center justify-center p-6">
-                <img src={product.image?.[0] ?? "/placeholder.png"} />
+                <img src={product.images?.[0] ?? "/placeholder.png"} />
           </div>
           <div className="product-details w-full md:w-[40%] p-8 flex flex-col gap-3">
             <p className="product-brand text-sm uppercase font-bold mb-10">
-              Brand: {product.brand}
+              Brand: {product.brand ?? "Information saknas"}
             </p>
             <h3 className="product-name font-heading text-4xl mb-10">
-              {product.title}
+              {product.title ?? "Information saknas"}
             </h3>
             <p className="product-description text-xl opacity-75 mb-10 ">
-              {product.description}
+              {product.description }
             </p>
             <p className="product-price font-heading text-2xl font-semibold mb-10">
-              ${product.price}
+              ${product.price ?? "Information saknas"}
             </p>
             <p className="product-delivery text-sm opacity-75 mb-2">
-              Delivery: {product.shippingInformation}
+              Delivery: {product.shippingInformation ?? "Information saknas"}
             </p>
             <p className="product-discount text-xl text-cta font-semibold mb-2">
-              Discount: {product.discountPercentage}%
+              Discount: {product.discountPercentage ?? "Information saknas"}%
             </p>
             <p className="product-stock text-sm" hidden>
-              Stock: {product.stock}
+              Stock: {product.stock ?? "Information saknas"}
             </p>
             <p className="product-availability-status text-sm opacity-75 mb-2">
-              Availability: {product.availabilityStatus}
+              Availability: {product.availabilityStatus ?? "Information saknas"}
             </p>
             <div className="flex flex-row items-center gap-2 mb-2">
               {" "}
               <p className="product-rating text-sm w-full md:w-[40%] font-body">
-                Rating: {product.rating}
+                Rating: {product.rating ?? "Rating saknas"}
               </p>
               <button
                 onClick={() => {
@@ -83,7 +83,7 @@ const product = products.find((product) => product.id === Number(id));
             </div>
 
             <p className="product-return-policy text-sm opacity-75 mb-5">
-              Return Policy: {product.returnPolicy}
+              Return Policy: {product.returnPolicy ?? "Ingen returpolicy"}
             </p>
             <button className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] cursor-pointer hover:bg-olive" onClick={() => {addToCart(Number(id), 1)}}>
                           
@@ -121,10 +121,10 @@ const product = products.find((product) => product.id === Number(id));
             >
               <p >Reviewer: {review.reviewerName}</p>
               <p className="overflow-wrap break-words">
-                Reviewer Email: {review.reviewerEmail}
+                Reviewer Email: {review.reviewerEmail ?? "E-post saknas"}
               </p>
-              <p >Comment: {review.comment}</p>
-              <p >Rating: {review.rating}</p>
+              <p >Comment: {review.comment ?? "Ingen kommentar"} </p>
+              <p >Rating: {review.rating ?? "Ingen rating"} </p>
               <p >
                 Date: {new Date(review.date).toLocaleDateString("sv-SE")}
               </p>
