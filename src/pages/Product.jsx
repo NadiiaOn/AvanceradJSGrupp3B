@@ -2,10 +2,12 @@ import { HeartIcon } from "@phosphor-icons/react";
 import { useOutletContext, useParams } from "react-router";
 import Carousel from "../components/carousel";
 import CategoryButtons from "../components/categoryButtons";
+import { useCart } from "../context/CartContext";
 
 export default function ProductPage() {
   const { products, productsByCategory, errorMessage } = useOutletContext();
   const { id } = useParams();
+  const { addToCart } = useCart();
 
   const product = products.find((product) => product.id === Number(id));
 
@@ -86,7 +88,9 @@ export default function ProductPage() {
             <p className="product-return-policy text-sm opacity-75 mb-2">
               Return Policy: {product.returnPolicy}
             </p>
-            <button className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] ">
+            <button 
+            onClick={() => addToCart(product)}
+            className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] cursor-pointer ">
               Add to cart
             </button>
             <div className="flex flex-row ">
