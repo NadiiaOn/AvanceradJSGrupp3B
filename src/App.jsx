@@ -6,6 +6,7 @@ import Categories from "./utils/categories";
 import getProductsByCategory from "./utils/getProductsByCategory";
 import Banners from "./utils/banners";
 import { Outlet } from "react-router";
+import Footer from "./components/Footer";
 
 function App() {
   // Alla produkter.
@@ -62,9 +63,7 @@ function App() {
         </div>
       </div>
 
-      <footer>
-        <p>Placeholder footer</p>
-      </footer>
+      <Footer />
     </>
   );
 }
