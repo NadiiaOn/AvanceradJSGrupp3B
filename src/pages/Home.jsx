@@ -6,8 +6,6 @@ import { useOutletContext } from "react-router";
 const Home = () => {
   const { errorMessage, productsByCategory, banners } = useOutletContext();
 
-  console.log("Category: ", productsByCategory);
-
   return (
     <main className="flex flex-col justify-center w-full font-body">
       <CategoryButtons />
@@ -15,6 +13,7 @@ const Home = () => {
       <ProductBanner banner={banners.slice(0, 2)} />
 
       <Carousel
+        title={"Smart Phones"}
         products={productsByCategory[13]?.products}
         errorMessage={errorMessage}
       />
@@ -23,8 +22,6 @@ const Home = () => {
         errorMessage={errorMessage}
       />
 
-      {/* Kan raderas senare då denna renderar ut alla 193 produkter. */}
-      {/*<DisplayProducts products={products} errorMessage={errorMessage} /> */}
       <ProductBanner banner={banners.slice(2, 4)} />
 
       <Carousel

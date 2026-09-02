@@ -3,6 +3,7 @@ const FashionBanner = {
   img: "/fashionBanner.avif",
   text: "New Collection",
   cta: "Browse Clothing",
+  path: "/sortiment/clothes",
 };
 
 const AccessoriesBanner = {
@@ -10,6 +11,7 @@ const AccessoriesBanner = {
   img: "/accessoriesBanner.avif",
   text: "Complete Your Look",
   cta: "Shop Accessories",
+  path: "/sortiment/accessories",
 };
 
 const TechBanner = {
@@ -17,6 +19,7 @@ const TechBanner = {
   img: "/techBanner.avif",
   text: "Upgrade Your Tech",
   cta: "Explore Tech",
+  path: "/sortiment/electronics",
 };
 
 const InteriorBanner = {
@@ -24,6 +27,7 @@ const InteriorBanner = {
   img: "/interiorBanner.jpg",
   text: "Refresh Your Space",
   cta: "Shop Home",
+  path: "/sortiment/home",
 };
 
 const Banners = [FashionBanner, AccessoriesBanner, TechBanner, InteriorBanner];

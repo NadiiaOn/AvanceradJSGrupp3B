@@ -13,8 +13,6 @@ export default function ProductPage() {
     .filter((merch) => merch.category === product.category)
     .filter((merch) => merch.id !== product.id);
 
-  console.log("Related: ", relatedProducts);
-
   if (!product) {
     return <p>Produkten hittades inte</p>;
   }
@@ -26,8 +24,7 @@ export default function ProductPage() {
       </div>
 
       {/* Uppdatera med knapparna */}
-          <CategoryButtons />
-          
+      <CategoryButtons />
 
       {/* Produkt div*/}
 
@@ -121,15 +118,13 @@ export default function ProductPage() {
               key={index}
               className="flex flex-col mb-4 p-4 rounded-lg bg-card"
             >
-              <p >Reviewer: {review.reviewerName}</p>
+              <p>Reviewer: {review.reviewerName}</p>
               <p className="overflow-wrap break-words">
                 Reviewer Email: {review.reviewerEmail}
               </p>
-              <p >Comment: {review.comment}</p>
-              <p >Rating: {review.rating}</p>
-              <p >
-                Date: {new Date(review.date).toLocaleDateString("sv-SE")}
-              </p>
+              <p>Comment: {review.comment}</p>
+              <p>Rating: {review.rating}</p>
+              <p>Date: {new Date(review.date).toLocaleDateString("sv-SE")}</p>
             </div>
           ))}
       </div>

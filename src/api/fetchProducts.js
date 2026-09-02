@@ -7,7 +7,6 @@ const fetchProducts = async () => {
 
   const result = await response.json();
 
-  console.log("result: ", result);
   return result[0];
 };
 

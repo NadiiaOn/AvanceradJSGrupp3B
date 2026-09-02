@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router";
+
 const ProductBanner = ({ banner }) => {
+  const navigate = useNavigate();
+
   return (
     <section className="flex justify-center gap-4 py-10 mx-auto text-bg">
       {banner.map((item, idx) => {
@@ -15,7 +19,10 @@ const ProductBanner = ({ banner }) => {
                 {item.text}
               </p>
 
-              <button className="relative top-12 rounded-sm bg-button text-text p-2 font-semibold transition-all duration-300 cursor-pointer group-hover:animate-pulse">
+              <button
+                onClick={() => navigate(`${item.path}`)}
+                className="relative top-12 rounded-sm bg-button text-text p-2 font-semibold transition-all duration-300 cursor-pointer group-hover:animate-pulse"
+              >
                 {item.cta}
               </button>
             </div>

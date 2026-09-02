@@ -1,4 +1,4 @@
-const Categories = [
+const SubCategories = [
   "beauty",
   "fragrances",
   "furniture",
@@ -25,4 +25,4 @@ const Categories = [
   "womens-watches",
 ];
 
-export default Categories;
+export default SubCategories;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import fetchProducts from "./api/fetchProducts";
-import Categories from "./utils/categories";
+import SubCategories from "./utils/subCategories";
 import getProductsByCategory from "./utils/getProductsByCategory";
 import Banners from "./utils/banners";
 import { Outlet } from "react-router";
@@ -12,8 +12,6 @@ function App() {
   const [products, setProducts] = useState([]);
   // Produkter per 1 kategori.
   const [productsByCategory, setProductsByCategory] = useState([]);
-  // Produkter för subkategorier.
-  const [productsBySubCategories] = useState([]);
   // Fel meddelande som renderas.
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -32,7 +30,7 @@ function App() {
 
   // Hämtar produkter för en kategori (För komponenten: Carousel).
   const assignProductsByCategory = () => {
-    const productsByCategory = Categories.map((category) => ({
+    const productsByCategory = SubCategories.map((category) => ({
       category: category,
       products: getProductsByCategory(products, category),
     }));
