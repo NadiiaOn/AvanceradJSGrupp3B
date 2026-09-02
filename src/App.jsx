@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Navbar from "./Navbar";
-import DisplayProducts from "./components/displayProducts";
+import Navbar from "./components/Navbar";
 import fetchProducts from "./api/fetchProducts";
-import Carousel from "./components/carousel";
 import Categories from "./utils/categories";
 import getProductsByCategory from "./utils/getProductsByCategory";
-import CategoryButtons from "./components/categoryButtons";
-import ProductBanner from "./components/ProductBanner";
 import Banners from "./utils/banners";
 import CartDrawer from "./components/cartDrawer";
 import Checkout from "./pages/Checkout";
+import { Outlet } from "react-router";
+
 function App() {
   // Alla produkter.
   const [products, setProducts] = useState([]);
@@ -19,12 +16,11 @@ function App() {
   const [productsByCategory, setProductsByCategory] = useState([]);
   // Produkter för subkategorier.
   const [productsBySubCategories] = useState([]);
-  // Ad banners / för utfyllnad av innehållet.
-  const [banners, setBanners] = useState(Banners);
   // Fel meddelande som renderas.
   const [errorMessage, setErrorMessage] = useState(null);
 
-  
+  // Ad banners / för utfyllnad av innehållet.
+  const banners = Banners;
 
   // Hämtar alla produkter.
   const getProducts = async () => {
@@ -55,28 +51,31 @@ function App() {
   }, [products]);
 
   return (
-  <>
-    <Navbar products={products} errorMessage={errorMessage} />
-    <CartDrawer />
+    <>
+      <div>
+        <header>
+          <Navbar products={products} errorMessage={errorMessage} />
+        </header>
 
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <main className="flex flex-col justify-center w-full font-body">
-            <CategoryButtons />
-            <ProductBanner banner={banners.slice(0, 2)} />
-            <Carousel products={productsByCategory[13]?.products} errorMessage={errorMessage} />
-            <Carousel products={productsByCategory[7]?.products} errorMessage={errorMessage} />
-            <ProductBanner banner={banners.slice(2, 4)} />
-            <Carousel products={productsByCategory[19]?.products} errorMessage={errorMessage} />
-          </main>
-        }
-      />
-      <Route path="/checkout" element={<Checkout />} />
-    </Routes>
-  </>
-);  
+        <CartDrawer />
+
+        <div>
+          <Outlet
+            context={{
+              products,
+              errorMessage,
+              productsByCategory,
+              banners,
+            }}
+          />
+        </div>
+      </div>
+
+      <footer>
+        <p>Placeholder footer</p>
+      </footer>
+    </>
+);
 }
 
 export default App;

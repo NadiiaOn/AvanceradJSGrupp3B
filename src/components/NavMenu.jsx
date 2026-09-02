@@ -1,16 +1,16 @@
 import { XIcon } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { getCategories, stringFormat } from "./utils/productUtils";
+import { getCategories, stringFormat } from "../utils/productUtils";
 
 export default function NavMenu({ isOpen, onClose, products, errorMessage }) {
   const categories = getCategories(products);
 
   return (
     <div
-      className={`fixed inset-0 z-50 bg-black/50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      className={`fixed inset-0 z-50 bg-black/50 transition-opacity ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"} z-200`}
     >
       <div
-        className={`flex flex-col w-1/3 h-screen bg-bg overflow-x-hidden transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
+        className={`flex flex-col w-1/3 h-screen bg-bg overflow-x-hidden transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex justify-between px-4 py-6 border-b bg-card ">
           <p className="text-2xl font-heading font-bold">Hej!</p>

@@ -1,9 +1,9 @@
 const ProductBanner = ({ banner }) => {
   return (
-    <section className="flex justify-center gap-4 py-10 mx-auto text-bg cursor-pointer">
+    <section className="flex justify-center gap-4 py-10 mx-auto text-bg">
       {banner.map((item, idx) => {
         return (
-          <div key={idx} className="relative group shadow-2xl">
+          <div key={idx} className="relative group shadow-2xl cursor-pointer">
             <img src={item.img} className="h-90 w-140" alt={item.name} />
 
             {/* Overlay */}
