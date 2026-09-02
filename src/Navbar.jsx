@@ -7,9 +7,11 @@ import {
 } from "@phosphor-icons/react";
 import NavMenu from "./NavMenu";
 import { useState } from "react";
+import { useCart } from "./context/CartContext";
 
 export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { toggleCart } = useCart();
 
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
@@ -59,7 +61,7 @@ export default function Navbar({ products, errorMessage }) {
               <p className="text-text font-body">Log In</p>
             </button>
             <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
-              <button>
+              <button onClick={toggleCart}>
                 <ShoppingCartIcon
                   weight="thin"
                   className="w-[26px] h-[26px] xl:w-8 xl:h-8"
