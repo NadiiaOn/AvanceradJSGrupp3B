@@ -2,7 +2,7 @@ import ProductCard from "./productCard";
 
 const cardWidth = 18;
 
-const RenderSpecificProducts = ({ key, subCategory, products }) => {
+const RenderSpecificProducts = ({ subCategory, products }) => {
   const formatCategoryName = (category) => {
     return category
       .split("-")

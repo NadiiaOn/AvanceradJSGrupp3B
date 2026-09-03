@@ -2,9 +2,11 @@ import { useState } from "react";
 import mainCategories from "../utils/mainCategories";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import { stringFormat } from "../utils/productUtils";
+import { useNavigate } from "react-router";
 
 export default function CategoryMenu() {
   const [openCategory, setOpenCategory] = useState(null);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -18,17 +20,24 @@ export default function CategoryMenu() {
           <div className="flex items-center justify-between ">
             <p className="text-xl font-body font-medium">{cat.name}</p>
             <CaretDownIcon
-              className={`transition-transform duration-300 ${cat.subCategories.length <= 1 ? "hidden" : ""} ${openCategory === index ? "rotate-180" : ""}`}
+              className={`transition-transform duration-300 ${openCategory === index ? "rotate-180" : ""}`}
               size={20}
               weight="thin"
             />
           </div>
-          {openCategory === index && cat.subCategories.length > 1 && (
+          {openCategory === index && (
             <div className="flex flex-col mt-2">
               {cat.subCategories.map((sub, subIndex) => (
-                <p className="mt-1 hover:underline" key={subIndex}>
+                <button
+                  className="mt-1 hover:underline"
+                  key={subIndex}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/sortiment/${cat.routeName}`);
+                  }}
+                >
                   {stringFormat(sub)}
-                </p>
+                </button>
               ))}
             </div>
           )}

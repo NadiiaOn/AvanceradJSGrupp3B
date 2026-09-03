@@ -22,9 +22,10 @@ const router = createBrowserRouter([
         path: "sortiment/:category",
         element: <SortimentPage />,
       },
-        path:"checkout",
+      {
+        path: "checkout",
         element: <Checkout />,
-      }
+      },
     ],
   },
 ]);

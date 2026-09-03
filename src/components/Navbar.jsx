@@ -13,7 +13,7 @@ import { useCart } from "../context/CartContext";
 export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toggleCart, totalItems } = useCart();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
@@ -24,7 +24,7 @@ export default function Navbar({ products, errorMessage }) {
         errorMessage={errorMessage}
       />
       <div className="flex justify-between items-center sm:grid sm:grid-cols-3 w-[90%]">
-        {/* Logga */}
+        {/* Logo */}
         <button
           onClick={() => navigate(`/`)}
           className="flex items-center gap-1 order-1 sm:order-2 sm:justify-self-center cursor-pointer"
@@ -59,7 +59,7 @@ export default function Navbar({ products, errorMessage }) {
               <UserIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
               <p className="text-text font-body">Log In</p>
             </button>
-            
+
             <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
               <button
                 onClick={toggleCart}

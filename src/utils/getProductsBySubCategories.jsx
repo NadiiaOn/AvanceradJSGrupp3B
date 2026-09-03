@@ -3,11 +3,3 @@ const getProductsBySubCategories = (products, subCategories) => {
 };
 
 export default getProductsBySubCategories;
-
-/* Exempel på hur detta kan användas i andra komponenter.
-getProductsBySubCategories(products, [
-  "mens-shirts",
-  "tops",
-  "womens-dresses",
-]);
-*/

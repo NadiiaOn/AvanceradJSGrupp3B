@@ -1,5 +1,5 @@
 import { HeartIcon } from "@phosphor-icons/react";
-import { useOutletContext, useParams } from "react-router";
+import { useNavigate, useOutletContext, useParams } from "react-router";
 import Carousel from "../components/carousel";
 import CategoryButtons from "../components/categoryButtons";
 import { useCart } from "../context/CartContext";
@@ -8,6 +8,7 @@ export default function ProductPage() {
   const { products, productsByCategory, errorMessage } = useOutletContext();
   const { id } = useParams();
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const product = products.find((product) => product.id === Number(id));
 
@@ -19,16 +20,20 @@ export default function ProductPage() {
     return <p>Produkten hittades inte</p>;
   }
 
+  const addToCartAndNavigate = () => {
+    addToCart(product);
+    navigate("/checkout");
+  };
+
   return (
     <div className="min-h-screen bg-bg text-text font-body px-2 py-2">
       <div className="bg-olive flex justify-center text-heading text-2xl font-semibold text-white">
         REA
       </div>
 
-      {/* Uppdatera med knapparna */}
       <CategoryButtons />
 
-      {/* Produkt div*/}
+      {/* Produkt-page */}
 
       <div className="mt-5">
         <div
@@ -91,7 +96,10 @@ export default function ProductPage() {
               Add to cart
             </button>
             <div className="flex flex-row ">
-              <button className="buy bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[80%] cursor-pointer hover:bg-olive">
+              <button
+                className="buy bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[80%] cursor-pointer hover:bg-olive"
+                onClick={addToCartAndNavigate}
+              >
                 Buy
               </button>
               <button className="favorites bg-cta gap-2 rounded-md text-white text-[20px] w-full md:w-[15%] ml-10 flex items-center justify-center cursor-pointer hover:bg-olive">

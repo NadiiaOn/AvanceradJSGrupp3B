@@ -75,7 +75,7 @@ export default function Cart() {
                         onClick={() =>
                           updateQuantity(item.id, item.quantity - 1)
                         }
-                        className="px-2 border border-text/20 rounded"
+                        className="px-2 border border-text/20 rounded cursor-pointer"
                       >
                         -
                       </button>
@@ -84,13 +84,13 @@ export default function Cart() {
                         onClick={() =>
                           updateQuantity(item.id, item.quantity + 1)
                         }
-                        className="px-2 border border-text/20 rounded"
+                        className="px-2 border border-text/20 rounded cursor-pointer"
                       >
                         +
                       </button>
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="ml-4 text-cta"
+                        className="ml-4 text-cta cursor-pointer"
                       >
                         Ta bort
                       </button>
