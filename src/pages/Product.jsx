@@ -11,12 +11,10 @@ export default function ProductPage() {
 
   const product = products.find((product) => product.id === Number(id));
 
-const product = products.find((product) => product.id === Number(id));
-    
-     if (!product) {
+  if (!product) {
     return <p>Produkten hittades inte</p>;
-     }
-    
+  }
+
   const relatedProducts = products
     .filter((merch) => merch.category === product.category)
     .filter((merch) => merch.id !== product.id);
@@ -28,8 +26,7 @@ const product = products.find((product) => product.id === Number(id));
       </div>
 
       {/* Uppdatera med knapparna */}
-          <CategoryButtons />
-          
+      <CategoryButtons />
 
       {/* Produkt div*/}
 
@@ -39,7 +36,7 @@ const product = products.find((product) => product.id === Number(id));
           className="product-card flex flex-col md:flex-row bg-card rounded-2xl overflow-hidden"
         >
           <div className="product-image w-full md:w-[60%] flex items-center justify-center p-6">
-                <img src={product.images?.[0] ?? "/placeholder.png"} />
+            <img src={product.images?.[0] ?? "/placeholder.png"} />
           </div>
           <div className="product-details w-full md:w-[40%] p-8 flex flex-col gap-3">
             <p className="product-brand text-sm uppercase font-bold mb-10">
@@ -67,7 +64,6 @@ const product = products.find((product) => product.id === Number(id));
               Availability: {product.availabilityStatus ?? "Information saknas"}
             </p>
             <div className="flex flex-row items-center gap-2 mb-2">
-              {" "}
               <p className="product-rating text-sm w-full md:w-[40%] font-body">
                 Rating: {product.rating ?? "Rating saknas"}
               </p>
@@ -79,7 +75,6 @@ const product = products.find((product) => product.id === Number(id));
                     reviewsSection.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                
                 className="all-reviews gap-2 p-2 rounded-md text-[14px] text-text text-sm w-full md:w-[60%] underline cursor-pointer hover:text-olive"
               >
                 {product.reviews?.length ?? 0} reviews
@@ -89,9 +84,10 @@ const product = products.find((product) => product.id === Number(id));
             <p className="product-return-policy text-sm opacity-75 mb-5">
               Return Policy: {product.returnPolicy ?? "Ingen returpolicy"}
             </p>
-            <button 
-            onClick={() => addToCart(product)}
-            className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] cursor-pointer ">
+            <button
+              onClick={() => addToCart(product)}
+              className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] cursor-pointer hover:bg-olive"
+            >
               Add to cart
             </button>
             <div className="flex flex-row ">
@@ -107,7 +103,7 @@ const product = products.find((product) => product.id === Number(id));
       </div>
 
       <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">
-        Frequently bought together 
+        Frequently bought together
       </h4>
 
       <Carousel products={relatedProducts} errorMessage={errorMessage} />
@@ -120,23 +116,20 @@ const product = products.find((product) => product.id === Number(id));
           Reviews
         </h4>
         {product.reviews?.map((review, index) => (
-            <div
-              key={index}
-              className="flex flex-col mb-4 p-4 rounded-lg bg-card"
-            >
-              <p >Reviewer: {review.reviewerName}</p>
-              <p className="overflow-wrap break-words">
-                Reviewer Email: {review.reviewerEmail ?? "E-post saknas"}
-              </p>
-              <p >Comment: {review.comment ?? "Ingen kommentar"} </p>
-              <p >Rating: {review.rating ?? "Ingen rating"} </p>
-              <p >
-                Date: {new Date(review.date).toLocaleDateString("sv-SE")}
-              </p>
-            </div>
-          ))}
+          <div
+            key={index}
+            className="flex flex-col mb-4 p-4 rounded-lg bg-card"
+          >
+            <p>Reviewer: {review.reviewerName}</p>
+            <p className="overflow-wrap break-words">
+              Reviewer Email: {review.reviewerEmail ?? "E-post saknas"}
+            </p>
+            <p>Comment: {review.comment ?? "Ingen kommentar"} </p>
+            <p>Rating: {review.rating ?? "Ingen rating"} </p>
+            <p>Date: {new Date(review.date).toLocaleDateString("sv-SE")}</p>
           </div>
-
+        ))}
+      </div>
     </div>
   );
 }
