@@ -11,22 +11,15 @@ const RenderSpecificProducts = ({ key, subCategory, products }) => {
   };
 
   return (
-    <section className="flex flex-col mx-auto max-w-300">
-      <h2 className="relative left-1 text-3xl font-bold tracking-wide mt-10 mb-2 font-heading">
+    <section className="flex flex-col mx-auto max-w-300 px-10">
+      <h2 className="relative left-1 flex justify-start text-3xl font-bold tracking-wide mt-10 mb-2 font-heading">
         {formatCategoryName(subCategory)}
       </h2>
 
-      <div key={key} className="flex justify-start">
-        <div className="flex gap-4 flex-wrap">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              width={cardWidth}
-              height={19}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} height={19} />
+        ))}
       </div>
     </section>
   );

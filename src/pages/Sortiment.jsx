@@ -12,7 +12,7 @@ const SortimentPage = () => {
   );
 
   return (
-    <div>
+    <div className="flex flex-col justify-center">
       <CategoryButtons />
 
       {selectedCategory.subCategories.map((subCategory) => {
