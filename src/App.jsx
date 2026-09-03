@@ -8,6 +8,7 @@ import Banners from "./utils/banners";
 import CartDrawer from "./components/cartDrawer";
 import { Outlet } from "react-router";
 import Footer from "./components/Footer";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   // Alla produkter.
@@ -71,6 +72,7 @@ function App() {
         </div>
         <Footer />
       </div>
+      <ToastContainer />
     </>
   );
 }

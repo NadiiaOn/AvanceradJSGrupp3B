@@ -1,6 +1,7 @@
 import { ShoppingCartIcon } from "@phosphor-icons/react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product, width, height }) => {
   const { addToCart } = useCart();
@@ -33,7 +34,13 @@ const ProductCard = ({ product, width, height }) => {
         </div>
 
         <button
-          onClick={() => addToCart(product)}
+          onClick={() => {
+            addToCart(product);
+            toast.success(`${product.title} added to cart!`, {
+              position: "bottom-right",
+              autoClose: 2000,
+            });
+          }}
           className="rounded-sm w-10 h-10 p-2 cursor-pointer border transition-all duration-300 hover:text-gray-400"
         >
           <ShoppingCartIcon size={24} />
