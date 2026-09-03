@@ -1,8 +1,19 @@
-const categories = [
-  { name: "Clothes", subCategories: ["mens-shirts", "tops", "womens-dresses"] },
-  { name: "Shoes", subCategories: ["mens-shoes", "womens-shoes"] },
+import { useNavigate } from "react-router";
+
+export const categories = [
+  {
+    name: "Clothes",
+    routeName: "clothes",
+    subCategories: ["mens-shirts", "tops", "womens-dresses"],
+  },
+  {
+    name: "Shoes",
+    routeName: "shoes",
+    subCategories: ["mens-shoes", "womens-shoes"],
+  },
   {
     name: "Accessories",
+    routeName: "accessories",
     subCategories: [
       "sunglasses",
       "womens-bags",
@@ -11,23 +22,39 @@ const categories = [
       "womens-watches",
     ],
   },
-  { name: "Beauty", subCategories: ["beauty", "fragrances", "skin-care"] },
+  {
+    name: "Beauty",
+    routeName: "beauty",
+    subCategories: ["beauty", "fragrances", "skin-care"],
+  },
   {
     name: "Home",
+    routeName: "home",
     subCategories: ["furniture", "home-decoration", "kitchen-accessories"],
   },
-  { name: "Groceries", subCategories: ["groceries"] },
+  { name: "Groceries", routeName: "groceries", subCategories: ["groceries"] },
   {
     name: "Electronics",
+    routeName: "electronics",
     subCategories: ["laptops", "smartphones", "tablets", "mobile-accessories"],
   },
-  { name: "Vehicles", subCategories: ["motorcycle", "vehicle"] },
-  { name: "Sports", subCategories: ["sports-accessories"] },
+  {
+    name: "Vehicles",
+    routeName: "vehicles",
+    subCategories: ["motorcycle", "vehicle"],
+  },
+  {
+    name: "Sports",
+    routeName: "sports",
+    subCategories: ["sports-accessories"],
+  },
 ];
 
 // Uppdatera för att ta emot funktionen som hämtar produkter baserat på sub-categorierna
 
 const CategoryButtons = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="flex flex-col mx-auto gap-5 mt-5 max-w-200 text-text">
       <p className="mx-auto text-2xl font-semibold tracking-wide font-heading">
@@ -38,6 +65,7 @@ const CategoryButtons = () => {
           return (
             <button
               key={idx}
+              onClick={() => navigate(`/sortiment/${category.routeName}`)}
               className="bg-button font-semibold p-2 cursor-pointer transition-all duration-200 hover:bg-gray-200"
             >
               {category.name}

@@ -11,13 +11,13 @@ export default function ProductPage() {
 
   const product = products.find((product) => product.id === Number(id));
 
-  if (!product) {
-    return <p>Produkten hittades inte</p>;
-  }
-
   const relatedProducts = products
     .filter((merch) => merch.category === product.category)
     .filter((merch) => merch.id !== product.id);
+
+  if (!product) {
+    return <p>Produkten hittades inte</p>;
+  }
 
   return (
     <div className="min-h-screen bg-bg text-text font-body px-2 py-2">

@@ -7,11 +7,13 @@ import {
 } from "@phosphor-icons/react";
 import NavMenu from "./NavMenu";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
 
 export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toggleCart, totalItems } = useCart();
+   const navigate = useNavigate();
 
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
@@ -23,7 +25,10 @@ export default function Navbar({ products, errorMessage }) {
       />
       <div className="flex justify-between items-center sm:grid sm:grid-cols-3 w-[90%]">
         {/* Logga */}
-        <div className="flex items-center gap-1 order-1 sm:order-2 sm:justify-self-center">
+        <button
+          onClick={() => navigate(`/`)}
+          className="flex items-center gap-1 order-1 sm:order-2 sm:justify-self-center cursor-pointer"
+        >
           <TagIcon
             weight="bold"
             className="w-6.5 h-6.5 xl:w-8 xl:h-8 text-olive"
@@ -31,7 +36,7 @@ export default function Navbar({ products, errorMessage }) {
           <h1 className="font-semibold font-heading text-3xl xl:text-4xl">
             Fakestore
           </h1>
-        </div>
+        </button>
         {/* Hamburgarmeny, sök */}
         <div className="flex items-center gap-4 text-text order-2 sm:contents">
           <div className="flex items-center gap-4 sm:order-1 sm:justify-self-start">
