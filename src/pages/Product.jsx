@@ -11,15 +11,15 @@ export default function ProductPage() {
 
   const product = products.find((product) => product.id === Number(id));
 
+const product = products.find((product) => product.id === Number(id));
+    
+     if (!product) {
+    return <p>Produkten hittades inte</p>;
+     }
+    
   const relatedProducts = products
     .filter((merch) => merch.category === product.category)
     .filter((merch) => merch.id !== product.id);
-
-  console.log("Related: ", relatedProducts);
-
-  if (!product) {
-    return <p>Produkten hittades inte</p>;
-  }
 
   return (
     <div className="min-h-screen bg-bg text-text font-body px-2 py-2">
@@ -39,37 +39,37 @@ export default function ProductPage() {
           className="product-card flex flex-col md:flex-row bg-card rounded-2xl overflow-hidden"
         >
           <div className="product-image w-full md:w-[60%] flex items-center justify-center p-6">
-            <img src={product.images[0]} alt={product.title} />
+                <img src={product.images?.[0] ?? "/placeholder.png"} />
           </div>
           <div className="product-details w-full md:w-[40%] p-8 flex flex-col gap-3">
             <p className="product-brand text-sm uppercase font-bold mb-10">
-              Brand: {product.brand}
+              Brand: {product.brand ?? "Information saknas"}
             </p>
             <h3 className="product-name font-heading text-4xl mb-10">
-              {product.title}
+              {product.title ?? "Information saknas"}
             </h3>
-            <p className="product-description text-xl opacity-75 mb-6 ">
-              {product.description}
+            <p className="product-description text-xl opacity-75 mb-10 ">
+              {product.description ?? "Information saknas"}
             </p>
             <p className="product-price font-heading text-2xl font-semibold mb-10">
-              ${product.price}
+              ${product.price ?? "Information saknas"}
             </p>
             <p className="product-delivery text-sm opacity-75 mb-2">
-              Delivery: {product.shippingInformation}
+              Delivery: {product.shippingInformation ?? "Information saknas"}
             </p>
             <p className="product-discount text-xl text-cta font-semibold mb-2">
-              Discount: ${product.discount}
+              Discount: {product.discountPercentage ?? "Information saknas"}%
             </p>
             <p className="product-stock text-sm" hidden>
-              Stock: {product.stock}
+              Stock: {product.stock ?? "Information saknas"}
             </p>
             <p className="product-availability-status text-sm opacity-75 mb-2">
-              Availability: {product.availabilityStatus}
+              Availability: {product.availabilityStatus ?? "Information saknas"}
             </p>
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-center gap-2 mb-2">
               {" "}
               <p className="product-rating text-sm w-full md:w-[40%] font-body">
-                Rating: {product.rating}
+                Rating: {product.rating ?? "Rating saknas"}
               </p>
               <button
                 onClick={() => {
@@ -79,14 +79,15 @@ export default function ProductPage() {
                     reviewsSection.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                className="all-reviews gap-2 p-2 rounded-md text-[14px] text-text text-sm w-full md:w-[60%] underline"
+                
+                className="all-reviews gap-2 p-2 rounded-md text-[14px] text-text text-sm w-full md:w-[60%] underline cursor-pointer hover:text-olive"
               >
                 {product.reviews?.length ?? 0} reviews
               </button>
             </div>
 
-            <p className="product-return-policy text-sm opacity-75 mb-2">
-              Return Policy: {product.returnPolicy}
+            <p className="product-return-policy text-sm opacity-75 mb-5">
+              Return Policy: {product.returnPolicy ?? "Ingen returpolicy"}
             </p>
             <button 
             onClick={() => addToCart(product)}
@@ -94,10 +95,10 @@ export default function ProductPage() {
               Add to cart
             </button>
             <div className="flex flex-row ">
-              <button className="buy bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[80%] ">
+              <button className="buy bg-cta gap-2 p-2 rounded-md text-white text-[20px] w-full md:w-[80%] cursor-pointer hover:bg-olive">
                 Buy
               </button>
-              <button className="favorites bg-cta gap-2 rounded-md text-white text-[20px] w-full md:w-[15%] ml-10 flex items-center justify-center">
+              <button className="favorites bg-cta gap-2 rounded-md text-white text-[20px] w-full md:w-[15%] ml-10 flex items-center justify-center cursor-pointer hover:bg-olive">
                 <HeartIcon weight="fill" />
               </button>
             </div>
@@ -106,7 +107,7 @@ export default function ProductPage() {
       </div>
 
       <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading ">
-        Products related to this item
+        Frequently bought together 
       </h4>
 
       <Carousel products={relatedProducts} errorMessage={errorMessage} />
@@ -118,25 +119,24 @@ export default function ProductPage() {
         <h4 className="text-lg font-bold text-[28px] mb-4 mt-4 font-heading">
           Reviews
         </h4>
-        {products
-          .find((p) => p.id === Number(id))
-          ?.reviews.map((review, index) => (
+        {product.reviews?.map((review, index) => (
             <div
               key={index}
               className="flex flex-col mb-4 p-4 rounded-lg bg-card"
             >
               <p >Reviewer: {review.reviewerName}</p>
               <p className="overflow-wrap break-words">
-                Reviewer Email: {review.reviewerEmail}
+                Reviewer Email: {review.reviewerEmail ?? "E-post saknas"}
               </p>
-              <p >Comment: {review.comment}</p>
-              <p >Rating: {review.rating}</p>
+              <p >Comment: {review.comment ?? "Ingen kommentar"} </p>
+              <p >Rating: {review.rating ?? "Ingen rating"} </p>
               <p >
                 Date: {new Date(review.date).toLocaleDateString("sv-SE")}
               </p>
             </div>
           ))}
-      </div>
+          </div>
+
     </div>
   );
 }

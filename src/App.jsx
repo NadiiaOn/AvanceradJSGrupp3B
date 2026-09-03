@@ -8,6 +8,7 @@ import Banners from "./utils/banners";
 import CartDrawer from "./components/cartDrawer";
 import Checkout from "./pages/Checkout";
 import { Outlet } from "react-router";
+import Footer from "./components/Footer";
 
 function App() {
   // Alla produkter.
@@ -71,9 +72,7 @@ function App() {
         </div>
       </div>
 
-      <footer>
-        <p>Placeholder footer</p>
-      </footer>
+      <Footer />
     </>
 );
 }
