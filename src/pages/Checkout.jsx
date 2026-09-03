@@ -36,9 +36,7 @@ export default function Checkout() {
                 />
                 <div>
                   <h3 className="font-semibold">{item.name}</h3>
-                  <p className="text-sm text-text/60">
-                    Antal: {item.quantity}
-                  </p>
+                  <p className="text-sm text-text/60">Antal: {item.quantity}</p>
                   <p className="text-sm text-text/60">
                     ${item.price.toFixed(2)} / st
                   </p>
@@ -52,8 +50,10 @@ export default function Checkout() {
         </div>
 
         {/* Höger kolumn, kompakt sammanfattning utan bilder typ som ett kvitto*/}
-        <div className="w-full lg:w-80 bg-card rounded-lg p-6 sticky top-8">
-          <h2 className="text-lg font-bold font-heading mb-4">Sammanfattning</h2>
+        <div className="w-full lg:w-80 bg-card rounded-lg p-6 sticky top-30">
+          <h2 className="text-lg font-bold font-heading mb-4">
+            Sammanfattning
+          </h2>
 
           <div className="flex flex-col gap-2 mb-4">
             {cartItems.map((item) => (
@@ -83,7 +83,7 @@ export default function Checkout() {
             <span>${totalPrice.toFixed(2)}</span>
           </div>
 
-          <button className="bg-cta text-bg w-full py-3 rounded font-semibold hover:opacity-90 transition-opacity">
+          <button className="bg-cta text-bg w-full py-3 rounded font-semibold hover:opacity-90 transition-opacity cursor-pointer">
             Bekräfta köp
           </button>
         </div>

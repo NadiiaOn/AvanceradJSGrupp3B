@@ -51,28 +51,29 @@ function App() {
 
   return (
     <>
-      <div>
-        <header>
-          <Navbar products={products} errorMessage={errorMessage} />
-        </header>
-
-        <CartDrawer />
-
+      <div className="flex flex-col justify-between min-h-screen">
         <div>
-          <Outlet
-            context={{
-              products,
-              errorMessage,
-              productsByCategory,
-              banners,
-            }}
-          />
-        </div>
-      </div>
+          <header className="sticky top-0 z-200">
+            <Navbar products={products} errorMessage={errorMessage} />
+          </header>
 
-      <Footer />
+          <CartDrawer />
+
+          <div>
+            <Outlet
+              context={{
+                products,
+                errorMessage,
+                productsByCategory,
+                banners,
+              }}
+            />
+          </div>
+        </div>
+        <Footer />
+      </div>
     </>
-);
+  );
 }
 
 export default App;

@@ -22,7 +22,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="fixed inset-0 flex justify-end z-150">
+    <div className="fixed inset-0 flex justify-end z-250">
       <div
         className="fixed inset-0 bg-text/40 z-200"
         onClick={() => closeCart()}
