@@ -6,7 +6,6 @@ import SubCategories from "./utils/subCategories";
 import getProductsByCategory from "./utils/getProductsByCategory";
 import Banners from "./utils/banners";
 import CartDrawer from "./components/cartDrawer";
-import Checkout from "./pages/Checkout";
 import { Outlet } from "react-router";
 import Footer from "./components/Footer";
 

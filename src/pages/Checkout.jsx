@@ -56,11 +56,11 @@ export default function Checkout() {
               <div className="flex items-center gap-4">
                 <img
                   src={item.images[0]}
-                  alt={item.name}
+                  alt={item.title}
                   className="w-20 h-20 object-cover rounded"
                 />
                 <div>
-                  <h3 className="font-semibold">{item.name}</h3>
+                  <h3 className="font-semibold">{item.title}</h3>
                   <p className="text-sm text-text/60">
                     ${item.price.toFixed(2)} / st
                   </p>
@@ -108,7 +108,7 @@ export default function Checkout() {
                 className="flex justify-between text-sm text-text/70"
               >
                 <span>
-                  {item.name} × {item.quantity}
+                  {item.title} × {item.quantity}
                 </span>
                 <span>${(item.price * item.quantity).toFixed(2)}</span>
               </div>

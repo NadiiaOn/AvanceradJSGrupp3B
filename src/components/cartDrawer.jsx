@@ -59,7 +59,7 @@ export default function Cart() {
                     <div className="flex items-center gap-4">
                       <img
                         src={item.images[0]}
-                        alt={item.name}
+                        alt={item.title}
                         className="w-20 h-20 object-cover rounded"
                       />
                       <div>
