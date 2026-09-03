@@ -1,7 +1,9 @@
 import { ShoppingCartIcon } from "@phosphor-icons/react";
+import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router";
 
 const ProductCard = ({ product, width, height }) => {
+  const { addToCart } = useCart();
   const navigate = useNavigate();
 
   return (
@@ -29,7 +31,9 @@ const ProductCard = ({ product, width, height }) => {
             ${product.price}
           </p>
         </div>
-        <button className="rounded-sm w-10 h-10 p-2 cursor-pointer border transition-all duration-300 hover:text-gray-400">
+        <button 
+        onClick={() => addToCart(product)}
+        className="rounded-sm w-10 h-10 p-2 cursor-pointer border transition-all duration-300 hover:text-gray-400">
           <ShoppingCartIcon size={24} />
         </button>
       </div>

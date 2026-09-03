@@ -5,7 +5,10 @@ import fetchProducts from "./api/fetchProducts";
 import SubCategories from "./utils/subCategories";
 import getProductsByCategory from "./utils/getProductsByCategory";
 import Banners from "./utils/banners";
+import CartDrawer from "./components/cartDrawer";
+import Checkout from "./pages/Checkout";
 import { Outlet } from "react-router";
+import Footer from "./components/Footer";
 
 function App() {
   // Alla produkter.
@@ -53,18 +56,23 @@ function App() {
           <Navbar products={products} errorMessage={errorMessage} />
         </header>
 
+        <CartDrawer />
+
         <div>
           <Outlet
-            context={{ products, errorMessage, productsByCategory, banners }}
+            context={{
+              products,
+              errorMessage,
+              productsByCategory,
+              banners,
+            }}
           />
         </div>
       </div>
 
-      <footer>
-        <p>Placeholder footer</p>
-      </footer>
+      <Footer />
     </>
-  );
+);
 }
 
 export default App;
