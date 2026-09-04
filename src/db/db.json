@@ -11249,5 +11249,22 @@
         "thumbnail": "https://cdn.dummyjson.com/product-images/womens-watches/women's-wrist-watch/thumbnail.webp"
       }
     ]
+  ],
+  "currency": [
+    { "id": 1, "currency": "SEK", "rate": 10.5 },
+    { "id": 2, "currency": "EUR", "rate": 0.92 },
+    { "id": 3, "currency": "USD", "rate": 1 }
+  ],
+  "vat": [
+    { "id": 1, "category": "Books", "vat": 0.06 },
+    { "id": 2, "category": "Groceries", "vat": 0.12 },
+    { "id": 3, "category": "Clothes", "vat": 0.25 },
+    { "id": 4, "category": "Shoes", "vat": 0.25 },
+    { "id": 5, "category": "Accessories", "vat": 0.25 },
+    { "id": 6, "category": "Beauty", "vat": 0.25 },
+    { "id": 7, "category": "Home", "vat": 0.25 },
+    { "id": 8, "category": "Electronics", "vat": 0.25 },
+    { "id": 9, "category": "Vehicles", "vat": 0.25 },
+    { "id": 10, "category": "Sports", "vat": 0.25 }
   ]
 }
