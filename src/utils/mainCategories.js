@@ -27,7 +27,7 @@ const mainCategories = [
   },
   {
     name: "Home",
-    routeName: "Home",
+    routeName: "home",
     subCategories: ["furniture", "home-decoration", "kitchen-accessories"],
   },
   { name: "Groceries", routeName: "groceries", subCategories: ["groceries"] },
