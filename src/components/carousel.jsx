@@ -113,7 +113,7 @@ const Carousel = ({ title, products, errorMessage }) => {
               key={product.id}
               product={product}
               width={cardWidth}
-              height={13}
+              height={11}
             />
           ))}
         </div>

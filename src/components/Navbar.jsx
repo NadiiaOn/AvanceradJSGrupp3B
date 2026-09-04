@@ -33,7 +33,7 @@ export default function Navbar({ products, errorMessage }) {
             weight="bold"
             className="w-6.5 h-6.5 xl:w-8 xl:h-8 text-olive"
           />
-          <h1 className="font-semibold font-heading text-3xl xl:text-4xl">
+          <h1 className="font-semibold font-heading text-2xl xl:text-4xl">
             Fakestore
           </h1>
         </button>
