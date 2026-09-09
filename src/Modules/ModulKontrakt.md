@@ -61,31 +61,14 @@
 
 ### 7. API-ägarskap (gruppens beslut): Vilka endpoints i db.json varje modul äger respektive läser, så att datamodellen inte krockar.
 
-## Vår Checklista:
+## Grupp 3B Modulkontrakt (Generisk version)
 
-### 1. Utgår från deras exempel.
+### 1. Varje modul använder export default för sin klass av modulen.
 
-### 2. Descriptor-schema
+### 2. Valfritt vilka error funktioner/metoder som varje modul kan behöva. De måste alla skriva ut vad som blir fel!
 
-    static descriptor = {
-      name: "Namnet på modulen i PascalCase dvs CurrencyTax"
-      methodsAndInputs: [
-        {
-          method: 'productsFromDb',
-         input: ['productsFromDB - an array of products from the db'],
-         output: 'an array of Product instances with getters for their specific use'
-        }
-      ]
-    }
+### 3. OM en modul kräver en specifik input inmatning, då ska detta valideras så att det är rätt type, eller min/max samt required. Varje person bestämmer individuellt för sin modul.
 
-Fortsättning följer efter frågestund med läraren...
+### 4. Följer det som står.
 
-### 3.
-
-### 4.
-
-### 5.
-
-### 6.
-
-### 7.
+### 5. Varje modul har tillåtelse att läsa products från db.json från dess api-endpoint. OM ens egna modul kräver en egen endpoint till db.json så får man skapa det, exempelvis: InventoryModule kräver en "Inventory"-array i db.json samt egna api calls mot den osv.
