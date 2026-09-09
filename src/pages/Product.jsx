@@ -3,6 +3,7 @@ import { useNavigate, useOutletContext, useParams } from "react-router";
 import Carousel from "../components/carousel";
 import CategoryButtons from "../components/categoryButtons";
 import { useCart } from "../context/CartContext";
+import PercentageCampaigns from "../components/PercentageCampaigns";
 
 export default function ProductPage() {
   const { products, productsByCategory, errorMessage } = useOutletContext();
@@ -27,9 +28,7 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-bg text-text font-body px-2 py-2">
-      <div className="bg-olive flex justify-center text-heading text-2xl font-semibold text-white">
-        REA
-      </div>
+      <PercentageCampaigns />
 
       <CategoryButtons />
 
