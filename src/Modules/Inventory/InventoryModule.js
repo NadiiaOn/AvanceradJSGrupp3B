@@ -1,3 +1,4 @@
+import InventoryValidationError from "./errors/InventoryValidationError";
 import InventoryService from "./InventoryService";
 
 export default class InventoryModule {
@@ -24,11 +25,11 @@ export default class InventoryModule {
 
   validateValues(values) {
     if (!values) {
-      throw new Error("Values are required.");
+      throw new InventoryValidationError("Värden är obligatoriska.");
     }
 
     if (!values.method) {
-      throw new Error("A method is required.");
+      throw new InventoryValidationError("En metod krävs.");
     }
 
     if (values.method === "getInventoryReport") {
@@ -37,11 +38,13 @@ export default class InventoryModule {
 
     if (values.method === "registerInventoryChange") {
       if (!Number.isInteger(values.productId) || values.productId <= 0) {
-        throw new Error("productId must be a positive integer.");
+        throw new InventoryValidationError(
+          "Produkt-ID måste vara ett positivt tal.",
+        );
       }
 
       if (!values.type) {
-        throw new Error("Inventory change type is required.");
+        throw new InventoryValidationError("en typ av lagerändring krävs!");
       }
 
       if (
@@ -49,26 +52,32 @@ export default class InventoryModule {
           values.type,
         )
       ) {
-        throw new Error(
-          "Invalid inventory change type. Use ORDER, SALE, ADJUSTMENTINCREASE or ADJUSTMENTDECREASE.",
+        throw new InventoryValidationError(
+          "Ogiltig lagerändringstyp. Använd: ORDER, SALE, ADJUSTMENTINCREASE eller ADJUSTMENTDECREASE.",
         );
       }
 
       if (!Number.isFinite(values.quantity)) {
-        throw new Error("Quantity must be a finite number.");
+        throw new InventoryValidationError(
+          "Kvantiteten måste vara ett ändligt tal!",
+        );
       }
 
       if (values.quantity <= 0) {
-        throw new Error("Quantity must be greater than 0.");
+        throw new InventoryValidationError(
+          "Kvantiteten måste vara större än 0.",
+        );
       }
 
       return;
     }
 
-    throw new Error(`Unknown inventory method: ${values.method}`);
+    throw new InventoryValidationError(
+      `Okänd 'inventory' metod: ${values.method}`,
+    );
   }
 
-  async run(values, context) {
+  async run(values) {
     this.validateValues(values);
 
     if (values.method === "getInventoryReport") {

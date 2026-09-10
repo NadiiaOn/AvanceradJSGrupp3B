@@ -1,37 +1,33 @@
-import { useEffect, useState } from "react";
-import InventoryModule from "../Modules/Inventory";
+import { useContext, useEffect, useState } from "react";
+import { InventoryContext } from "../context/InventoryContext";
 import InventoryProductView from "../components/inventoryProductView";
 import InventoryUserInput from "../components/inventoryUserInput";
 import InventoryHistory from "../components/inventoryHistory";
 
 export default function InventoryPage() {
-  const [inventory, setInventory] = useState([]);
   const [toggleInventoryView, setToggleInventoryView] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [inventoryHistory, setInventoryHistory] = useState([]);
 
-  const loadInventory = async () => {
-    const module = new InventoryModule();
-
-    const result = await module.run({
-      method: "getInventoryReport",
-    });
-
-    setInventory(result);
-
-    const history = result.flatMap((item) => item.changes);
-
-    setInventoryHistory(history);
-  };
+  const { inventoryItems, loadInventory, registerInventoryChange } =
+    useContext(InventoryContext);
 
   useEffect(() => {
-    loadInventory();
+    const load = async () => {
+      const result = await loadInventory();
+
+      const history = result.flatMap((item) => item.changes);
+
+      setInventoryHistory(history);
+    };
+
+    load();
   }, []);
 
   const displayedInventory = toggleInventoryView
-    ? inventory.filter((item) => item.stock <= item.reorderBreakPoint)
-    : inventory;
+    ? inventoryItems.filter((item) => item.needsReorder())
+    : inventoryItems;
 
   const handleInventoryChange = async (type) => {
     if (!selectedProduct) {
@@ -42,16 +38,17 @@ export default function InventoryPage() {
       return;
     }
 
-    const module = new InventoryModule();
-
-    await module.run({
-      method: "registerInventoryChange",
-      productId: Number(selectedProduct.productId),
+    await registerInventoryChange(
+      Number(selectedProduct.productId),
       type,
-      quantity: Number(quantity),
-    });
+      Number(quantity),
+    );
 
-    await loadInventory();
+    const result = await loadInventory();
+
+    const history = result.flatMap((item) => item.changes);
+
+    setInventoryHistory(history);
 
     setQuantity(1);
   };
@@ -85,6 +82,7 @@ export default function InventoryPage() {
       {/* History */}
       <div className="flex flex-col justify-center items-center py-10">
         <h2 className="text-2xl mb-3 font-bold underline">Inventory History</h2>
+
         <InventoryHistory history={inventoryHistory} />
       </div>
     </div>

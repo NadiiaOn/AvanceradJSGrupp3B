@@ -1,15 +1,15 @@
-const getInventory = async () => {
-  const response = await fetch("/api/inventory");
+const getInventoryHistory = async () => {
+  const response = await fetch("/api/inventoryHistory");
 
   if (!response.ok) {
-    throw new Error("Couldn't get inventory from DB!");
+    throw new Error("Couldn't get inventory history from DB!");
   }
 
   return await response.json();
 };
 
 const createInventoryChange = async (change) => {
-  const response = await fetch("/api/inventory", {
+  const response = await fetch("/api/inventoryHistory", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,10 +18,10 @@ const createInventoryChange = async (change) => {
   });
 
   if (!response.ok) {
-    throw new Error("Couldn't save to inventory in DB!");
+    throw new Error("Couldn't save to inventory history in DB!");
   }
 
   return await response.json();
 };
 
-export { getInventory, createInventoryChange };
+export { getInventoryHistory, createInventoryChange };

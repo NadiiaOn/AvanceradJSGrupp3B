@@ -1,15 +1,21 @@
-import { getInventory, createInventoryChange } from "../../api/inventory";
+import {
+  getInventoryHistory,
+  createInventoryChange,
+} from "../../api/inventory";
 import { updateProductStock } from "../../api/products";
 import fetchProducts from "../../api/fetchProducts";
 import InventoryItem from "./InventoryItem";
 import InventoryChange from "./InventoryChange";
+import InventoryNotFoundError from "./errors/InventoryNotFoundError";
+import InventoryValidationError from "./errors/InventoryValidationError";
+import InventoryOperationError from "./errors/InventoryOperationError";
 
 export default class InventoryService {
-  // Gets inventory from db.json.
-  async loadInventory() {
-    const inventory = await getInventory();
+  // Gets inventoryHistory from db.json.
+  async loadInventoryHistory() {
+    const inventoryHistory = await getInventoryHistory();
 
-    return inventory;
+    return inventoryHistory;
   }
 
   // Gets products from db.json.
@@ -22,7 +28,7 @@ export default class InventoryService {
   // Creates InventoryItem from the products.
   createInventoryItems(products) {
     return products.map((product) => {
-      return new InventoryItem(product, 10);
+      return new InventoryItem(product);
     });
   }
 
@@ -41,6 +47,7 @@ export default class InventoryService {
         changeData.type,
         changeData.quantity,
         changeData.timestamp,
+        changeData.id,
       );
 
       item.addChange(change);
@@ -51,11 +58,11 @@ export default class InventoryService {
 
   async getInventoryReport() {
     const products = await this.loadProducts();
-    const inventory = await this.loadInventory();
+    const inventoryHistory = await this.loadInventoryHistory();
 
     const items = this.createInventoryItems(products);
 
-    this.addInventoryChanges(items, inventory);
+    this.addInventoryChanges(items, inventoryHistory);
 
     return items;
   }
@@ -68,7 +75,7 @@ export default class InventoryService {
     );
 
     if (!product) {
-      throw new Error("Produkten kunde inte hittas.");
+      throw new InventoryNotFoundError("Produkten kunde inte hittas.");
     }
 
     let newStock = product.stock;
@@ -84,13 +91,19 @@ export default class InventoryService {
     }
 
     if (newStock < 0) {
-      throw new Error("Lagret kan inte bli negativt.");
+      throw new InventoryValidationError("Lagret kan inte bli negativt.");
     }
 
     const change = new InventoryChange(productId, type, quantity, new Date());
 
-    await createInventoryChange(change);
+    try {
+      await createInventoryChange(change);
 
-    return await updateProductStock(productId, newStock);
+      return await updateProductStock(productId, newStock);
+    } catch (error) {
+      throw new InventoryOperationError(
+        "Kunde inte registrera lagerändringen.",
+      );
+    }
   }
 }

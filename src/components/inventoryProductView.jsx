@@ -1,4 +1,4 @@
-import InventoryCard from "./inventoryCard";
+import InventoryCard from "./InventoryCard";
 
 const InventoryProductView = ({
   displayedInventory,

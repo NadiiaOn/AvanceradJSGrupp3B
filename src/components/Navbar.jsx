@@ -7,14 +7,21 @@ import {
   BookIcon,
 } from "@phosphor-icons/react";
 import NavMenu from "./NavMenu";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
+import { InventoryContext } from "../context/InventoryContext";
 
 export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toggleCart, totalItems } = useCart();
+  const { inventoryItems } = useContext(InventoryContext);
+  const [isAdmin, setIsAdmin] = useState(true);
   const navigate = useNavigate();
+
+  const inventoryItemsCount = inventoryItems.filter((item) =>
+    item.needsReorder(),
+  ).length;
 
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
@@ -54,14 +61,29 @@ export default function Navbar({ products, errorMessage }) {
               <p className="hidden sm:block text-text font-body">Search</p>
             </button>
           </div>
+
           {/* Kundvagn */}
           <div className="flex gap-2 sm:order-3 sm:justify-self-end">
-            <button
-              onClick={() => navigate("/inventory")}
-              className="cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card"
-            >
-              <BookIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
-            </button>
+            {isAdmin && (
+              <button
+                onClick={() => navigate("/inventory")}
+                className="cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-4 rounded-full hover:bg-card"
+              >
+                <span className="relative">
+                  <BookIcon
+                    weight="thin"
+                    className="w-6.5 h-6.5 xl:w-8 xl:h-8"
+                  />
+
+                  {inventoryItemsCount > 0 ? (
+                    <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-xs font-bold">
+                      {inventoryItemsCount}
+                    </span>
+                  ) : null}
+                </span>
+              </button>
+            )}
+
             <button className="hidden cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
               <UserIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
               <p className="text-text font-body">Log In</p>
