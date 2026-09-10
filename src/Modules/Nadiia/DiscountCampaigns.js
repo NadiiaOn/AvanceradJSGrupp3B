@@ -1,38 +1,8 @@
-export default class Discount {
-  // data = ett objekt som innehåller information om kampanjen, t.ex. vilka produkter som ingår och vilken rabatt som gäller.
-
-  constructor(data) {
-    this.id = data.id;
-    this.title = data.title;
-    this.description = data.description;
-    this.category = data.category;
-    this.price = data.price;
-    this.discountPercentage = data.discountPercentage;
-    this.rating = data.rating;
-    this.stock = data.stock;
-    this.type = data.type;
-    this.code = data.code;
-    this.name = data.name;
-    this.tartDate = data.startDate;
-    this.endDate = data.endDate;
-    this.tags = data.tags;
-    this.brand = data.brand;
-    this.availabilityStatus = data.availabilityStatus;
-    this.images = data.images;
-    this.thumbnail = data.thumbnail;
-  }
-
-  calculateDiscountedPrice() {}
-
-  describe() {
-    return this.name;
-  }
-}
+import { ValidationError } from "./errors.js";
 
 // Regeln: x% rabatt på alla varor i kampanjen.
-export class PercentageDiscount extends Discount {
+export class PercentageDiscount {
   constructor(data) {
-    super(data);
     this.discountPercentage = Number(data.discountPercentage);
 
     if (
@@ -41,67 +11,50 @@ export class PercentageDiscount extends Discount {
       this.discountPercentage > 100
     ) {
       throw new ValidationError(
-        `Kampanjen '${this.name}' har en ogiltig rabattprocent: ${this.percentageDiscount}. Den måste vara mellan 0 och 100 %.`,
+        `Kampanjen har en ogiltig rabattprocent: ${data.discountPercentage}. Den måste vara mellan 0 och 100 %.`,
       );
     }
   }
 
-  calculateDiscountedPrice(originalPrice) {
-    if (typeof originalPrice !== "number" || originalPrice < 0) {
-      throw new ValidationError(
-        `Kampanjen '${this.discountName}' har ett ogiltigt originalpris: ${originalPrice}. Det måste vara ett positivt tal.`,
-      );
+  calculateDiscountedPriceForCart(cartItems) {
+    let discountedTotalPrice = 0;
+    for (const cartItem of cartItems) {
+      const discountedPrice =
+        cartItem.price * (1 - this.discountPercentage / 100);
+      discountedTotalPrice =
+        discountedTotalPrice + discountedPrice * item.quantity;
     }
-
-    const discountedPrice = originalPrice * (1 - this.percent / 100);
-    return discountedPrice;
-  }
-
-  describe() {
-    return `${this.discountName} - ${this.percent}% rabatt.`;
+    return discountedTotalPrice;
   }
 }
 
 // Regeln: handla för över ett visst belopp och få x% rabatt på hela köpet.
-export class ThresholdDiscount extends Discount {
-  constructor(data) {
-    super(data);
-    this.threshold = Number(data.threshold);
+export class ThresholdDiscount {
+  constructor(totalPrice) {
+    this.threshold = Number(product.threshold);
 
     if (isNaN(this.threshold) || this.threshold < 0) {
       throw new ValidationError(
-        `Kampanjen '${this.product.name}' har ett ogiltigt tröskelvärde: ${this.threshold}. Det måste vara ett positivt tal.`,
+        `Kampanjen har ett ogiltigt tröskelvärde: ${this.threshold}. Det måste vara ett positivt tal.`,
       );
     }
   }
 
-  // Think abour how to take cartItems with all our rules for our modules.
-  calculateDiscountedPrice(cartItems) {
-    let total = cartItems.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0,
-    );
-
+  calculateDiscountedPrice(totalPrice) {
     if (total >= this.threshold) {
       return total * (1 - this.discountValue / 100);
     } else {
       return `Kampangen ger ingen rabatt på den här varukorgen. Den gäller endast för varor som ingår i kampanjen. Your total is ${total}`;
     }
   }
-
-  describe() {
-    return `${this.discountName} - ${this.discountValue}% rabatt vid köp`;
-  }
-
 }
+//create ThresholdCampaigns.db
 
 // Regeln: handla x antal varor och betala endast för y antal varor.
-export class BuyXPayForYDiscount extends Discount {
+export class BuyXPayForYDiscount {
   constructor(data) {
-    super(data);
     this.buyX = Number(data.buyX);
     this.payForY = Number(data.payForY);
-    this.category = data.category || null;
 
     if (
       isNaN(this.buyX) ||
@@ -110,18 +63,16 @@ export class BuyXPayForYDiscount extends Discount {
       this.payForY <= 0 ||
       this.buyX <= this.payForY
     ) {
-      throw new ValidationError(`Kampanjen '${this.discountName}' har ogiltiga värden för 'buyX' eller 'payForY':
+      throw new ValidationError(`Kampanjen har ogiltiga värden för 'buyX' eller 'payForY':
                  buyX=${this.buyX}, payForY=${this.payForY}. 
                  De måste vara positiva tal och buyX måste vara större än payForY.`);
     }
   }
-
-  calculateDiscountedPrice(cartItems) {}
 }
 
-export function CampaignIerarchy(data) {
-  if (!data || typeof data !== "object") {
-    throw new ValidationError(`Ogiltig kampanjdata: ${data}. 
+export function CampaignIerarchy(product) {
+  if (!product || typeof product !== "object") {
+    throw new ValidationError(`Ogiltig kampanjdata: ${product}. 
         Det måste vara ett objekt som innehåller information om kampanjen.`);
   }
 

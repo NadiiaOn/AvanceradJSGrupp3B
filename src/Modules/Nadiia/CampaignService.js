@@ -2,16 +2,8 @@
 
 //It will take db throw the API.
 
-const fetchPercentageCampaigns = async () => {
-  const response = await fetch("/api/percentageCampaigns");
-  console.log(
-    "URL:",
-    response.url,
-    "| status:",
-    response.status,
-    "| ok:",
-    response.ok,
-  );
+export const fetchPercentageCampaigns = async () => {
+  const response = await fetch("/api/products");
 
   if (!response.ok) {
     throw new Error("Error: Kunde inte hämta kampanjerna från servern!");
@@ -26,4 +18,3 @@ const fetchPercentageCampaigns = async () => {
   return result[0];
 };
 
-export default fetchPercentageCampaigns;
