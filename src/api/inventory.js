@@ -9,9 +9,6 @@ const getInventory = async () => {
 };
 
 const createInventoryChange = async (change) => {
-  console.log("POST CALLED: ", change);
-  console.trace();
-
   const response = await fetch("/api/inventory", {
     method: "POST",
     headers: {

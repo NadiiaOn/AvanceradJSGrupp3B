@@ -5,20 +5,20 @@ import CategoryButtons from "../components/categoryButtons";
 import { useCart } from "../context/CartContext";
 
 export default function ProductPage() {
-  const { products, productsByCategory, errorMessage } = useOutletContext();
+  const { products, errorMessage } = useOutletContext();
   const { id } = useParams();
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
-  const product = products.find((product) => product.id === Number(id));
-
-  const relatedProducts = products
-    .filter((merch) => merch.category === product.category)
-    .filter((merch) => merch.id !== product.id);
+  const product = products.find((product) => Number(product.id) === Number(id));
 
   if (!product) {
     return <p>Produkten hittades inte</p>;
   }
+
+  const relatedProducts = products
+    .filter((merch) => merch.category === product.category)
+    .filter((merch) => merch.id !== product.id);
 
   const addToCartAndNavigate = () => {
     addToCart(product);

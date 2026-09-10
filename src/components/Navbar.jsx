@@ -4,6 +4,7 @@ import {
   ListIcon,
   UserIcon,
   MagnifyingGlassIcon,
+  BookIcon,
 } from "@phosphor-icons/react";
 import NavMenu from "./NavMenu";
 import { useState } from "react";
@@ -55,6 +56,12 @@ export default function Navbar({ products, errorMessage }) {
           </div>
           {/* Kundvagn */}
           <div className="flex gap-2 sm:order-3 sm:justify-self-end">
+            <button
+              onClick={() => navigate("/inventory")}
+              className="cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card"
+            >
+              <BookIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
+            </button>
             <button className="hidden cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
               <UserIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
               <p className="text-text font-body">Log In</p>

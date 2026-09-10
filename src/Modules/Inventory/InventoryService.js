@@ -29,7 +29,7 @@ export default class InventoryService {
   addInventoryChanges(items, inventory) {
     for (const changeData of inventory) {
       const item = items.find(
-        (item) => item.productId === changeData.productId,
+        (item) => Number(item.productId) === Number(changeData.productId),
       );
 
       if (!item) {
