@@ -120,6 +120,10 @@ export default function Checkout() {
             <span>${totalPrice.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm mb-4 text-text/60">
+            <span>Moms</span>
+            <span>MOMSMODULEN</span>
+          </div>
+          <div className="flex justify-between text-sm mb-4 text-text/60">
             <span>Frakt</span>
             <span>FRAKTMODULEN</span>
           </div>
