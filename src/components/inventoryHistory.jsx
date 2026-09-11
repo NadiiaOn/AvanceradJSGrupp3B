@@ -1,4 +1,4 @@
-import HistoryCard from "./historyCard";
+import HistoryCard from "./HistoryCard";
 
 const InventoryHistory = ({ history }) => {
   const orders = history.filter((change) => change.type === "ORDER");

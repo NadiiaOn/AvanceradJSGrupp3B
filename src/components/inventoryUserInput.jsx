@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import SelectedInventoryCard from "./selectedInventoryCard";
 
 const InventoryUserInput = ({
@@ -42,29 +43,70 @@ const InventoryUserInput = ({
         {/* Action buttons */}
         <div className="grid grid-cols-2 gap-2">
           <button
+            type="button"
             disabled={!selectedProduct}
-            onClick={() => handleInventoryChange("ORDER")}
+            onClick={() => {
+              handleInventoryChange("ORDER");
+
+              toast.success(
+                `Order for product: ${selectedProduct.product.title} registered. Amount: ${quantity}x!`,
+                {
+                  position: "bottom-right",
+                  autoClose: 2000,
+                },
+              );
+            }}
             className="bg-button p-2 rounded-sm font-semibold cursor-pointer transition-all duration-300 hover:bg-text hover:text-bg disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Order
           </button>
           <button
+            type="button"
             disabled={!selectedProduct}
-            onClick={() => handleInventoryChange("SALE")}
+            onClick={() => {
+              handleInventoryChange("SALE");
+              toast.success(
+                `Sale for product: ${selectedProduct.product.title} registered. Amount: ${quantity}x!`,
+                {
+                  position: "bottom-right",
+                  autoClose: 2000,
+                },
+              );
+            }}
             className="bg-button p-2 rounded-sm font-semibold cursor-pointer transition-all duration-300 hover:bg-text hover:text-bg disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Sale
           </button>
           <button
+            type="button"
             disabled={!selectedProduct}
-            onClick={() => handleInventoryChange("ADJUSTMENTINCREASE")}
+            onClick={() => {
+              handleInventoryChange("ADJUSTMENTINCREASE");
+              toast.success(
+                `Adjustment for product: ${selectedProduct.product.title} increased. Amount: ${quantity}x!`,
+                {
+                  position: "bottom-right",
+                  autoClose: 2000,
+                },
+              );
+            }}
             className="bg-button p-2 rounded-sm font-semibold cursor-pointer transition-all duration-300 hover:bg-text hover:text-bg disabled:opacity-30 disabled:cursor-not-allowed"
           >
             + Adjust
           </button>
           <button
+            type="button"
             disabled={!selectedProduct}
-            onClick={() => handleInventoryChange("ADJUSTMENTDECREASE")}
+            onClick={() => {
+              handleInventoryChange("ADJUSTMENTDECREASE");
+              toast.success(
+                `Adjustment for product: ${selectedProduct.product.title} decreased. Amount: ${quantity}x!`,
+                {
+                  position: "bottom-right",
+                  autoClose: 2000,
+                },
+              );
+            }}
             className="bg-button p-2 rounded-sm font-semibold cursor-pointer transition-all duration-300 hover:bg-text hover:text-bg disabled:opacity-30 disabled:cursor-not-allowed"
           >
             - Adjust

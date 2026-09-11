@@ -1,4 +1,4 @@
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import InventoryModule from "../Modules/Inventory";
 
 export const InventoryContext = createContext();
@@ -28,6 +28,10 @@ export function InventoryProvider({ children }) {
 
     return result;
   };
+
+  useEffect(() => {
+    loadInventory;
+  }, []);
 
   return (
     <InventoryContext.Provider
