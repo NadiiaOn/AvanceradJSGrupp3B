@@ -1,37 +1,71 @@
 // The main file for the Nadiia module, which exports all the campaign functions.
+import { CampaignIerarchy } from "./DiscountCampaigns.js";
+
+const CART_KEY = "cart";
+
+export function getCart() {
+  let cartItems = [];
+  try {
+    cartItems = JSON.parse(localStorage.getItem(CART_KEY)) ?? [];
+  } catch {
+    cartItems = [];
+  }
+
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+
+  return { cartItems, totalPrice };
+}
+
+export async function getDiscountedTotal() {
+  const res = await fetch('/api/campaigns/current');
+  const { cartItems, totalPrice } = getCart();
+  if (!res.ok) return totalPrice; 
+
+  const campaign = CampaignIerarchy(await res.json());
+
+  return campaign.calculateDiscountedPriceForCart(cartItems, totalPrice);
+}
 
 export default class rabattModule {
-
   static descriptor = {
     name: "RabattModule",
     methodsAndInputs: [
       {
-        method: 'productsFromDb',
-        input: ['productsFromDB - an array of products from the db'],
-        output: 'an array of Product instances with getters for price formatting'
-      }
-    ]
+        method: "productsFromDb",
+        input: ["productsFromDB - an array of products from the db"],
+        output:
+          "an array of Product instances with getters for price formatting",
+      },
+    ],
   };
 
   makeInstances(productsFromDB) {
-    return productsFromDB.map(x => new Product(x));
+    return productsFromDB.map((x) => new Product(x));
   }
-
 }
-/*
-From our teacher Thomas
 
-export default class UserHandlerModule {
+/*
+export default class DiscountCampaignsModule {
 
   static descriptor = {
-    name: "UserHandler",
+    name: "DiscountCampaigns",
     methodsAndInputs: [
       {
-        method: 'createMailLink',
-        input: ['a user object'],
-        output: 'jsx with a mail link with the users name'
+        method: 'calculateDiscountedPriceForCart',
+        input: ['cartItems, totalPrice'],
+        output: 'discountedTotalPrice, totalPrice'
       }
     ],
+   
+  };
+  
+
+}
+  */
+  /*
     // description of the form needed to for user registration
     userRegForm: {
       firstName: {
