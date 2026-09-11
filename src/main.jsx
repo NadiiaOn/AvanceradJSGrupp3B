@@ -4,11 +4,14 @@ import "./index.css";
 import { RouterProvider } from "react-router";
 import router from "./Router.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
+import CurrencyProvider from "./context/CurrencyContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <CurrencyProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </CurrencyProvider>
   </StrictMode>,
 );
