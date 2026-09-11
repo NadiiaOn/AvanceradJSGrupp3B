@@ -1,5 +1,6 @@
 export class Money {
   static VALID_CURRENCIES = ["SEK", "USD", "EUR"];
+
   constructor(price, currency) {
     this.price = price;
     this.currency = currency;
@@ -9,11 +10,11 @@ export class Money {
 
   format() {
     if (this.currency === "SEK") {
-      return this.price + "kr";
+      return Number(this.price).toFixed(2) + "kr";
     } else if (this.currency === "USD") {
-      return this.price + "$";
+      return Number(this.price).toFixed(2) + "$";
     } else if (this.currency === "EUR") {
-      return this.price + "\u20AC";
+      return Number(this.price).toFixed(2) + "\u20AC";
     } else {
       throw new Error("Okänd valuta, kan inte formatera");
     }
