@@ -1,9 +1,32 @@
 import { ValidationError } from "./errors.js";
+import {
+  productsInBuyXPayForYCampaigns,
+  thresholdCampaigns,
+  percentageCampaigns,
+  products,
+} from "./CampaignService.js";
+
+export class CampaignModule { 
+  constructor({ startDate, endDate }) {
+    this.startDate = startDate ? new Date(startDate) : null;
+    this.endDate = endDate ? new Date(endDate) : null;
+  }
+
+  isActive(now = new Date()) {
+    if (now < this.startDate) return false;
+    if (now > this.endDate) return false;
+    return true;
+  }
+
+  calculateDiscountedPriceForCart() {}
+}
+
+let discountedTotalPrice = 0;
 
 // Regeln: x% rabatt på alla varor i kampanjen.
 
 //ToDo: implement isActive method for two campaigns
-export class PercentageDiscount {
+export class PercentageDiscount extends CampaignModule{
   constructor(data) {
     this.discountPercentage = Number(data.discountPercentage);
 
@@ -19,7 +42,7 @@ export class PercentageDiscount {
   }
 
   calculateDiscountedPriceForCart(cartItems) {
-    let discountedTotalPrice = 0;
+  
     for (const cartItem of cartItems) {
       const discountedPrice =
         cartItem.price * (1 - this.discountPercentage / 100);
@@ -30,7 +53,7 @@ export class PercentageDiscount {
 }
 
 // Regeln: handla för över ett visst belopp och få x% rabatt på hela köpet.
-export class ThresholdDiscount {
+export class ThresholdDiscount extends CampaignModule{
   constructor(data) {
     this.threshold = Number(data.threshold);
     this.discountValue = Number(data.discountValue);
@@ -52,15 +75,14 @@ export class ThresholdDiscount {
   }
 
   calculateDiscountedPriceForCart(totalPrice) {
+    
     if (totalPrice >= this.threshold) {
-      return (discountedTotalPrice =
-        totalPrice * (1 - this.discountValue / 100));
+      return discountedTotalPrice =
+        totalPrice * (1 - this.discountValue / 100);
     }
     return totalPrice;
   }
 }
-
-//create ThresholdCampaigns.db
 
 // Regeln: handla x antal varor och betala endast för y antal varor.
 export class BuyXPayForYDiscount {
@@ -104,7 +126,6 @@ export class BuyXPayForYDiscount {
     const freeCount =
       Math.floor(prices.length / this.buyX) * (this.buyX - this.payForY);
 
-    let discountedTotalPrice = 0;
     for (let i = freeCount; i < prices.length; i++) {
       discountedTotalPrice += prices[i];
     }
@@ -112,20 +133,16 @@ export class BuyXPayForYDiscount {
   }
 }
 
-export function campaignIerarchy(data) {
+export function campaignFactory(data) {
   if (!data || typeof data !== "object") {
     throw new ValidationError(`Ogiltig kampanjdata: ${data}. 
         Det måste vara ett objekt som innehåller information om kampanjen.`);
   }
-
-  if (data.discountType === "percentage") {
-    return new PercentageDiscount(data);
-  } else if (data.discountType === "threshold") {
-    return new ThresholdDiscount(data);
-  } else if (data.discountType === "BuyXPayForYDiscount") {
-    return new BuyXPayForYDiscount(data);
-  } else {
-    throw new ValidationError(`Kampanjen har en ogiltig rabattyp: ${data.discountType}.
-      Den måste vara en av de definierade rabattklasserna.`);
+  switch (data.type) {
+    case "percentage": return new PercentageDiscount(data);
+    case "THRESHOLD": return new ThresholdDiscount(data);
+    case "BUY_X_PAY_FOR_Y": return new BuyXPayForYDiscount(data);
+    default: 
+      throw new ValidationError(`Okänd kampanjtyp: §{data.type}.`)
   }
 }

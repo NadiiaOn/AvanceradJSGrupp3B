@@ -1,20 +1,48 @@
 // This class is responsible for handling all data from the database related to campigns and discounts.
 
-//It will take db throw the API.
+import {
+  fetchProducts,
+  fetchBuyXPayForYCampaigns,
+  fetchThresholdCampaigns,
+  fetchPercentageCampaigns
+} from "./api.js";
 
-export const fetchPercentageCampaigns = async () => {
-  const response = await fetch("/api/products");
+let productsInBuyXPayForYCampaigns = [];
 
-  if (!response.ok) {
-    throw new Error("Error: Kunde inte hämta informationen från servern!");
-  }
+try {
+ productsInBuyXPayForYCampaigns = await fetchBuyXPayForYCampaigns();
+} catch (err) {
+  console.error(err.message);
+}
 
-  const result = await response.json();
+let thresholdCampaigns = [];
 
-  if (!Array.isArray(result) || result.length === 0) {
-    throw new Error("Inga kampanjen hittades i databasen.");
-  }
+try {
+  thresholdCampaigns = await fetchThresholdCampaigns();
+} catch (err) {
+  console.error(err.message);
+}
 
-  return result[0];
+
+let products = [];
+
+try {
+  products = await fetchProducts();
+} catch (err) {
+  console.error(err.message);
+}
+
+let percentageCampaigns = [];
+
+try {
+  percentageCampaigns = await fetchPercentageCampaigns();
+} catch (err) {
+  console.error(err.message);
+}
+
+export default{
+  productsInBuyXPayForYCampaigns,
+  thresholdCampaigns,
+  percentageCampaigns,
+  products
 };
-
