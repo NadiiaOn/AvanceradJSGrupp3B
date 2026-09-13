@@ -9,8 +9,6 @@ import {
 } from "./api.js";
 
 //loadCampaigns
-//the same key as in localStorage
-const CART_KEY = "cart";
 
 //campaigns priority
 const CAMPAIGN_ORDER = ["THRESHOLD", "BUY_X_PAY_FOR_Y", "PERCENTAGE"];
@@ -34,32 +32,13 @@ export async function loadCampaigns() {
   return [...threshold, ...buyXPayForY, ...percentage];
 }
 
-//getCart
-export function getCart() {
-  let cartItems = [];
-  try {
-    const parsed = JSON.parse(localStorage.getItem(CART_KEY));
-    cartItems = Array.isArray(parsed) ? parsed : [];
-  } catch {
-    cartItems = [];
-  }
-  cartItems = cartItems.filter(
-    (item) =>
-      item &&
-      Number.isFinite(Number(item.price)) &&
-      Number.isFinite(Number(item.quantity)),
-  );
+export async function getDiscountedTotal(cartItems, now = new Date()) {
+  if ((!Array, isArray(cartItems) || cartItems.length === 0)) return 0;
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
-  return { cartItems, totalPrice };
-}
-
-export async function getDiscountedTotal(now = new Date()) {
-  const { cartItems, totalPrice } = getCart();
-  if (cartItems.length === 0) return 0;
 
   const rawCampaigns = await loadCampaigns();
   const campaigns = rawCampaigns
@@ -75,8 +54,8 @@ export async function getDiscountedTotal(now = new Date()) {
     .filter((campaign) => campaign.isActive(now))
     .sort(
       (a, b) =>
-        CAMPAIGN_ORDER.indexOf(String(a.type).toLocaleUpperCase()) -
-        CAMPAIGN_ORDER.indexOf(String(b.type).toLocaleUpperCase()),
+        CAMPAIGN_ORDER.indexOf(String(a.type).toUpperCase()) -
+        CAMPAIGN_ORDER.indexOf(String(b.type).toUpperCase()),
     );
 
   const campaign = campaigns.find((c) => c.isApplicableToCart(cartItems));
