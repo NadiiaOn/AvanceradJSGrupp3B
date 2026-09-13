@@ -31,12 +31,12 @@ export class UnknownCampaignError extends ModuleError {
 }
 
 //Thrown when a campaign is not active due to being outside its valid date range.
-export class CampaignNotActiveError extends ModuleError {
+export class CampaignIsNotActiveError extends ModuleError {
   constructor(code, currentDate, startDate, endDate) {
     super(
       `Kampanjen "${code}" är inte aktiv. Den var giltig från ${startDate} till ${endDate}. Kontrollera kampanjens start- och slutdatum.`,
     );
-    this.name = "CampaignNotActiveError";
+    this.name = "CampaignIsNotActiveError";
     this.code = code;
     this.currentDate = currentDate;
     this.campaignStartDate = startDate;
