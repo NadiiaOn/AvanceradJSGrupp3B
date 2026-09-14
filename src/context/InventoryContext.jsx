@@ -5,6 +5,7 @@ export const InventoryContext = createContext();
 
 export function InventoryProvider({ children }) {
   const [inventoryItems, setInventoryItems] = useState([]);
+  const [moduleEventsHistory, setModuleEventsHistory] = useState([]);
 
   const moduleRef = useRef(new InventoryModule());
 
@@ -29,8 +30,19 @@ export function InventoryProvider({ children }) {
     return result;
   };
 
+  const loadModuleEvents = async () => {
+    let events = moduleRef.current.getModuleHistory();
+
+    setModuleEventsHistory(events);
+  };
+
   useEffect(() => {
-    loadInventory;
+    const load = async () => {
+      await loadInventory();
+      loadModuleEvents();
+    };
+
+    load();
   }, []);
 
   return (

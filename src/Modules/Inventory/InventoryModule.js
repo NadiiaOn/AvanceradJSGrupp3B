@@ -20,10 +20,11 @@ export default class InventoryModule {
 
   constructor() {
     this.inventoryService = new InventoryService();
-    // Låter denna vara kvar, då tanken var att detta skulle vara en instans.
-    // Problemet: Sidorna uppdateras vid skapande av: registerInventoryChange, vilket i sin tur renderar history värdelös.
-    // Tanken: history här, skulle dokumentera ALLA modulhändelser för att kartlägga dem i vilken komponent de kallades på etc, händelseförloppet osv.
     this.history = [];
+  }
+
+  getModuleHistory() {
+    return this.history;
   }
 
   validateValues(values) {
@@ -88,6 +89,7 @@ export default class InventoryModule {
 
       this.history.push({
         method: "getInventoryReport",
+
         timestamp: new Date(),
       });
 

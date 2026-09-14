@@ -8,7 +8,7 @@
       "price": 9.99,
       "discountPercentage": 10.48,
       "rating": 2.56,
-      "stock": 96,
+      "stock": 14,
       "tags": [
         "beauty",
         "mascara"
@@ -68,7 +68,7 @@
       "price": 19.99,
       "discountPercentage": 18.19,
       "rating": 2.86,
-      "stock": 34,
+      "stock": 1,
       "tags": [
         "beauty",
         "eyeshadow"
@@ -128,7 +128,7 @@
       "price": 14.99,
       "discountPercentage": 9.84,
       "rating": 4.64,
-      "stock": 89,
+      "stock": 11,
       "tags": [
         "beauty",
         "face powder"
@@ -3696,7 +3696,7 @@
       "price": 7.99,
       "discountPercentage": 18.91,
       "rating": 3.09,
-      "stock": 11,
+      "stock": 6,
       "tags": [
         "kitchen tools",
         "strainers"
@@ -11688,7 +11688,7 @@
       "price": 799.99,
       "discountPercentage": 18.34,
       "rating": 4.24,
-      "stock": 7,
+      "stock": 5,
       "tags": [
         "watches",
         "women's watches"
@@ -12260,6 +12260,167 @@
       "type": "ADJUSTMENTDECREASE",
       "quantity": 1,
       "timestamp": "2026-09-11T12:45:29.011Z"
+    },
+    {
+      "id": "pq26_l2glXg",
+      "productId": 193,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-11T13:59:15.060Z"
+    },
+    {
+      "id": "1Lh-2H_TnRY",
+      "productId": 193,
+      "type": "ORDER",
+      "quantity": 1,
+      "timestamp": "2026-09-11T13:59:21.520Z"
+    },
+    {
+      "id": "7PFbOyfAcUY",
+      "productId": 193,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-11T13:59:25.498Z"
+    },
+    {
+      "id": "wkt5KuJ1W2I",
+      "productId": 193,
+      "type": "ADJUSTMENTDECREASE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:15:11.742Z"
+    },
+    {
+      "id": "iQ58lEChIwg",
+      "productId": 63,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:20:03.758Z"
+    },
+    {
+      "id": "ZKuwk4IwNeg",
+      "productId": 63,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:21:49.338Z"
+    },
+    {
+      "id": "jGxFULMRzo8",
+      "productId": 63,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:33:52.893Z"
+    },
+    {
+      "id": "hMCR3T_eAEc",
+      "productId": 63,
+      "type": "ORDER",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:36:39.338Z"
+    },
+    {
+      "id": "MXxEguYjEYw",
+      "productId": 63,
+      "type": "ORDER",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:39:31.323Z"
+    },
+    {
+      "id": "J8QRwSdo_s8",
+      "productId": 63,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:45:57.514Z"
+    },
+    {
+      "id": "1AlA6yqpDME",
+      "productId": 193,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:46:09.894Z"
+    },
+    {
+      "id": "mlFSoQpWSuU",
+      "productId": 63,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T11:46:19.650Z"
+    },
+    {
+      "id": "Qkgles08Ctc",
+      "productId": 3,
+      "type": "SALE",
+      "quantity": 88,
+      "timestamp": "2026-09-14T12:11:59.729Z"
+    },
+    {
+      "id": "Q4AnitTI-dw",
+      "productId": 16,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-14T12:18:46.556Z"
+    },
+    {
+      "id": "62g79RjIApc",
+      "productId": 16,
+      "type": "ORDER",
+      "quantity": 1,
+      "timestamp": "2026-09-14T12:19:31.132Z"
+    },
+    {
+      "id": "mE71UGL78jU",
+      "productId": 3,
+      "type": "ORDER",
+      "quantity": 10,
+      "timestamp": "2026-09-14T12:19:45.438Z"
+    },
+    {
+      "id": "VbrfkO8S3o4",
+      "productId": 193,
+      "type": "ORDER",
+      "quantity": 1,
+      "timestamp": "2026-09-14T12:22:55.067Z"
+    },
+    {
+      "id": "vww5DwpFIWY",
+      "productId": 63,
+      "type": "ADJUSTMENTDECREASE",
+      "quantity": 2,
+      "timestamp": "2026-09-14T12:22:59.783Z"
+    },
+    {
+      "id": "6uG86BvO_Fw",
+      "productId": 2,
+      "type": "SALE",
+      "quantity": 33,
+      "timestamp": "2026-09-14T12:48:56.825Z"
+    },
+    {
+      "id": "L-nObexCdQA",
+      "productId": 1,
+      "type": "SALE",
+      "quantity": 2,
+      "timestamp": "2026-09-14T13:10:22.408Z"
+    },
+    {
+      "id": "bLEKeLkN5dA",
+      "productId": 1,
+      "type": "SALE",
+      "quantity": 40,
+      "timestamp": "2026-09-14T13:10:29.344Z"
+    },
+    {
+      "id": "IQrvkvF-A2Q",
+      "productId": 1,
+      "type": "SALE",
+      "quantity": 20,
+      "timestamp": "2026-09-14T13:10:35.849Z"
+    },
+    {
+      "id": "HFLwIUlYcEQ",
+      "productId": 1,
+      "type": "SALE",
+      "quantity": 20,
+      "timestamp": "2026-09-14T13:10:38.908Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
