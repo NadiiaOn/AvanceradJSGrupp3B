@@ -1,6 +1,10 @@
 // The main file for the Nadiia module, which exports all the campaign functions.
 import { campaignFactory } from "./DiscountCampaigns.js";
-import { getDiscountedTotal} from "./CampaignService.js";
+import {
+  getCartTotal,
+  loadCampaigns,
+  pickCampaign,
+} from "./CampaignService.js";
 
 export default class DiscountCampaignsModule {
   static descriptor = {
@@ -14,8 +18,8 @@ export default class DiscountCampaignsModule {
     ],
   };
 
-  // Turns raw campaign records from the database into 
-  // the matching campaign class instances 
+  // Turns raw campaign records from the database into
+  // the matching campaign class instances
   makeInstances(campaignsFromDB) {
     return campaignsFromDB
       .map((raw) => {
@@ -29,8 +33,18 @@ export default class DiscountCampaignsModule {
       .filter((campaign) => campaign !== null);
   }
 
-  //Public entry point used by the rest of the application 
-  async calculateDiscountedPriceForCart(cartItems) {
-    return getDiscountedTotal(cartItems);
+  //Public entry point used by the rest of the application
+  async calculateDiscountedPriceForCart(cartItems, now = new Date()) {
+    if (!Array.isArray(cartItems) || cartItems.length === 0) return 0;
+
+    const totalPrice = getCartTotal(cartItems);
+
+    const rawCampaigns = await loadCampaigns();
+    const campaigns = this.makeInstances(rawCampaigns);
+    const campaign = pickCampaign(campaigns, cartItems, now);
+
+    if (!campaign) return Math.round(totalPrice * 100) / 100;
+
+    return campaign.calculateDiscountedPriceForCart(cartItems);
   }
 }

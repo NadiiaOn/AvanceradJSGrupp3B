@@ -1,5 +1,4 @@
 // This class is responsible for handling all data from the database related to campigns and discounts.
-import { campaignFactory } from "./DiscountCampaigns.js";
 
 import {
   fetchProducts,
@@ -32,37 +31,19 @@ export async function loadCampaigns() {
   return [...threshold, ...buyXPayForY, ...percentage];
 }
 
-export async function getDiscountedTotal(cartItems, now = new Date()) {
-  if ((!Array, isArray(cartItems) || cartItems.length === 0)) return 0;
+export function getCartTotal(cartItems) {
+  return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+}
 
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
-
-  const rawCampaigns = await loadCampaigns();
-  const campaigns = rawCampaigns
-    .map((raw) => {
-      try {
-        return campaignFactory(raw);
-      } catch (err) {
-        console.error(err.message);
-        return null;
-      }
-    })
-    .filter((campaign) => campaign !== null)
+export function pickCampaign(campaigns, cartItems, now = new Date()) {
+  return campaigns
     .filter((campaign) => campaign.isActive(now))
     .sort(
       (a, b) =>
         CAMPAIGN_ORDER.indexOf(String(a.type).toUpperCase()) -
         CAMPAIGN_ORDER.indexOf(String(b.type).toUpperCase()),
-    );
-
-  const campaign = campaigns.find((c) => c.isApplicableToCart(cartItems));
-
-  if (!campaign) return Math.round(totalPrice * 100) / 100;
-
-  return campaign.calculateDiscountedPriceForCart(cartItems);
+    )
+    .find((campaign) => campaign.isApplicableToCart(cartItems));
 }
 
 export async function getProducts() {
