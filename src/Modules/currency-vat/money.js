@@ -12,9 +12,9 @@ export class Money {
     if (this.currency === "SEK") {
       return Number(this.price).toFixed(2) + "kr";
     } else if (this.currency === "USD") {
-      return Number(this.price).toFixed(2) + "$";
+      return "$" + Number(this.price).toFixed(2);
     } else if (this.currency === "EUR") {
-      return Number(this.price).toFixed(2) + "\u20AC";
+      return "\u20AC" + Number(this.price).toFixed(2);
     } else {
       throw new Error("Okänd valuta, kan inte formatera");
     }
