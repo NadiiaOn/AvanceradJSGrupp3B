@@ -1,6 +1,3 @@
-/**
- * Formulärgeneratorn validerar mot descriptorn (required, min/max, typ) innan run anropas. Modulen ska ändå tåla ogiltig indata utan att krascha.
- */
 export const descriptor = {
   id: 'shipping-quote',
   title: 'Fraktoffert',
