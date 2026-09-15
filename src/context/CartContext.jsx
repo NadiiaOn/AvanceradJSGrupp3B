@@ -1,10 +1,22 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+
+  // Läser varukorgen från localStorage om den finns, annars en tom array.
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  //Sparar varukorgen i localStorage varje gång den ändras.
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems((prev) => {
