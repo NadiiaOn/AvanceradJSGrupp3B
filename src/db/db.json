@@ -3696,7 +3696,7 @@
       "price": 7.99,
       "discountPercentage": 18.91,
       "rating": 3.09,
-      "stock": 6,
+      "stock": 5,
       "tags": [
         "kitchen tools",
         "strainers"
@@ -12421,6 +12421,13 @@
       "type": "SALE",
       "quantity": 20,
       "timestamp": "2026-09-14T13:10:38.908Z"
+    },
+    {
+      "id": "DUYkGSmHlEI",
+      "productId": 63,
+      "type": "SALE",
+      "quantity": 1,
+      "timestamp": "2026-09-15T11:39:35.738Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
