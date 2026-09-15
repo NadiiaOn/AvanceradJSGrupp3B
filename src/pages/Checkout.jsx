@@ -13,7 +13,13 @@ function isValidEmail(email) {
 }
 
 export default function Checkout() {
-  const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart();
+  const {
+    cartItems,
+    totalPrice,
+    calculatedDiscountedPriceForCart,
+    updateQuantity,
+    removeFromCart,
+  } = useCart();
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
 
@@ -119,6 +125,7 @@ export default function Checkout() {
             <span>Delsumma</span>
             <span>${totalPrice.toFixed(2)}</span>
           </div>
+
           <div className="flex justify-between text-sm mb-4 text-text/60">
             <span>Frakt</span>
             <span>FRAKTMODULEN</span>
@@ -127,6 +134,11 @@ export default function Checkout() {
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
             <span>Totalt</span>
             <span>${totalPrice.toFixed(2)}</span>
+          </div>
+
+          <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
+            <span>Totalt med rabatt </span>
+            <span>${calculatedDiscountedPriceForCart.toFixed(2)}</span>
           </div>
 
           {/* MAIL */}

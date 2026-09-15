@@ -8,6 +8,7 @@ export default function Cart() {
     removeFromCart,
     updateQuantity,
     totalPrice,
+    calculatedDiscountedPriceForCart,
     isCartOpen,
     closeCart,
   } = useCart();
@@ -121,6 +122,11 @@ export default function Cart() {
                 <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
                   <span>Totalt</span>
                   <span>${totalPrice.toFixed(2)}</span>
+                </div>
+
+                <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
+                  <span>Totalt med rabatt </span>
+                  <span>${calculatedDiscountedPriceForCart.toFixed(2)}</span>
                 </div>
 
                 <button
