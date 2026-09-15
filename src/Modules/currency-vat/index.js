@@ -42,6 +42,13 @@ export default class CurrencyVatModule {
     return final;
   }
 
+  async getRawPrice(values, context) {
+    const money = new Money(values.price, "USD");
+    const rate = await this.exchangeRateService.getRate(values.targetCurrency);
+    const newMoney = money.convertTo(values.targetCurrency, rate);
+    return newMoney.price;
+  }
+
   async getFormattedTax(values, context) {
     const money = new Money(values.price, "USD");
     const taxAmount = this.vat.getTaxAmount(money, values.category);
@@ -49,5 +56,17 @@ export default class CurrencyVatModule {
     const newMoney = taxAmount.convertTo(values.targetCurrency, rate);
     const final = newMoney.format();
     return final;
+  }
+
+  async getTaxRawAmount(values, context) {
+    const money = new Money(values.price, "USD");
+    const taxAmount = this.vat.getTaxAmount(money, values.category);
+    const rate = await this.exchangeRateService.getRate(values.targetCurrency);
+    const newMoney = taxAmount.convertTo(values.targetCurrency, rate);
+    return newMoney.price;
+  }
+
+  formatAmount(amount, currencyCode) {
+    return new Money(amount, currencyCode).format();
   }
 }
