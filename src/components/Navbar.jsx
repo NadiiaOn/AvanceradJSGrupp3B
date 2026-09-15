@@ -4,17 +4,22 @@ import {
   ListIcon,
   UserIcon,
   MagnifyingGlassIcon,
+  MoneyIcon,
   BookIcon,
 } from "@phosphor-icons/react";
 import NavMenu from "./NavMenu";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
+import CurrencySelector from "./CurrencySelector";
+import { useCurrency } from "../context/CurrencyContext";
 import { InventoryContext } from "../context/InventoryContext";
 
 export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const { toggleCart, totalItems } = useCart();
+  const { currency, setCurrency } = useCurrency();
   const { inventoryItems } = useContext(InventoryContext);
   const [isAdmin, setIsAdmin] = useState(true);
   const navigate = useNavigate();
@@ -64,6 +69,23 @@ export default function Navbar({ products, errorMessage }) {
               <p className="hidden sm:block text-text font-body">Search</p>
             </button>
           </div>
+          {/* Kundvagn och valuta*/}
+          <div className="flex items-center gap-2 sm:order-3 sm:justify-self-end">
+            <div className="relative">
+              <button
+                onClick={() => setIsCurrencyOpen((prev) => !prev)}
+                className="cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card"
+              >
+                <img
+                  src={`${currency === "SEK" ? "/iconsek.png" : currency === "EUR" ? "/iconeur.png" : "/iconusd.png"}`}
+                  alt=""
+                  className="w-6.5 h-6.5 xl:w-8 xl:h-8"
+                />
+              </button>
+              {isCurrencyOpen && (
+                <CurrencySelector onClose={() => setIsCurrencyOpen(false)} />
+              )}
+            </div>
 
           {/* Kundvagn */}
           <div className="flex gap-2 sm:order-3 sm:justify-self-end">

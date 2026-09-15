@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router";
+import ModuleCaller from "../Modules/ModuleCaller/ModuleCaller";
+import { useCartTotal } from "../hooks/useCartTotals.js";
 import { buildParcelValues } from "../utils/shippingHelper.js";
 import ShippingOptions from "../components/ShippingOptions.jsx";
 import Modules from "../Modules/moduleMaker.js"
@@ -19,6 +21,19 @@ export default function Checkout() {
   const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart();
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
+  const { formattedPrices, rowTotals, taxTotal, rawSubtotal, currency } =
+    useCartTotal(cartItems, totalPrice);
+
+  const emailIsValid = isValidEmail(email);
+
+  const formattedTax = ModuleCaller.CurrencyVatModule.formatAmount(
+    taxTotal,
+    currency,
+  );
+
+  const formattedSubtotal = ModuleCaller.CurrencyVatModule.formatAmount(
+    rawSubtotal,
+    currency,
   const [destinationCountry, setDestinationCountry] = useState("");
 
   const countryOptions = Modules.ShippingQuoteDescriptor.fields.find(
@@ -104,7 +119,7 @@ export default function Checkout() {
                 <div>
                   <h3 className="font-semibold">{item.title}</h3>
                   <p className="text-sm text-text/60">
-                    ${item.price.toFixed(2)} / st
+                    {formattedPrices[item.id]} / st
                   </p>
 
                   <div className="flex items-center gap-2 mt-2">
@@ -130,9 +145,7 @@ export default function Checkout() {
                   </div>
                 </div>
               </div>
-              <p className="font-semibold">
-                ${(item.price * item.quantity).toFixed(2)}
-              </p>
+              <p className="font-semibold">{rowTotals[item.id]}</p>
             </div>
           ))}
         </div>
@@ -152,14 +165,18 @@ export default function Checkout() {
                 <span>
                   {item.title} × {item.quantity}
                 </span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+                <span>{rowTotals[item.id]}</span>
               </div>
             ))}
           </div>
 
           <div className="flex justify-between text-sm mb-2 border-t border-text/10 pt-4">
             <span>Delsumma</span>
-            <span>${totalPrice.toFixed(2)}</span>
+            <span>{formattedSubtotal}</span>
+          </div>
+          <div className="flex justify-between text-sm mb-4 text-text/60">
+            <span>Moms</span>
+            <span>{formattedTax}</span>
           </div>
 
           <div className="flex justify-between text-sm mb-4 text-text/60">
