@@ -35,7 +35,7 @@ export function getCartTotal(cartItems) {
   return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
 
-export function pickCampaign(campaigns, cartItems, now = new Date()) {
+export function pickCampaign(campaigns,  cartItems, now = new Date()) {
   return campaigns
     .filter((campaign) => campaign.isActive(now))
     .sort(
