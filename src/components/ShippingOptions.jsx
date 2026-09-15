@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import Module from "../Modules/moduleMaker.js";
+
 const PRICING_TYPE_LABELS = {
   weight: "Viktbaserad",
   volumetric: "Volymbaserad",
@@ -14,7 +17,43 @@ export default function ShippingOptions({
   quotes,
   selectedCarrierId,
   onSelectCarrier,
+  currency,
 }) {
+  const [formattedQuotes, setFormattedQuotes] = useState([]);
+
+  useEffect(() => {
+    async function formatQuotes() {
+      if (!quotes) {
+        setFormattedQuotes([]);
+        return;
+      }
+
+      const formatted = await Promise.all(
+        quotes.map(async (quote) => {
+          const raw = await Module.CurrencyVatModule.getRawPrice(
+            {
+              price: quote.priceUsd,
+              targetCurrency: currency,
+            },
+            {},
+          );
+
+          return {
+            ...quote,
+            formattedPrice: Module.CurrencyVatModule.formatAmount(
+              raw,
+              currency,
+            ),
+          };
+        }),
+      );
+
+      setFormattedQuotes(formatted);
+    }
+
+    formatQuotes();
+  }, [quotes, currency]);
+
   return (
     <div className="mb-4">
       <select
@@ -41,7 +80,7 @@ export default function ShippingOptions({
 
       {quotes ? (
         <div className="flex flex-col gap-2 mt-3">
-          {quotes.map((quote) => (
+          {formattedQuotes.map((quote) => (
             <label
               key={quote.carrierId}
               className="flex items-center justify-between gap-2 p-2 rounded border border-text/20 cursor-pointer text-sm"
@@ -64,9 +103,7 @@ export default function ShippingOptions({
                   </span>
                 </span>
               </span>
-              <span className="font-semibold">
-                ${quote.priceUsd.toFixed(2)}
-              </span>
+              <span className="font-semibold">{quote.formattedPrice}</span>
             </label>
           ))}
         </div>

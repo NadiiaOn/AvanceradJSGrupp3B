@@ -11,6 +11,7 @@ const Home = () => {
     () => productsByCategory.flatMap((cat) => cat.products || []),
     [productsByCategory],
   );
+
   const formattedPrices = useProductPrice(allProducts);
 
   return (

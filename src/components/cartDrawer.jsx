@@ -10,15 +10,20 @@ export default function Cart() {
     removeFromCart,
     updateQuantity,
     totalPrice,
-    calculatedDiscountedPriceForCart,
     isCartOpen,
     closeCart,
   } = useCart();
 
   const navigate = useNavigate();
 
-  const { formattedPrices, rowTotals, taxTotal, rawSubtotal, currency } =
-    useCartTotal(cartItems, totalPrice);
+  const {
+    formattedPrices,
+    rowTotals,
+    taxTotal,
+    rawSubtotal,
+    currency,
+    convertedTotal,
+  } = useCartTotal(cartItems, totalPrice);
 
   const formattedTax = Module.CurrencyVatModule.formatAmount(
     taxTotal,
@@ -36,6 +41,15 @@ export default function Cart() {
     closeCart();
     navigate("/checkout");
   };
+
+  const formattedTotalPrice = Module.CurrencyVatModule.formatAmount(
+    convertedTotal,
+    currency,
+  );
+
+  console.log("TAX: ", formattedTax);
+  console.log("Total Price: ", totalPrice);
+  console.log("Formatted Price: ", formattedTotalPrice);
 
   return (
     <div className="fixed inset-0 flex justify-end z-250">
@@ -136,7 +150,7 @@ export default function Cart() {
                 </div>
                 <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
                   <span>Totalt</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>{formattedTotalPrice}</span>
                 </div>
                 {/* Har sökt igenom projektet, finns ingen funktion som heter calculatedDiscontedPriceForCart?
                 <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">

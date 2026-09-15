@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { useCartTotal } from "../hooks/useCartTotals.js";
 import { buildParcelValues } from "../utils/shippingHelper.js";
 import ShippingOptions from "../components/ShippingOptions.jsx";
+import useShippingPrice from "../hooks/useShippingPrice.js";
 import Module from "../Modules/moduleMaker.js";
 
 // Enkel e-post validering.
@@ -17,13 +18,7 @@ function isValidEmail(email) {
 }
 
 export default function Checkout() {
-  const {
-    cartItems,
-    totalPrice,
-    calculatedDiscountedPriceForCart,
-    updateQuantity,
-    removeFromCart,
-  } = useCart();
+  const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart();
 
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
@@ -70,6 +65,10 @@ export default function Checkout() {
     (q) => q.carrierId === selectedCarrierId,
   );
 
+  const formattedShippingPrice = useShippingPrice(
+    selectedQuote?.priceUsd ?? null,
+  );
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -102,10 +101,6 @@ export default function Checkout() {
     // TODO: skicka order, spara i databas uppdatera saldo osv...
     console.log("Order skickad med e-post:", email);
   };
-
-  const formattedShippingPrice = selectedQuote
-    ? Module.CurrencyVatModule.formatAmount(selectedQuote.priceUsd, currency)
-    : null;
 
   if (cartItems.length === 0) {
     return (
@@ -254,6 +249,7 @@ export default function Checkout() {
             quotes={shippingResult?.quotes}
             selectedCarrierId={selectedCarrierId}
             onSelectCarrier={setSelectedCarrierId}
+            currency={currency}
           />
 
           <button

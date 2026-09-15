@@ -17,13 +17,19 @@ export default function ProductPage() {
 
   const relatedProducts = useMemo(
     () =>
-      products
-        .filter((merch) => merch.category === product.category)
-        .filter((merch) => Number(merch.id) !== Number(product.id)),
+      product
+        ? products
+            .filter((merch) => merch.category === product.category)
+            .filter((merch) => Number(merch.id) !== Number(product.id))
+        : [],
     [products, product],
   );
 
   const formattedPrices = useProductPrice(relatedProducts);
+
+  const productList = useMemo(() => (product ? [product] : []), [product]);
+
+  const formattedProductPrice = useProductPrice(productList);
 
   if (!product) {
     return <p>Produkten hittades inte</p>;
@@ -61,7 +67,7 @@ export default function ProductPage() {
               {product.description ?? "Information saknas"}
             </p>
             <p className="product-price font-heading text-2xl font-semibold mb-10">
-              ${product.price ?? "Information saknas"}
+              {formattedProductPrice[product.id]}
             </p>
             <p className="product-delivery text-sm opacity-75 mb-2">
               Delivery: {product.shippingInformation ?? "Information saknas"}
