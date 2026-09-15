@@ -1,4 +1,4 @@
-import { ValidationError, CampaignIsNotActiveError } from "./errors.js";
+import { ValidationError } from "./errors.js";
 
 export class CampaignModule {
   constructor({ id, type, priority = 0, startDate, endDate } = {}) {
