@@ -5,7 +5,7 @@ import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 const MAX_PRODUCTS = 8;
 const GAP = 0.5;
 
-const Carousel = ({ title, products, errorMessage }) => {
+const Carousel = ({ title, products, errorMessage, formattedPrices }) => {
   const [startIdx, setStartIdx] = useState(0);
   const [itemsVisible, setItemsVisible] = useState(4);
   const [cardWidth, setCardWidth] = useState(15);
@@ -114,6 +114,7 @@ const Carousel = ({ title, products, errorMessage }) => {
               product={product}
               width={cardWidth}
               height={13}
+              formattedPrice={formattedPrices[product.id]}
             />
           ))}
         </div>
