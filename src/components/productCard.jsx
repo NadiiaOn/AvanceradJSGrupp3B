@@ -2,7 +2,6 @@ import { ShoppingCartIcon } from "@phosphor-icons/react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import useProductPrice from "../hooks/useProductPrice";
 
 const ProductCard = ({ product, width, height, formattedPrice }) => {
   const { addToCart } = useCart();

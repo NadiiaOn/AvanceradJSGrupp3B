@@ -24,6 +24,7 @@ export default function Checkout() {
     updateQuantity,
     removeFromCart,
   } = useCart();
+
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
   const {
@@ -214,10 +215,12 @@ export default function Checkout() {
             <span>{formattedTotalPrice}</span>
           </div>
 
+          {/* Har sökt igenom projektet, finns ingen funktion som heter calculatedDiscontedPriceForCart?
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
             <span>Totalt med rabatt </span>
             <span>${calculatedDiscountedPriceForCart.toFixed(2)}</span>
           </div>
+          */}
 
           {/* MAIL */}
           <div className="mb-4">

@@ -1,11 +1,9 @@
 // This class is responsible for handling all data from the database related to campigns and discounts.
 
-import {
-  fetchProducts,
-  fetchBuyXPayForYCampaigns,
-  fetchThresholdCampaigns,
-  fetchPercentageCampaigns,
-} from "./api.js";
+import fetchProducts from "../../api/fetchProducts";
+import fetchBuyXPayForYCampaigns from "../../api/fetchBuyXPayForYCampaigns";
+import fetchThresholdCampaigns from "../../api/fetchThresholdCampaigns";
+import fetchPercentageCampaign from "../../api/fetchPercentageCampaigns";
 
 //loadCampaigns
 

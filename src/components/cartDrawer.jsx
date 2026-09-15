@@ -122,7 +122,6 @@ export default function Cart() {
                 <h2 className="text-lg font-bold font-heading mb-4">
                   Sammanfattning
                 </h2>
-
                 <div className="flex justify-between text-sm mb-2">
                   <span>Delsumma</span>
                   <span>{formattedRawSubtotal}</span>
@@ -135,17 +134,16 @@ export default function Cart() {
                   <span>Frakt</span>
                   <span>Beräknas i kassan</span>
                 </div>
-
                 <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
                   <span>Totalt</span>
                   <span>${totalPrice.toFixed(2)}</span>
                 </div>
-
+                {/* Har sökt igenom projektet, finns ingen funktion som heter calculatedDiscontedPriceForCart?
                 <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
                   <span>Totalt med rabatt </span>
                   <span>${calculatedDiscountedPriceForCart.toFixed(2)}</span>
                 </div>
-
+                */}
                 <button
                   onClick={handleCheckout}
                   className="bg-cta text-bg w-full py-3 rounded font-semibold cursor-pointer hover:opacity-90 transition-opacity"

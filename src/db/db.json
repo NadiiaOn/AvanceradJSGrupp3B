@@ -11252,19 +11252,6 @@
     { "id": 2, "currency": "EUR", "rate": 0.92 },
     { "id": 3, "currency": "USD", "rate": 1 }
   ],
-  "carriers": [
-    {
-      "id": "postnord",
-      "name": "PostNord",
-      "pricingType": "weight",
-      "estimatedDays": 3,
-      "currency": "USD",
-      "pricingParams": {
-        "baseFeeUsd": 5,
-        "pricePerKgUsd": 1.2
-      }
-    ]
-  ],
   "buyXPayForYCampaigns": [
     {
       "id": 1,
@@ -13035,7 +13022,18 @@
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     }
-  ]
+  ],
+  "carriers": [
+    {
+      "id": "postnord",
+      "name": "PostNord",
+      "pricingType": "weight",
+      "estimatedDays": 3,
+      "currency": "USD",
+      "pricingParams": {
+        "baseFeeUsd": 5,
+        "pricePerKgUsd": 1.2
+      }
     },
     {
       "id": "dhl",
