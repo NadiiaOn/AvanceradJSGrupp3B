@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ModuleCaller from "../Modules/ModuleCaller/ModuleCaller";
+import Module from "../Modules/moduleMaker";
 import { useCurrency } from "../context/CurrencyContext";
 
 export default function useProductPrice(products) {
@@ -16,10 +16,7 @@ export default function useProductPrice(products) {
           category: product.category,
           targetCurrency: currency,
         };
-        prices[product.id] = await ModuleCaller.CurrencyVatModule.run(
-          value,
-          {},
-        );
+        prices[product.id] = await Module.CurrencyVatModule.run(value, {});
       }
 
       setFormattedPrices(prices);

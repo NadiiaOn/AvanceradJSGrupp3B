@@ -12,13 +12,13 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
-  const product = products.find((product) => product.id === Number(id));
+  const product = products.find((product) => Number(product.id) === Number(id));
 
   const relatedProducts = useMemo(
     () =>
       products
         .filter((merch) => merch.category === product.category)
-        .filter((merch) => merch.id !== product.id),
+        .filter((merch) => Number(merch.id) !== Number(product.id)),
     [products, product],
   );
 
@@ -27,10 +27,6 @@ export default function ProductPage() {
   if (!product) {
     return <p>Produkten hittades inte</p>;
   }
-
-  const relatedProducts = products
-    .filter((merch) => merch.category === product.category)
-    .filter((merch) => merch.id !== product.id);
 
   const addToCartAndNavigate = () => {
     addToCart(product);

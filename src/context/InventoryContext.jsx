@@ -1,4 +1,4 @@
-import module from "../Modules/ModuleMaker";
+import Module from "../Modules/moduleMaker";
 import { createContext, useEffect, useRef, useState } from "react";
 
 export const InventoryContext = createContext();
@@ -7,7 +7,7 @@ export function InventoryProvider({ children }) {
   const [inventoryItems, setInventoryItems] = useState([]);
   const [moduleEventsHistory, setModuleEventsHistory] = useState([]);
 
-  const moduleRef = useRef(module.InventoryModule);
+  const moduleRef = useRef(Module.InventoryModule);
 
   const loadInventory = async () => {
     const result = await moduleRef.current.run({

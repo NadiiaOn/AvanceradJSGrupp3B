@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import ModuleCaller from "../Modules/ModuleCaller/ModuleCaller";
+import Module from "../Modules/moduleMaker";
 import { useCurrency } from "../context/CurrencyContext";
 
-export function useCartTotal(cartItems, totalPrice) {
+export function useCartTotal(cartItems, totalPrice, shippingPrice) {
   const { currency } = useCurrency();
+
   const [formattedPrices, setFormattedPrices] = useState({});
   const [rowTotals, setRowTotals] = useState({});
   const [taxTotal, setTaxTotal] = useState(0);
   const [rawSubtotal, setRawSubtotal] = useState(0);
-  const [rawTaxAmounts, setRawTaxAmounts] = useState(0);
+  const [convertedTotal, setConvertedTotal] = useState(0);
 
   useEffect(() => {
     async function calculateAll() {
@@ -22,34 +23,39 @@ export function useCartTotal(cartItems, totalPrice) {
           category: item.category,
           targetCurrency: currency,
         };
+
         const rowValues = {
           price: item.price * item.quantity,
           category: item.category,
           targetCurrency: currency,
         };
+
         const rawTaxTotal = {
           price: item.price * item.quantity,
           category: item.category,
           targetCurrency: currency,
         };
 
-        prices[item.id] = await ModuleCaller.CurrencyVatModule.run(
-          singleValues,
-          {},
-        );
-        rowTotalPrices[item.id] = await ModuleCaller.CurrencyVatModule.run(
+        prices[item.id] = await Module.CurrencyVatModule.run(singleValues, {});
+
+        rowTotalPrices[item.id] = await Module.CurrencyVatModule.run(
           rowValues,
           {},
         );
-        rawTax[item.id] = await ModuleCaller.CurrencyVatModule.getTaxRawAmount(
+
+        rawTax[item.id] = await Module.CurrencyVatModule.getTaxRawAmount(
           rawTaxTotal,
           {},
         );
       }
+
+      const sumTax = Object.values(rawTax).reduce((sum, val) => sum + val, 0);
+
       setFormattedPrices(prices);
       setRowTotals(rowTotalPrices);
-      setRawTaxAmounts(rawTax);
+      setTaxTotal(sumTax);
     }
+
     calculateAll();
   }, [cartItems, currency, totalPrice]);
 
@@ -57,23 +63,49 @@ export function useCartTotal(cartItems, totalPrice) {
     async function calculateSubtotal() {
       const values = {
         price: totalPrice,
-        category: "",
         targetCurrency: currency,
       };
-      const converted =
-        await ModuleCaller.CurrencyVatModule.getRawPrice(values);
+
+      const converted = await Module.CurrencyVatModule.getRawPrice(values, {});
+
       setRawSubtotal(converted);
     }
+
     calculateSubtotal();
   }, [totalPrice, currency]);
 
   useEffect(() => {
-    const sumTax = Object.values(rawTaxAmounts).reduce(
-      (sum, val) => sum + val,
-      0,
-    );
-    setTaxTotal(sumTax);
-  }, [rawTaxAmounts]);
+    setConvertedTotal(rawSubtotal + taxTotal);
+  }, [rawSubtotal, taxTotal]);
 
-  return { formattedPrices, rowTotals, taxTotal, rawSubtotal, currency };
+  useEffect(() => {
+    async function calculateTotal() {
+      let convertedShipping = 0;
+
+      if (shippingPrice !== null && shippingPrice !== undefined) {
+        const shippingValues = {
+          price: shippingPrice,
+          targetCurrency: currency,
+        };
+
+        convertedShipping = await Module.CurrencyVatModule.getRawPrice(
+          shippingValues,
+          {},
+        );
+      }
+
+      setConvertedTotal(rawSubtotal + taxTotal + convertedShipping);
+    }
+
+    calculateTotal();
+  }, [rawSubtotal, taxTotal, shippingPrice, currency]);
+
+  return {
+    formattedPrices,
+    rowTotals,
+    taxTotal,
+    rawSubtotal,
+    currency,
+    convertedTotal,
+  };
 }

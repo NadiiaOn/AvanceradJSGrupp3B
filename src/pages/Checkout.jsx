@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router";
-import ModuleCaller from "../Modules/ModuleCaller/ModuleCaller";
 import { useCartTotal } from "../hooks/useCartTotals.js";
 import { buildParcelValues } from "../utils/shippingHelper.js";
 import ShippingOptions from "../components/ShippingOptions.jsx";
-import Modules from "../Modules/moduleMaker.js"
+import Module from "../Modules/moduleMaker.js";
 
 // Enkel e-post validering.
 // Dvs något@något.något
@@ -21,23 +20,36 @@ export default function Checkout() {
   const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart();
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
-  const { formattedPrices, rowTotals, taxTotal, rawSubtotal, currency } =
-    useCartTotal(cartItems, totalPrice);
+  const {
+    formattedPrices,
+    rowTotals,
+    taxTotal,
+    rawSubtotal,
+    currency,
+    convertedTotal,
+  } = useCartTotal(cartItems, totalPrice);
 
   const emailIsValid = isValidEmail(email);
 
-  const formattedTax = ModuleCaller.CurrencyVatModule.formatAmount(
+  const formattedTax = Module.CurrencyVatModule.formatAmount(
     taxTotal,
     currency,
   );
 
-  const formattedSubtotal = ModuleCaller.CurrencyVatModule.formatAmount(
+  const formattedSubtotal = Module.CurrencyVatModule.formatAmount(
     rawSubtotal,
     currency,
+  );
+
+  const formattedTotalPrice = Module.CurrencyVatModule.formatAmount(
+    convertedTotal,
+    currency,
+  );
+
   const [destinationCountry, setDestinationCountry] = useState("");
 
-  const countryOptions = Modules.ShippingQuoteDescriptor.fields.find(
-    (field) => field.name === "destinationCountry"
+  const countryOptions = Module.ShippingQuoteDescriptor.fields.find(
+    (field) => field.name === "destinationCountry",
   ).options;
 
   const [shippingResult, setShippingResult] = useState(null);
@@ -45,12 +57,10 @@ export default function Checkout() {
   const [shippingError, setShippingError] = useState(null);
   const [selectedCarrierId, setSelectedCarrierId] = useState(null);
 
-  const emailIsValid = isValidEmail(email);
-
   // Den fullständiga offerten som matchar användarens val (eller null om
   // inget beräknat/valt än).
   const selectedQuote = shippingResult?.quotes.find(
-    (q) => q.carrierId === selectedCarrierId
+    (q) => q.carrierId === selectedCarrierId,
   );
 
   const handleEmailChange = (e) => {
@@ -66,9 +76,9 @@ export default function Checkout() {
     try {
       const values = {
         ...buildParcelValues(cartItems),
-        destinationCountry
+        destinationCountry,
       };
-      const result = await Modules.ShippingQuote.run(values);
+      const result = await Module.ShippingQuote.run(values);
       setShippingResult(result);
       setSelectedCarrierId(result.cheapest.carrierId); // förvalt: billigast
     } catch (err) {
@@ -85,6 +95,10 @@ export default function Checkout() {
     // TODO: skicka order, spara i databas uppdatera saldo osv...
     console.log("Order skickad med e-post:", email);
   };
+
+  const formattedShippingPrice = selectedQuote
+    ? Module.CurrencyVatModule.formatAmount(selectedQuote.priceUsd, currency)
+    : null;
 
   if (cartItems.length === 0) {
     return (
@@ -183,16 +197,14 @@ export default function Checkout() {
             <span>Frakt</span>
             <span>
               {selectedQuote
-                ? `$${selectedQuote.priceUsd.toFixed(2)} (${selectedQuote.carrierName})`
+                ? `${formattedShippingPrice} (${selectedQuote.carrierName})`
                 : "Ej beräknad"}
             </span>
           </div>
 
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
             <span>Totalt</span>
-            <span>
-              ${(totalPrice + (selectedQuote?.priceUsd ?? 0)).toFixed(2)}
-            </span>
+            <span>{formattedTotalPrice}</span>
           </div>
 
           {/* MAIL */}

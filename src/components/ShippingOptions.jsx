@@ -55,12 +55,18 @@ export default function ShippingOptions({
                 />
                 <span>
                   {quote.carrierName}
-                    <span className="text-text/60">
-                        {" "}· {PRICING_TYPE_LABELS[quote.pricingType] ?? quote.pricingType} · {quote.estimatedDays} dagar
-                    </span>
+                  <span className="text-text/60">
+                    {" "}
+                    ·{" "}
+                    {PRICING_TYPE_LABELS[quote.pricingType] ??
+                      quote.pricingType}{" "}
+                    · {quote.estimatedDays} dagar
+                  </span>
                 </span>
               </span>
-              <span className="font-semibold">${quote.priceUsd.toFixed(2)}</span>
+              <span className="font-semibold">
+                ${quote.priceUsd.toFixed(2)}
+              </span>
             </label>
           ))}
         </div>

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
 import { XIcon } from "@phosphor-icons/react";
 import { useCartTotal } from "../hooks/useCartTotals";
-import ModuleCaller from "../Modules/ModuleCaller/ModuleCaller";
+import Module from "../Modules/moduleMaker";
 
 export default function Cart() {
   const {
@@ -19,12 +19,12 @@ export default function Cart() {
   const { formattedPrices, rowTotals, taxTotal, rawSubtotal, currency } =
     useCartTotal(cartItems, totalPrice);
 
-  const formattedTax = ModuleCaller.CurrencyVatModule.formatAmount(
+  const formattedTax = Module.CurrencyVatModule.formatAmount(
     taxTotal,
     currency,
   );
 
-  const formattedRawSubtotal = ModuleCaller.CurrencyVatModule.formatAmount(
+  const formattedRawSubtotal = Module.CurrencyVatModule.formatAmount(
     rawSubtotal,
     currency,
   );
