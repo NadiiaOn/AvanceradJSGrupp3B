@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
 import { XIcon } from "@phosphor-icons/react";
+import { useCartTotal } from "../hooks/useCartTotals";
+import Module from "../Modules/moduleMaker";
 
 export default function Cart() {
   const {
@@ -14,6 +16,19 @@ export default function Cart() {
   } = useCart();
 
   const navigate = useNavigate();
+
+  const { formattedPrices, rowTotals, taxTotal, rawSubtotal, currency } =
+    useCartTotal(cartItems, totalPrice);
+
+  const formattedTax = Module.CurrencyVatModule.formatAmount(
+    taxTotal,
+    currency,
+  );
+
+  const formattedRawSubtotal = Module.CurrencyVatModule.formatAmount(
+    rawSubtotal,
+    currency,
+  );
 
   if (!isCartOpen) return null;
 
@@ -66,7 +81,7 @@ export default function Cart() {
                       <div>
                         <h3 className="font-semibold">{item.name}</h3>
                         <p className="text-sm text-text/60">
-                          ${item.price.toFixed(2)}
+                          {formattedPrices[item.id]}
                         </p>
                       </div>
                     </div>
@@ -97,9 +112,7 @@ export default function Cart() {
                       </button>
                     </div>
 
-                    <p className="font-semibold">
-                      ${(item.price * item.quantity).toFixed(2)}
-                    </p>
+                    <p className="font-semibold">{rowTotals[item.id]}</p>
                   </div>
                 ))}
               </div>
@@ -112,7 +125,11 @@ export default function Cart() {
 
                 <div className="flex justify-between text-sm mb-2">
                   <span>Delsumma</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>{formattedRawSubtotal}</span>
+                </div>
+                <div className="flex justify-between text-sm mb-4 text-text/60">
+                  <span>Moms</span>
+                  <span>{formattedTax}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-4 text-text/60">
                   <span>Frakt</span>

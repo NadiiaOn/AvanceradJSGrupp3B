@@ -4,18 +4,26 @@ import Carousel from "../components/carousel";
 import CategoryButtons from "../components/categoryButtons";
 import { useCart } from "../context/CartContext";
 import PercentageCampaigns from "../components/PercentageCampaigns";
+import useProductPrice from "../hooks/useProductPrice";
+import { useMemo } from "react";
 
 export default function ProductPage() {
-  const { products, productsByCategory, errorMessage } = useOutletContext();
+  const { products, errorMessage } = useOutletContext();
   const { id } = useParams();
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
-  const product = products.find((product) => product.id === Number(id));
+  const product = products.find((product) => Number(product.id) === Number(id));
 
-  const relatedProducts = products
-    .filter((merch) => merch.category === product.category)
-    .filter((merch) => merch.id !== product.id);
+  const relatedProducts = useMemo(
+    () =>
+      products
+        .filter((merch) => merch.category === product.category)
+        .filter((merch) => Number(merch.id) !== Number(product.id)),
+    [products, product],
+  );
+
+  const formattedPrices = useProductPrice(relatedProducts);
 
   if (!product) {
     return <p>Produkten hittades inte</p>;
@@ -113,7 +121,11 @@ export default function ProductPage() {
         Frequently bought together
       </h4>
 
-      <Carousel products={relatedProducts} errorMessage={errorMessage} />
+      <Carousel
+        products={relatedProducts}
+        errorMessage={errorMessage}
+        formattedPrices={formattedPrices}
+      />
 
       <div
         id="productReviews"

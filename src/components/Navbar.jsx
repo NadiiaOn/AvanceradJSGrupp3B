@@ -4,16 +4,28 @@ import {
   ListIcon,
   UserIcon,
   MagnifyingGlassIcon,
+  BookIcon,
 } from "@phosphor-icons/react";
 import NavMenu from "./NavMenu";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
+import CurrencySelector from "./CurrencySelector";
+import { useCurrency } from "../context/CurrencyContext";
+import { InventoryContext } from "../context/InventoryContext";
 
 export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const { toggleCart, totalItems } = useCart();
+  const { currency, setCurrency } = useCurrency();
+  const { inventoryItems } = useContext(InventoryContext);
+  const [isAdmin, setIsAdmin] = useState(true);
   const navigate = useNavigate();
+
+  const inventoryItemsCount = inventoryItems.filter((item) =>
+    item.needsReorder(),
+  ).length;
 
   return (
     <nav className="flex justify-center bg-bg w-full py-4 border-b">
@@ -42,7 +54,10 @@ export default function Navbar({ products, errorMessage }) {
           <div className="flex items-center gap-4 sm:order-1 sm:justify-self-start">
             <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
               <button onClick={() => setIsMenuOpen((prev) => !prev)}>
-                <ListIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
+                <ListIcon
+                  weight="thin"
+                  className="w-6.5 h-6.5 xl:w-8 xl:h-8 cursor-pointer"
+                />
               </button>
             </div>
             <button className="flex items-center px-2 py-2 rounded-full gap-2 cursor-pointer hover:bg-card ">
@@ -53,31 +68,70 @@ export default function Navbar({ products, errorMessage }) {
               <p className="hidden sm:block text-text font-body">Search</p>
             </button>
           </div>
-          {/* Kundvagn */}
-          <div className="flex gap-2 sm:order-3 sm:justify-self-end">
-            <button className="hidden cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
-              <UserIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
-              <p className="text-text font-body">Log In</p>
-            </button>
-
-            <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
+          {/* Kundvagn och valuta*/}
+          <div className="flex items-center gap-2 sm:order-3 sm:justify-self-end">
+            <div className="relative">
               <button
-                onClick={toggleCart}
-                className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card"
+                onClick={() => setIsCurrencyOpen((prev) => !prev)}
+                className="cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card"
               >
-                <span className="relative">
-                  <ShoppingCartIcon
-                    weight="thin"
-                    className="w-6.5 h-6.5 xl:w-8 xl:h-8"
-                  />
-
-                  {totalItems > 0 ? (
-                    <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-xs font-bold">
-                      {totalItems}
-                    </span>
-                  ) : null}
-                </span>
+                <img
+                  src={`${currency === "SEK" ? "/iconsek.png" : currency === "EUR" ? "/iconeur.png" : "/iconusd.png"}`}
+                  alt=""
+                  className="w-6.5 h-6.5 xl:w-8 xl:h-8"
+                />
               </button>
+              {isCurrencyOpen && (
+                <CurrencySelector onClose={() => setIsCurrencyOpen(false)} />
+              )}
+            </div>
+
+            {/* Kundvagn */}
+            <div className="flex gap-2 sm:order-3 sm:justify-self-end">
+              {isAdmin && (
+                <button
+                  onClick={() => navigate("/inventory")}
+                  className="cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-4 rounded-full hover:bg-card"
+                >
+                  <span className="relative">
+                    <BookIcon
+                      weight="thin"
+                      className="w-6.5 h-6.5 xl:w-8 xl:h-8"
+                    />
+
+                    {inventoryItemsCount > 0 ? (
+                      <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-xs font-bold">
+                        {inventoryItemsCount}
+                      </span>
+                    ) : null}
+                  </span>
+                </button>
+              )}
+
+              <button className="hidden cursor-pointer xl:flex xl:items-center xl:gap-1 py-2 px-2 rounded-full hover:bg-card">
+                <UserIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
+                <p className="text-text font-body">Log In</p>
+              </button>
+
+              <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
+                <button
+                  onClick={toggleCart}
+                  className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card"
+                >
+                  <span className="relative">
+                    <ShoppingCartIcon
+                      weight="thin"
+                      className="w-6.5 h-6.5 xl:w-8 xl:h-8"
+                    />
+
+                    {totalItems > 0 ? (
+                      <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 rounded-full bg-cta text-white text-xs font-bold">
+                        {totalItems}
+                      </span>
+                    ) : null}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

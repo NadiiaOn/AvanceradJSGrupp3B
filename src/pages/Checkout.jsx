@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router";
+import { useCartTotal } from "../hooks/useCartTotals.js";
+import { buildParcelValues } from "../utils/shippingHelper.js";
+import ShippingOptions from "../components/ShippingOptions.jsx";
+import Module from "../Modules/moduleMaker.js";
 
 // Enkel e-post validering.
 // Dvs något@något.något
 // Måste innehålla @ och minst en punkt, i rätt ordning
 // Där "något" ej får vara @ eller blankspace.
-// Efter "." minst 2 st tecken. lksdjf@asd233sad
+// Efter "." minst 2 st tecken.
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   return emailRegex.test(email.trim());
@@ -22,11 +26,74 @@ export default function Checkout() {
   } = useCart();
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
+  const {
+    formattedPrices,
+    rowTotals,
+    taxTotal,
+    rawSubtotal,
+    currency,
+    convertedTotal,
+  } = useCartTotal(cartItems, totalPrice);
 
   const emailIsValid = isValidEmail(email);
 
+  const formattedTax = Module.CurrencyVatModule.formatAmount(
+    taxTotal,
+    currency,
+  );
+
+  const formattedSubtotal = Module.CurrencyVatModule.formatAmount(
+    rawSubtotal,
+    currency,
+  );
+
+  const formattedTotalPrice = Module.CurrencyVatModule.formatAmount(
+    convertedTotal,
+    currency,
+  );
+
+  const [destinationCountry, setDestinationCountry] = useState("");
+
+  const countryOptions = Module.ShippingQuoteDescriptor.fields.find(
+    (field) => field.name === "destinationCountry",
+  ).options;
+
+  const [shippingResult, setShippingResult] = useState(null);
+  const [shippingLoading, setShippingLoading] = useState(false);
+  const [shippingError, setShippingError] = useState(null);
+  const [selectedCarrierId, setSelectedCarrierId] = useState(null);
+
+  // Den fullständiga offerten som matchar användarens val (eller null om
+  // inget beräknat/valt än).
+  const selectedQuote = shippingResult?.quotes.find(
+    (q) => q.carrierId === selectedCarrierId,
+  );
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+
+  const handleCalculateShipping = async () => {
+    if (!destinationCountry) return;
+
+    setShippingLoading(true);
+    setShippingError(null);
+
+    try {
+      const values = {
+        ...buildParcelValues(cartItems),
+        destinationCountry,
+      };
+      const result = await Module.ShippingQuote.run(values);
+      setShippingResult(result);
+      setSelectedCarrierId(result.cheapest.carrierId); // förvalt: billigast
+    } catch (err) {
+      setShippingError(err.message);
+      setShippingResult(null);
+      setSelectedCarrierId(null);
+    } finally {
+      setShippingLoading(false);
+    }
   };
 
   const handleSubmit = () => {
@@ -34,6 +101,10 @@ export default function Checkout() {
     // TODO: skicka order, spara i databas uppdatera saldo osv...
     console.log("Order skickad med e-post:", email);
   };
+
+  const formattedShippingPrice = selectedQuote
+    ? Module.CurrencyVatModule.formatAmount(selectedQuote.priceUsd, currency)
+    : null;
 
   if (cartItems.length === 0) {
     return (
@@ -68,7 +139,7 @@ export default function Checkout() {
                 <div>
                   <h3 className="font-semibold">{item.title}</h3>
                   <p className="text-sm text-text/60">
-                    ${item.price.toFixed(2)} / st
+                    {formattedPrices[item.id]} / st
                   </p>
 
                   <div className="flex items-center gap-2 mt-2">
@@ -94,9 +165,7 @@ export default function Checkout() {
                   </div>
                 </div>
               </div>
-              <p className="font-semibold">
-                ${(item.price * item.quantity).toFixed(2)}
-              </p>
+              <p className="font-semibold">{rowTotals[item.id]}</p>
             </div>
           ))}
         </div>
@@ -116,24 +185,33 @@ export default function Checkout() {
                 <span>
                   {item.title} × {item.quantity}
                 </span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+                <span>{rowTotals[item.id]}</span>
               </div>
             ))}
           </div>
 
           <div className="flex justify-between text-sm mb-2 border-t border-text/10 pt-4">
             <span>Delsumma</span>
-            <span>${totalPrice.toFixed(2)}</span>
+            <span>{formattedSubtotal}</span>
+          </div>
+
+          <div className="flex justify-between text-sm mb-4 text-text/60">
+            <span>Moms</span>
+            <span>{formattedTax}</span>
           </div>
 
           <div className="flex justify-between text-sm mb-4 text-text/60">
             <span>Frakt</span>
-            <span>FRAKTMODULEN</span>
+            <span>
+              {selectedQuote
+                ? `${formattedShippingPrice} (${selectedQuote.carrierName})`
+                : "Ej beräknad"}
+            </span>
           </div>
 
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
             <span>Totalt</span>
-            <span>${totalPrice.toFixed(2)}</span>
+            <span>{formattedTotalPrice}</span>
           </div>
 
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
@@ -163,6 +241,17 @@ export default function Checkout() {
               </p>
             ) : null}
           </div>
+          <ShippingOptions
+            countryOptions={countryOptions}
+            destinationCountry={destinationCountry}
+            setDestinationCountry={setDestinationCountry}
+            onCalculate={handleCalculateShipping}
+            loading={shippingLoading}
+            error={shippingError}
+            quotes={shippingResult?.quotes}
+            selectedCarrierId={selectedCarrierId}
+            onSelectCarrier={setSelectedCarrierId}
+          />
 
           <button
             onClick={handleSubmit}
