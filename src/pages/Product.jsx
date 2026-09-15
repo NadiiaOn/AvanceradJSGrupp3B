@@ -3,6 +3,8 @@ import { useNavigate, useOutletContext, useParams } from "react-router";
 import Carousel from "../components/carousel";
 import CategoryButtons from "../components/categoryButtons";
 import { useCart } from "../context/CartContext";
+import useProductPrice from "../hooks/useProductPrice";
+import { useMemo } from "react";
 
 export default function ProductPage() {
   const { products, productsByCategory, errorMessage } = useOutletContext();
@@ -12,9 +14,15 @@ export default function ProductPage() {
 
   const product = products.find((product) => product.id === Number(id));
 
-  const relatedProducts = products
-    .filter((merch) => merch.category === product.category)
-    .filter((merch) => merch.id !== product.id);
+  const relatedProducts = useMemo(
+    () =>
+      products
+        .filter((merch) => merch.category === product.category)
+        .filter((merch) => merch.id !== product.id),
+    [products, product],
+  );
+
+  const formattedPrices = useProductPrice(relatedProducts);
 
   if (!product) {
     return <p>Produkten hittades inte</p>;
@@ -114,7 +122,11 @@ export default function ProductPage() {
         Frequently bought together
       </h4>
 
-      <Carousel products={relatedProducts} errorMessage={errorMessage} />
+      <Carousel
+        products={relatedProducts}
+        errorMessage={errorMessage}
+        formattedPrices={formattedPrices}
+      />
 
       <div
         id="productReviews"
