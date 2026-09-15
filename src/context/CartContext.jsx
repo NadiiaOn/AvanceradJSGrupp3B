@@ -70,7 +70,6 @@ export function CartProvider({ children }) {
   );
 }
 
-// Egen hook, snyggare att importera i komponenter?
 export function useCart() {
   const context = useContext(CartContext);
   if (!context) {
