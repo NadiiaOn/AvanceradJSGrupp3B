@@ -11249,5 +11249,55 @@
         "thumbnail": "https://cdn.dummyjson.com/product-images/womens-watches/women's-wrist-watch/thumbnail.webp"
       }
     ]
-  ]
+  ], 
+  "carriers": [
+  {
+    "id": "postnord",
+    "name": "PostNord",
+    "pricingType": "weight",
+    "estimatedDays": 3,
+    "currency": "USD",
+    "pricingParams": {
+      "baseFeeUsd": 5,
+      "pricePerKgUsd": 1.2
+    }
+  },
+  {
+    "id": "dhl",
+    "name": "DHL",
+    "pricingType": "volumetric",
+    "estimatedDays": 2,
+    "currency": "USD",
+    "pricingParams": {
+      "baseFeeUsd": 3,
+      "pricePerKgUsd": 1.8,
+      "volumetricDivisor": 5000
+    }
+  },
+  {
+    "id": "budbee",
+    "name": "Budbee",
+    "pricingType": "zone",
+    "estimatedDays": 1,
+    "currency": "USD",
+    "pricingParams": {
+      "zonePrices": {
+        "nordics": { "baseFeeUsd": 4, "pricePerKgUsd": 1 },
+        "europe": { "baseFeeUsd": 7, "pricePerKgUsd": 1.6 },
+        "international": {"baseFeeUsd": 12, "pricePerKgUsd": 2.3}
+      },
+      "countryToZone": {
+      "SE": "nordics",
+      "NO": "nordics",
+      "DK": "nordics",
+      "FI": "nordics",
+      "DE": "europe",
+      "FR": "europe",
+      "PL": "europe",
+      "GB": "international",
+      "US": "international"
+      }
+    }
+  }
+]
 }
