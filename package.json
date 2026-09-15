@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "json-server": "json-server src/db/db.json",
-    "start": "concurrently \"npm run dev\" \"npm run json-server\""
+    "start": "concurrently \"npm run dev\" \"npm run json-server\"",
+    "test": "vitest"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

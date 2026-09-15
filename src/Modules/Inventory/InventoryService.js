@@ -8,6 +8,7 @@ import InventoryItem from "./InventoryItem";
 import InventoryChange from "./InventoryChange";
 import InventoryNotFoundError from "./errors/InventoryNotFoundError";
 import InventoryValidationError from "./errors/InventoryValidationError";
+import InventoryOperationError from "./errors/InventoryOperationError";
 
 export default class InventoryService {
   // Gets inventoryHistory from db.json.
@@ -95,8 +96,13 @@ export default class InventoryService {
 
     const change = new InventoryChange(productId, type, quantity, new Date());
 
-    await createInventoryChange(change);
-
-    return await updateProductStock(productId, newStock);
+    try {
+      await createInventoryChange(change);
+      return await updateProductStock(productId, newStock);
+    } catch (error) {
+      throw new InventoryOperationError(
+        `Lagerändringen kunde inte genomföras: ${error.message}`,
+      );
+    }
   }
 }

@@ -50,7 +50,10 @@ export default function Navbar({ products, errorMessage }) {
           <div className="flex items-center gap-4 sm:order-1 sm:justify-self-start">
             <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
               <button onClick={() => setIsMenuOpen((prev) => !prev)}>
-                <ListIcon weight="thin" className="w-6.5 h-6.5 xl:w-8 xl:h-8" />
+                <ListIcon
+                  weight="thin"
+                  className="w-6.5 h-6.5 xl:w-8 xl:h-8 cursor-pointer"
+                />
               </button>
             </div>
             <button className="flex items-center px-2 py-2 rounded-full gap-2 cursor-pointer hover:bg-card ">
