@@ -113,7 +113,7 @@ const Carousel = ({ title, products, errorMessage, formattedPrices }) => {
               key={product.id}
               product={product}
               width={cardWidth}
-              height={13}
+              height={11}
               formattedPrice={formattedPrices[product.id]}
             />
           ))}

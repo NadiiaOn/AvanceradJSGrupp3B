@@ -7,7 +7,7 @@ import useProductPrice from "../hooks/useProductPrice";
 import { useMemo } from "react";
 
 export default function ProductPage() {
-  const { products, productsByCategory, errorMessage } = useOutletContext();
+  const { products, errorMessage } = useOutletContext();
   const { id } = useParams();
   const { addToCart } = useCart();
   const navigate = useNavigate();
@@ -27,6 +27,10 @@ export default function ProductPage() {
   if (!product) {
     return <p>Produkten hittades inte</p>;
   }
+
+  const relatedProducts = products
+    .filter((merch) => merch.category === product.category)
+    .filter((merch) => merch.id !== product.id);
 
   const addToCartAndNavigate = () => {
     addToCart(product);

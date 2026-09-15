@@ -3,12 +3,15 @@ import { useCart } from "../context/CartContext";
 import { Link } from "react-router";
 import ModuleCaller from "../Modules/ModuleCaller/ModuleCaller";
 import { useCartTotal } from "../hooks/useCartTotals.js";
+import { buildParcelValues } from "../utils/shippingHelper.js";
+import ShippingOptions from "../components/ShippingOptions.jsx";
+import Modules from "../Modules/moduleMaker.js"
 
 // Enkel e-post validering.
 // Dvs något@något.något
 // Måste innehålla @ och minst en punkt, i rätt ordning
 // Där "något" ej får vara @ eller blankspace.
-// Efter "." minst 2 st tecken. lksdjf@asd233sad
+// Efter "." minst 2 st tecken.
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   return emailRegex.test(email.trim());
@@ -31,10 +34,50 @@ export default function Checkout() {
   const formattedSubtotal = ModuleCaller.CurrencyVatModule.formatAmount(
     rawSubtotal,
     currency,
+  const [destinationCountry, setDestinationCountry] = useState("");
+
+  const countryOptions = Modules.ShippingQuoteDescriptor.fields.find(
+    (field) => field.name === "destinationCountry"
+  ).options;
+
+  const [shippingResult, setShippingResult] = useState(null);
+  const [shippingLoading, setShippingLoading] = useState(false);
+  const [shippingError, setShippingError] = useState(null);
+  const [selectedCarrierId, setSelectedCarrierId] = useState(null);
+
+  const emailIsValid = isValidEmail(email);
+
+  // Den fullständiga offerten som matchar användarens val (eller null om
+  // inget beräknat/valt än).
+  const selectedQuote = shippingResult?.quotes.find(
+    (q) => q.carrierId === selectedCarrierId
   );
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+
+  const handleCalculateShipping = async () => {
+    if (!destinationCountry) return;
+
+    setShippingLoading(true);
+    setShippingError(null);
+
+    try {
+      const values = {
+        ...buildParcelValues(cartItems),
+        destinationCountry
+      };
+      const result = await Modules.ShippingQuote.run(values);
+      setShippingResult(result);
+      setSelectedCarrierId(result.cheapest.carrierId); // förvalt: billigast
+    } catch (err) {
+      setShippingError(err.message);
+      setShippingResult(null);
+      setSelectedCarrierId(null);
+    } finally {
+      setShippingLoading(false);
+    }
   };
 
   const handleSubmit = () => {
@@ -135,14 +178,21 @@ export default function Checkout() {
             <span>Moms</span>
             <span>{formattedTax}</span>
           </div>
+
           <div className="flex justify-between text-sm mb-4 text-text/60">
             <span>Frakt</span>
-            <span>FRAKTMODULEN</span>
+            <span>
+              {selectedQuote
+                ? `$${selectedQuote.priceUsd.toFixed(2)} (${selectedQuote.carrierName})`
+                : "Ej beräknad"}
+            </span>
           </div>
 
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
             <span>Totalt</span>
-            <span>${totalPrice.toFixed(2)}</span>
+            <span>
+              ${(totalPrice + (selectedQuote?.priceUsd ?? 0)).toFixed(2)}
+            </span>
           </div>
 
           {/* MAIL */}
@@ -167,6 +217,17 @@ export default function Checkout() {
               </p>
             ) : null}
           </div>
+          <ShippingOptions
+            countryOptions={countryOptions}
+            destinationCountry={destinationCountry}
+            setDestinationCountry={setDestinationCountry}
+            onCalculate={handleCalculateShipping}
+            loading={shippingLoading}
+            error={shippingError}
+            quotes={shippingResult?.quotes}
+            selectedCarrierId={selectedCarrierId}
+            onSelectCarrier={setSelectedCarrierId}
+          />
 
           <button
             onClick={handleSubmit}

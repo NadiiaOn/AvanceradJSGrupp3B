@@ -19,7 +19,7 @@ const ProductCard = ({ product, width, height, formattedPrice }) => {
       <img
         onClick={() => navigate(`/product/${product.id}`)}
         style={{ height: `${height}rem` }}
-        className="flex justify-center"
+        className="flex justify-center w-full object-contain"
         src={product.thumbnail}
         alt={product.title}
       />

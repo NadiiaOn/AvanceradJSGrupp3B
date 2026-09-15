@@ -4,11 +4,15 @@ const ProductBanner = ({ banner }) => {
   const navigate = useNavigate();
 
   return (
-    <section className="flex justify-center gap-4 py-10 mx-auto text-bg">
+    <section className="flex justify-center gap-4 py-10 px-5 mx-auto text-bg">
       {banner.map((item, idx) => {
         return (
           <div key={idx} className="relative group shadow-2xl cursor-pointer">
-            <img src={item.img} className="h-90 w-140" alt={item.name} />
+            <img
+              src={item.img}
+              className="h-70 md:h-90 w-80 md:w-110 lg:w-140"
+              alt={item.name}
+            />
 
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/30 transition-all duration-300 group-hover:bg-black/60" />
