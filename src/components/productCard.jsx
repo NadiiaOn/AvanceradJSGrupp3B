@@ -2,8 +2,9 @@ import { ShoppingCartIcon } from "@phosphor-icons/react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import useProductPrice from "../hooks/useProductPrice";
 
-const ProductCard = ({ product, width, height }) => {
+const ProductCard = ({ product, width, height, formattedPrice }) => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const ProductCard = ({ product, width, height }) => {
             {product.title}
           </p>
           <p className="flex justify-start ml-3 pt-1 text-sm text-text italic">
-            ${product.price}
+            {formattedPrice}
           </p>
         </div>
 
