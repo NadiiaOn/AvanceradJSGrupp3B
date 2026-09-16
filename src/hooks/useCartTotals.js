@@ -75,10 +75,6 @@ export function useCartTotal(cartItems, totalPrice, shippingPrice) {
   }, [totalPrice, currency]);
 
   useEffect(() => {
-    setConvertedTotal(rawSubtotal + taxTotal);
-  }, [rawSubtotal, taxTotal]);
-
-  useEffect(() => {
     async function calculateTotal() {
       let convertedShipping = 0;
 
