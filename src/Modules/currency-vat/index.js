@@ -20,7 +20,14 @@ export default class CurrencyVatModule {
         ],
         output: "ett formaterat pris inklusive moms i vald valuta",
       },
-
+      {
+        method: "getRawPrice",
+        input: [
+          "price - produktens grundpris i USD",
+          "targetCurrency - vald visningsvaluta (SEK, EUR eller USD)",
+        ],
+        output: "ett konverterat pris exklusive moms i vald valuta",
+      },
       {
         method: "getFormattedTax",
         input: [
@@ -29,6 +36,22 @@ export default class CurrencyVatModule {
           "targetCurrency - vald visningsvaluta (SEK, EUR eller USD)",
         ],
         output: "formaterad moms i vald valuta",
+      },
+      {
+        method: "getTaxRawAmount",
+        input: [
+          "price - produktens grundpris i USD",
+          "targetCurrency - vald visningsvaluta (SEK, EUR eller USD)",
+        ],
+        output: "ett konverterad moms i vald valuta",
+      },
+      {
+        method: "formatAmount",
+        input: [
+          "amount - summa efter konvertering",
+          "currencyCode - vald visningsvaluta",
+        ],
+        output: "en omformaterad sträng i vald valuta",
       },
     ],
   };
