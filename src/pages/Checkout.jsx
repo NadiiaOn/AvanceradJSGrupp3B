@@ -22,6 +22,20 @@ export default function Checkout() {
 
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
+
+  const [shippingResult, setShippingResult] = useState(null);
+  const [shippingLoading, setShippingLoading] = useState(false);
+  const [shippingError, setShippingError] = useState(null);
+  const [selectedCarrierId, setSelectedCarrierId] = useState(null);
+
+  // Den fullständiga offerten som matchar användarens val (eller null om
+  // inget beräknat/valt än).
+  const selectedQuote = shippingResult?.quotes.find(
+    (q) => q.carrierId === selectedCarrierId,
+  );
+
+  const rawShipping = selectedQuote?.priceUsd ?? null;
+
   const {
     formattedPrices,
     rowTotals,
@@ -29,7 +43,7 @@ export default function Checkout() {
     rawSubtotal,
     currency,
     convertedTotal,
-  } = useCartTotal(cartItems, totalPrice);
+  } = useCartTotal(cartItems, totalPrice, rawShipping);
 
   const emailIsValid = isValidEmail(email);
 
@@ -53,17 +67,6 @@ export default function Checkout() {
   const countryOptions = Module.ShippingQuoteDescriptor.fields.find(
     (field) => field.name === "destinationCountry",
   ).options;
-
-  const [shippingResult, setShippingResult] = useState(null);
-  const [shippingLoading, setShippingLoading] = useState(false);
-  const [shippingError, setShippingError] = useState(null);
-  const [selectedCarrierId, setSelectedCarrierId] = useState(null);
-
-  // Den fullständiga offerten som matchar användarens val (eller null om
-  // inget beräknat/valt än).
-  const selectedQuote = shippingResult?.quotes.find(
-    (q) => q.carrierId === selectedCarrierId,
-  );
 
   const formattedShippingPrice = useShippingPrice(
     selectedQuote?.priceUsd ?? null,
