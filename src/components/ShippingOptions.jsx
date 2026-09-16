@@ -83,7 +83,7 @@ export default function ShippingOptions({
           {formattedQuotes.map((quote) => (
             <label
               key={quote.carrierId}
-              className="flex items-center justify-between gap-2 p-2 rounded border border-text/20 cursor-pointer text-sm"
+              className="flex flex-col sm:flex-row items-center justify-between gap-2 p-2 rounded border border-text/20 cursor-pointer text-sm"
             >
               <span className="flex items-center gap-2">
                 <input
@@ -94,16 +94,17 @@ export default function ShippingOptions({
                 />
                 <span>
                   {quote.carrierName}
-                  <span className="text-text/60">
-                    {" "}
-                    ·{" "}
+                  <span className="flex flex-col text-text/60 text-lg">
+                    ·
                     {PRICING_TYPE_LABELS[quote.pricingType] ??
-                      quote.pricingType}{" "}
+                      quote.pricingType}
                     · {quote.estimatedDays} dagar
                   </span>
                 </span>
               </span>
-              <span className="font-semibold">{quote.formattedPrice}</span>
+              <span className="font-semibold text-base">
+                {quote.formattedPrice}
+              </span>
             </label>
           ))}
         </div>

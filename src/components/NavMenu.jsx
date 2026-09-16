@@ -15,7 +15,7 @@ export default function NavMenu({ isOpen, onClose, products, errorMessage }) {
 
       {/* Nav */}
       <div
-        className={`fixed flex flex-col w-1/5 h-screen bg-bg overflow-x-hidden transition-transform duration-300 z-200 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed flex flex-col w-60 h-screen bg-bg overflow-x-hidden transition-transform duration-300 z-200 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <MenuHeader />
         {errorMessage ? <p>{errorMessage}</p> : <CategoryMenu />}

@@ -17,7 +17,9 @@ const InventoryUserInput = ({
       >
         {toggleInventoryView ? "All Products" : "Reorder Products"}
       </button>
+
       <div className="h-px w-full bg-text " />
+
       {/* Selected Product */}
       <div>
         <SelectedInventoryCard

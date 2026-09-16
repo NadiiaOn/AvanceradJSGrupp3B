@@ -6,7 +6,7 @@ const InventoryProductView = ({
   setSelectedProduct,
 }) => {
   return (
-    <div className="w-180 bg-card rounded-sm shadow-md overflow-hidden">
+    <div className="w-auto bg-card rounded-sm shadow-md overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-text/10">
         <div>
@@ -23,7 +23,7 @@ const InventoryProductView = ({
       </div>
       {/* Product area */}
       <div className="h-134 overflow-y-auto p-5">
-        <div className="flex flex-wrap gap-4">
+        <div className="flex mx-auto w-60 sm:w-120 lg:w-165 flex-wrap gap-4">
           {displayedInventory.map((item) => (
             <InventoryCard
               key={item.productId}

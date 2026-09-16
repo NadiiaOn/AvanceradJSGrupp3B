@@ -33,7 +33,9 @@ export default function CategoryMenu() {
                   key={subIndex}
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/sortiment/${cat.routeName}`);
+                    navigate(
+                      `/sortiment/${cat.routeName}?subcategory=${encodeURIComponent(sub)}`,
+                    );
                   }}
                 >
                   {stringFormat(sub)}

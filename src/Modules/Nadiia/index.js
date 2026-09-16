@@ -21,6 +21,7 @@ export default class DiscountCampaignsModule {
   // Turns raw campaign records from the database into
   // the matching campaign class instances
   makeInstances(campaignsFromDB) {
+    console.log("CampaignsFromDb: ", campaignsFromDB);
     return campaignsFromDB
       .map((raw) => {
         try {
@@ -38,6 +39,8 @@ export default class DiscountCampaignsModule {
     if (!Array.isArray(cartItems) || cartItems.length === 0) return 0;
 
     const totalPrice = getCartTotal(cartItems);
+
+    console.log("Total Price: ", totalPrice);
 
     const rawCampaigns = await loadCampaigns();
     const campaigns = this.makeInstances(rawCampaigns);

@@ -3,7 +3,7 @@
 import fetchProducts from "../../api/fetchProducts";
 import fetchBuyXPayForYCampaigns from "../../api/fetchBuyXPayForYCampaigns";
 import fetchThresholdCampaigns from "../../api/fetchThresholdCampaigns";
-import fetchPercentageCampaign from "../../api/fetchPercentageCampaigns";
+import fetchPercentageCampaigns from "../../api/fetchPercentageCampaigns";
 
 //loadCampaigns
 
@@ -33,7 +33,7 @@ export function getCartTotal(cartItems) {
   return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
 
-export function pickCampaign(campaigns,  cartItems, now = new Date()) {
+export function pickCampaign(campaigns, cartItems, now = new Date()) {
   return campaigns
     .filter((campaign) => campaign.isActive(now))
     .sort(

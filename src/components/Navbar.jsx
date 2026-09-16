@@ -18,7 +18,7 @@ export default function Navbar({ products, errorMessage }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
   const { toggleCart, totalItems } = useCart();
-  const { currency, setCurrency } = useCurrency();
+  const { currency } = useCurrency();
   const { inventoryItems } = useContext(InventoryContext);
   const [isAdmin, setIsAdmin] = useState(true);
   const navigate = useNavigate();
@@ -45,14 +45,14 @@ export default function Navbar({ products, errorMessage }) {
             weight="bold"
             className="w-6.5 h-6.5 xl:w-8 xl:h-8 text-olive"
           />
-          <h1 className="font-semibold font-heading text-2xl xl:text-4xl">
+          <h1 className="hidden sm:block font-semibold font-heading text-2xl xl:text-4xl">
             Fakestore
           </h1>
         </button>
         {/* Hamburgarmeny, sök */}
         <div className="flex items-center gap-4 text-text order-2 sm:contents">
           <div className="flex items-center gap-4 sm:order-1 sm:justify-self-start">
-            <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
+            <div className="flex py-2 px-2 rounded-full hover:bg-card">
               <button onClick={() => setIsMenuOpen((prev) => !prev)}>
                 <ListIcon
                   weight="thin"
@@ -60,7 +60,7 @@ export default function Navbar({ products, errorMessage }) {
                 />
               </button>
             </div>
-            <button className="flex items-center px-2 py-2 rounded-full gap-2 cursor-pointer hover:bg-card ">
+            <button className="hidden sm:block flex items-center px-2 py-2 rounded-full gap-2 cursor-pointer hover:bg-card ">
               <MagnifyingGlassIcon
                 weight="thin"
                 className="w-6.5 h-6.5 xl:w-8 xl:h-8"
@@ -113,7 +113,7 @@ export default function Navbar({ products, errorMessage }) {
                 <p className="text-text font-body">Log In</p>
               </button>
 
-              <div className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card">
+              <div className="flex py-2 px-2 rounded-full hover:bg-card">
                 <button
                   onClick={toggleCart}
                   className="flex py-2 px-2 rounded-full cursor-pointer hover:bg-card"

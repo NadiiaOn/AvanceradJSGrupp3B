@@ -47,10 +47,6 @@ export default function Cart() {
     currency,
   );
 
-  console.log("TAX: ", formattedTax);
-  console.log("Total Price: ", totalPrice);
-  console.log("Formatted Price: ", formattedTotalPrice);
-
   return (
     <div className="fixed inset-0 flex justify-end z-250">
       <div
@@ -84,7 +80,7 @@ export default function Cart() {
                 {cartItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between border-b border-text/10 pb-4"
+                    className="flex flex-col sm:flex-row gap-2 items-center sm:justify-between border-b border-text/10 pb-4"
                   >
                     <div className="flex items-center gap-4">
                       <img
@@ -95,7 +91,7 @@ export default function Cart() {
                       <div>
                         <h3 className="font-semibold">{item.name}</h3>
                         <p className="text-sm text-text/60">
-                          {formattedPrices[item.id]}
+                          {formattedPrices[item.id]} / st
                         </p>
                       </div>
                     </div>

@@ -1,9 +1,9 @@
-import { Carrier } from './Carrier.js';
+import { Carrier } from "./Carrier.js";
 import {
   CarrierFetchError,
   NoCarriersAvailableError,
   UnsupportedDestinationError,
-} from './Errors.js';
+} from "./Errors.js";
 
 // Cache för att inte behöva anropa api/carriers en gång för varje carrier
 // 1 anrop är cachat (sparat) i 60 sekunder.
@@ -44,18 +44,22 @@ export class ShippingQuoteService {
     try {
       response = await fetchImpl(apiUrl);
     } catch (err) {
-      throw new CarrierFetchError(`Kunde inte nå ${apiUrl}: ${err.message}`, { cause: err });
+      throw new CarrierFetchError(`Kunde inte nå ${apiUrl}: ${err.message}`, {
+        cause: err,
+      });
     }
 
     if (!response.ok) {
       throw new CarrierFetchError(
         `Transportör-API svarade med status ${response.status} ${response.statusText}.`,
-        { status: response.status }
+        { status: response.status },
       );
     }
 
     const rawList = await response.json();
-    const carriers = rawList.map((rawCarrier) => Carrier.fromApiData(rawCarrier));
+    const carriers = rawList.map((rawCarrier) =>
+      Carrier.fromApiData(rawCarrier),
+    );
     this.#carrierCache = { carriers, fetchedAt: Date.now() };
     return carriers;
   }
@@ -66,9 +70,15 @@ export class ShippingQuoteService {
    * @param {{fetchImpl?: Function, apiUrl?: string, carrierIds?: string[]|null}} options
    * @returns {Promise<{quotes: object[], skipped: object[]}>}
    */
-  async getQuotes(parcel, destination, { fetchImpl = fetch, apiUrl = '/api/carriers', carrierIds = null } = {}) {
+  async getQuotes(
+    parcel,
+    destination,
+    { fetchImpl = fetch, apiUrl = "/api/carriers", carrierIds = null } = {},
+  ) {
     const carriers = await this.#fetchCarriers(fetchImpl, apiUrl);
-    const relevantCarriers = carrierIds ? carriers.filter((c) => carrierIds.includes(c.id)) : carriers;
+    const relevantCarriers = carrierIds
+      ? carriers.filter((c) => carrierIds.includes(c.id))
+      : carriers;
 
     const quotes = [];
     const skipped = [];
@@ -90,8 +100,8 @@ export class ShippingQuoteService {
 
     if (quotes.length === 0) {
       throw new NoCarriersAvailableError(
-        'Ingen transportör kunde lämna en offert för denna destination/paket.',
-        { skipped }
+        "Ingen transportör kunde lämna en offert för denna destination/paket.",
+        { skipped },
       );
     }
 
@@ -99,12 +109,14 @@ export class ShippingQuoteService {
 
     this.#quoteHistory.push({
       timestamp: new Date().toISOString(),
-      parcel: { weightKg: parcel.weightKg, chargeableWeightKg: parcel.chargeableWeightKg() },
+      parcel: {
+        weightKg: parcel.weightKg,
+        chargeableWeightKg: parcel.chargeableWeightKg(),
+      },
       destination,
       resultCount: quotes.length,
       cheapest: quotes[0],
     });
-    console.log(this.#quoteHistory);
 
     return { quotes, skipped };
   }

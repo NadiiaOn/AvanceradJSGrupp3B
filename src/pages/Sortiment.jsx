@@ -1,11 +1,32 @@
-import { useOutletContext, useParams } from "react-router";
+import { useOutletContext, useParams, useSearchParams } from "react-router";
 import getProductsBySubCategories from "../utils/getProductsBySubCategories";
 import CategoryButtons, { categories } from "../components/categoryButtons";
 import RenderSpecificProducts from "../components/RenderSpecificProducts";
+import { useEffect } from "react";
 
 const SortimentPage = () => {
   const { category } = useParams();
   const { products } = useOutletContext();
+
+  const [searchParams] = useSearchParams();
+
+  const selectedSubCategory = searchParams.get("subcategory");
+
+  useEffect(() => {
+    if (!selectedSubCategory) {
+      return;
+    }
+
+    const subCatElement = document.getElementById(
+      `subcategory-${selectedSubCategory}`,
+    );
+
+    if (subCatElement) {
+      subCatElement.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [selectedSubCategory]);
 
   const selectedCategory = categories.find(
     (item) => item.routeName === category,
@@ -21,7 +42,11 @@ const SortimentPage = () => {
         ]);
 
         return (
-          <div key={subCategory}>
+          <div
+            key={subCategory}
+            id={`subcategory-${subCategory}`}
+            className="scroll-mt-20"
+          >
             <RenderSpecificProducts
               subCategory={subCategory}
               products={filteredProducts}

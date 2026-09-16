@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router";
 import { useCartTotal } from "../hooks/useCartTotals.js";
@@ -105,6 +105,19 @@ export default function Checkout() {
     console.log("Order skickad med e-post:", email);
   };
 
+  /*
+  useEffect(() => {
+    const getDiscounts = async () => {
+      const testDiscount =
+        await Module.DiscountCampaignsModule.calculateDiscountedPriceForCart(
+          cartItems,
+        );
+    };
+
+    getDiscounts();
+  }, []);
+  */
+
   if (cartItems.length === 0) {
     return (
       <div className="flex flex-col items-center p-8 text-text">
@@ -127,7 +140,7 @@ export default function Checkout() {
           {cartItems.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between border-b border-text/10 pb-4"
+              className="flex flex-col sm:flex-row items-center justify-between border-b border-text/10 pb-4"
             >
               <div className="flex items-center gap-4">
                 <img
@@ -135,7 +148,7 @@ export default function Checkout() {
                   alt={item.title}
                   className="w-20 h-20 object-cover rounded"
                 />
-                <div>
+                <div className="text-center">
                   <h3 className="font-semibold">{item.title}</h3>
                   <p className="text-sm text-text/60">
                     {formattedPrices[item.id]} / st
@@ -164,7 +177,7 @@ export default function Checkout() {
                   </div>
                 </div>
               </div>
-              <p className="font-semibold">{rowTotals[item.id]}</p>
+              <p className="font-semibold mt-4">{rowTotals[item.id]}</p>
             </div>
           ))}
         </div>

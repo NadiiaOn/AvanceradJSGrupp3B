@@ -89,7 +89,6 @@ export default class InventoryModule {
 
       this.history.push({
         method: "getInventoryReport",
-
         timestamp: new Date(),
       });
 

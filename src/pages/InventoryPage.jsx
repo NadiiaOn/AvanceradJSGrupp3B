@@ -60,7 +60,7 @@ export default function InventoryPage() {
       </h1>
 
       {/* Top section wrapper */}
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8">
         {/* Top left side - product view */}
         <InventoryProductView
           displayedInventory={displayedInventory}
@@ -82,7 +82,6 @@ export default function InventoryPage() {
       {/* History */}
       <div className="flex flex-col justify-center items-center py-10">
         <h2 className="text-2xl mb-3 font-bold underline">Inventory History</h2>
-
         <InventoryHistory history={inventoryHistory} />
       </div>
     </div>
