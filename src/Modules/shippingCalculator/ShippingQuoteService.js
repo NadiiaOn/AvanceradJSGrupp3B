@@ -35,6 +35,13 @@ export class ShippingQuoteService {
     return Date.now() - this.#carrierCache.fetchedAt < this.#cacheTtlMs;
   }
 
+  /**
+   * 
+   * @param {*} fetchImpl fetch funktion att använda för anropet 
+   *                      (global fetch i produktion, en mockad funktion i tester).
+   * @param {*} apiUrl URL där datan ska hämtas
+   * @returns en array med Carrier(s).
+   */
   async #fetchCarriers(fetchImpl, apiUrl) {
     if (this.#isCacheValid()) {
       return this.#carrierCache.carriers;
