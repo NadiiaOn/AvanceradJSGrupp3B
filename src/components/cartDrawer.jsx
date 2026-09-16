@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
 import { XIcon } from "@phosphor-icons/react";
 import { useCartTotal } from "../hooks/useCartTotals";
-import Module from "../Modules/moduleMaker";
+import Module from "../Modules/ModuleMaker";
 
 export default function Cart() {
   const {

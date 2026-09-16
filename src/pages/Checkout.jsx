@@ -5,7 +5,7 @@ import { useCartTotal } from "../hooks/useCartTotals.js";
 import { buildParcelValues } from "../utils/shippingHelper.js";
 import ShippingOptions from "../components/ShippingOptions.jsx";
 import useShippingPrice from "../hooks/useShippingPrice.js";
-import Module from "../Modules/moduleMaker.js";
+import Module from "../Modules/ModuleMaker.js";
 
 // Enkel e-post validering.
 // Dvs något@något.något

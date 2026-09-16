@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Module from "../Modules/moduleMaker";
+import Module from "../Modules/ModuleMaker";
 import { useCurrency } from "../context/CurrencyContext";
 
 export function useCartTotal(cartItems, totalPrice, shippingPrice) {

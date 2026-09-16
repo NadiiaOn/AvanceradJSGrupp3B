@@ -1,4 +1,4 @@
-import Module from "../Modules/moduleMaker";
+import Module from "../Modules/ModuleMaker";
 import { createContext, useEffect, useRef, useState } from "react";
 
 export const InventoryContext = createContext();

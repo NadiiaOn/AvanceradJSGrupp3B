@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Module from "../Modules/moduleMaker.js";
+import Module from "../Modules/ModuleMaker";
 
 const PRICING_TYPE_LABELS = {
   weight: "Viktbaserad",
