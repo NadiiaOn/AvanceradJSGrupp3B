@@ -186,7 +186,7 @@ export default function Checkout() {
     } catch (error) {
       toast.error(
         <div className="flex flex-col">
-          <p className="font-semibold text-lg">Order could not be completed</p>
+          <p className="font-semibold text-lg">Order Error: Not completed</p>
           <p>{error.message}</p>
         </div>,
         {
@@ -305,7 +305,7 @@ export default function Checkout() {
           </div>
 
           <div className="flex justify-between text-sm mb-4 text-text/60">
-            <span>Vat</span>
+            <span>VAT</span>
             <span>{formattedTax}</span>
           </div>
 

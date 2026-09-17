@@ -76,7 +76,7 @@ export default class InventoryService {
     );
 
     if (!product) {
-      throw new InventoryNotFoundError("Produkten kunde inte hittas.");
+      throw new InventoryNotFoundError("The product could not be found!");
     }
 
     let newStock = product.stock;
@@ -92,7 +92,7 @@ export default class InventoryService {
     }
 
     if (newStock < 0) {
-      throw new InventoryValidationError("Lagret kan inte bli negativt.");
+      throw new InventoryValidationError("Stock cannot be negative!");
     }
 
     const change = new InventoryChange(
@@ -109,7 +109,7 @@ export default class InventoryService {
       return await updateProductStock(productId, newStock);
     } catch (error) {
       throw new InventoryOperationError(
-        `Lagerändringen kunde inte genomföras: ${error.message}`,
+        `Inventory change could not be completed: ${error.message}`,
       );
     }
   }

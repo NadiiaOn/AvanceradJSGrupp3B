@@ -6,6 +6,7 @@ import { useCart } from "../context/CartContext";
 import PercentageCampaigns from "../components/PercentageCampaigns";
 import useProductPrice from "../hooks/useProductPrice";
 import { useMemo } from "react";
+import { toast } from "react-toastify";
 
 export default function ProductPage() {
   const { products, errorMessage } = useOutletContext();
@@ -103,7 +104,13 @@ export default function ProductPage() {
               Return Policy: {product.returnPolicy ?? "Ingen returpolicy"}
             </p>
             <button
-              onClick={() => addToCart(product)}
+              onClick={() => {
+                addToCart(product);
+                toast.success(`${product.title} added to cart!`, {
+                  position: "bottom-right",
+                  autoClose: 2000,
+                });
+              }}
               className="add-to-cart bg-cta gap-2 p-2 rounded-md text-white text-[20px] cursor-pointer hover:bg-olive"
             >
               Add to cart
