@@ -84,13 +84,6 @@ export default class DiscountCampaignsModule {
       errorType: cartData.error?.name ?? null,
     };
 
-    addToHistory(
-      result,
-      String(campaignCode ?? "")
-        .trim()
-        .toUpperCase(),
-      today,
-    );
     return result;
   }
 }

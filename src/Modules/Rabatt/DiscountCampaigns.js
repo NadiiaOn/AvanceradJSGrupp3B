@@ -6,7 +6,7 @@ export const CampaignType = Object.freeze({
   PERCENTAGE: "PERCENTAGE",
 });
 
-export const ALLOWED_COMBINATION = Object.freeze({
+export const ALLOWED_COMBINATIONS = Object.freeze({
   [CampaignType.PERCENTAGE]: [CampaignType.PERCENTAGE],
   [CampaignType.BUY_X_PAY_FOR_Y]: [CampaignType.THRESHOLD],
   [CampaignType.THRESHOLD]: [
@@ -235,9 +235,7 @@ export class ThresholdDiscount extends CampaignModule {
 
   applyToTotal(total) {
     if (!this.isApplicableToTotal(total)) return Math.round(total * 100) / 100;
-    return (
-      Math.round(MathMax.max(0, total - this.discountValue) * 100) / 100
-    );
+    return Math.round(MathMax.max(0, total - this.discountValue) * 100) / 100;
   }
 
   isApplicableToCart(cartItems) {

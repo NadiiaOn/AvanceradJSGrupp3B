@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router";
 import { useCartTotal } from "../hooks/useCartTotals.js";
@@ -23,10 +23,16 @@ export default function Checkout() {
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
 
+  const [discountCode, setDiscountCode] = useState("");
+
   const [shippingResult, setShippingResult] = useState(null);
   const [shippingLoading, setShippingLoading] = useState(false);
   const [shippingError, setShippingError] = useState(null);
   const [selectedCarrierId, setSelectedCarrierId] = useState(null);
+
+  const [discountResult, setDiscountResult] = useState(null);
+  const [campaignCode, setCampaignCode] = useState("SEP2026");
+  const [discountSavings, setDiscountSavings] = useState(null);
 
   // Den fullständiga offerten som matchar användarens val (eller null om
   // inget beräknat/valt än).
@@ -43,7 +49,15 @@ export default function Checkout() {
     rawSubtotal,
     currency,
     convertedTotal,
-  } = useCartTotal(cartItems, totalPrice, rawShipping);
+    convertedSavings,
+    convertedProductDiscounts,
+  } = useCartTotal(
+    cartItems,
+    totalPrice,
+    rawShipping,
+    discountSavings,
+    discountResult?.appliedCampaigns,
+  );
 
   const emailIsValid = isValidEmail(email);
 
@@ -76,6 +90,10 @@ export default function Checkout() {
     setEmail(e.target.value);
   };
 
+  const handleDiscountChange = (e) => {
+    setDiscountCode(e.target.value);
+  };
+
   const handleCalculateShipping = async () => {
     if (!destinationCountry) return;
 
@@ -105,6 +123,27 @@ export default function Checkout() {
     console.log("Order skickad med e-post:", email);
   };
 
+  const handleCampaign = async () => {
+    const result = await Module.DiscountCampaignsModule.run({
+      cartItems,
+      campaignCode,
+    });
+
+    setDiscountResult(result);
+    setDiscountSavings(Number(result.savings));
+
+    console.log("Result:", result);
+  };
+
+  const formattedSavings = Module.CurrencyVatModule.formatAmount(
+    convertedSavings,
+    currency,
+  );
+
+  useEffect(() => {
+    handleCampaign();
+  }, [cartItems]);
+
   if (cartItems.length === 0) {
     return (
       <div className="flex flex-col items-center p-8 text-text">
@@ -124,49 +163,69 @@ export default function Checkout() {
       <div className="flex flex-col lg:flex-row gap-8 items-start">
         {/* Vänster kolumn, produkter med bilder */}
         <div className="flex-1 w-full flex flex-col gap-4">
-          {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between border-b border-text/10 pb-4"
-            >
-              <div className="flex items-center gap-4">
-                <img
-                  src={item.images[0]}
-                  alt={item.title}
-                  className="w-20 h-20 object-cover rounded"
-                />
-                <div>
-                  <h3 className="font-semibold">{item.title}</h3>
-                  <p className="text-sm text-text/60">
-                    {formattedPrices[item.id]} / st
-                  </p>
+          {cartItems.map((item) => {
+            const productDiscount = discountResult?.appliedCampaigns.find(
+              (campaign) => campaign.id === String(item.id),
+            );
 
-                  <div className="flex items-center gap-2 mt-2">
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="px-2 border border-text/20 rounded cursor-pointer"
-                    >
-                      -
-                    </button>
-                    <span className="text-sm">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="px-2 border border-text/20 rounded cursor-pointer"
-                    >
-                      +
-                    </button>
-                    <button
-                      onClick={() => removeFromCart(item.id)}
-                      className="ml-2 text-xs text-cta cursor-pointer"
-                    >
-                      Ta bort
-                    </button>
+            return (
+              <div
+                key={item.id}
+                className="flex items-center justify-between border-b border-text/10 pb-4"
+              >
+                <div className="flex items-center gap-4">
+                  <img
+                    src={item.images[0]}
+                    alt={item.title}
+                    className="w-20 h-20 object-cover rounded"
+                  />
+                  <div>
+                    <h3 className="font-semibold">{item.title}</h3>
+                    <p className="text-sm text-text/60">
+                      {formattedPrices[item.id]} / st
+                    </p>
+
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity - 1)
+                        }
+                        className="px-2 border border-text/20 rounded cursor-pointer"
+                      >
+                        -
+                      </button>
+                      <span className="text-sm">{item.quantity}</span>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
+                        className="px-2 border border-text/20 rounded cursor-pointer"
+                      >
+                        +
+                      </button>
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="ml-2 text-xs text-cta cursor-pointer"
+                      >
+                        Ta bort
+                      </button>
+                    </div>
                   </div>
                 </div>
+                <div>
+                  <p className="font-semibold">{rowTotals[item.id]}</p>
+                  {productDiscount && (
+                    <p className="font-semibold text-red-400">
+                      {Module.CurrencyVatModule.formatAmount(
+                        convertedProductDiscounts[item.id] ?? 0,
+                        currency,
+                      )}
+                    </p>
+                  )}
+                </div>
               </div>
-              <p className="font-semibold">{rowTotals[item.id]}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Höger kolumn, kompakt sammanfattning utan bilder typ som ett kvitto*/}
@@ -197,6 +256,11 @@ export default function Checkout() {
           <div className="flex justify-between text-sm mb-4 text-text/60">
             <span>Moms</span>
             <span>{formattedTax}</span>
+          </div>
+
+          <div className="flex justify-between text-sm mb-2 border-t border-text/10 pt-4">
+            <span>Rabatt: </span>
+            <span className="text-red-400">{formattedSavings}</span>
           </div>
 
           <div className="flex justify-between text-sm mb-4 text-text/60">
@@ -242,6 +306,21 @@ export default function Checkout() {
               </p>
             ) : null}
           </div>
+
+          {/* Discount */}
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm mb-1 text-text/70">
+              Rabatt
+            </label>
+            <input
+              type="text"
+              value={discountCode}
+              onChange={handleDiscountChange}
+              placeholder="AUG2026"
+              className="w-full p-2 rounded border bg-bg text-text outline-none border-text/20"
+            />
+          </div>
+
           <ShippingOptions
             countryOptions={countryOptions}
             destinationCountry={destinationCountry}

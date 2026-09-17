@@ -51,7 +51,7 @@ export class CampaignIsNotActiveError extends ModuleError {
 
 //Thrown when a campaign code exists and is active,
 //but does not cover any product in the cart.
-export class CampaignIsNotApplicaple extends ModuleError {
+export class CampaignIsNotApplicable extends ModuleError {
   constructor(code) {
     super(`Kampagjkoden "${code}" gäller inte för varorna i din varukorg,`);
     this.name = "CampaignIsNotApplicableError";

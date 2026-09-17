@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import Module from "../Modules/ModuleMaker";
 import { useCurrency } from "../context/CurrencyContext";
 
-export function useCartTotal(cartItems, totalPrice, shippingPrice) {
+export function useCartTotal(
+  cartItems,
+  totalPrice,
+  shippingPrice,
+  savings,
+  appliedCampaigns,
+) {
   const { currency } = useCurrency();
 
   const [formattedPrices, setFormattedPrices] = useState({});
@@ -10,6 +16,10 @@ export function useCartTotal(cartItems, totalPrice, shippingPrice) {
   const [taxTotal, setTaxTotal] = useState(0);
   const [rawSubtotal, setRawSubtotal] = useState(0);
   const [convertedTotal, setConvertedTotal] = useState(0);
+  const [convertedSavings, setConvertedSavings] = useState(0);
+  const [convertedProductDiscounts, setConvertedProductDiscounts] = useState(
+    {},
+  );
 
   useEffect(() => {
     async function calculateAll() {
@@ -36,17 +46,12 @@ export function useCartTotal(cartItems, totalPrice, shippingPrice) {
           targetCurrency: currency,
         };
 
-        prices[item.id] = await Module.CurrencyVatModule.run(singleValues, {});
+        prices[item.id] = await Module.CurrencyVatModule.run(singleValues);
 
-        rowTotalPrices[item.id] = await Module.CurrencyVatModule.run(
-          rowValues,
-          {},
-        );
+        rowTotalPrices[item.id] = await Module.CurrencyVatModule.run(rowValues);
 
-        rawTax[item.id] = await Module.CurrencyVatModule.getTaxRawAmount(
-          rawTaxTotal,
-          {},
-        );
+        rawTax[item.id] =
+          await Module.CurrencyVatModule.getTaxRawAmount(rawTaxTotal);
       }
 
       const sumTax = Object.values(rawTax).reduce((sum, val) => sum + val, 0);
@@ -66,7 +71,7 @@ export function useCartTotal(cartItems, totalPrice, shippingPrice) {
         targetCurrency: currency,
       };
 
-      const converted = await Module.CurrencyVatModule.getRawPrice(values, {});
+      const converted = await Module.CurrencyVatModule.getRawPrice(values);
 
       setRawSubtotal(converted);
     }
@@ -84,17 +89,62 @@ export function useCartTotal(cartItems, totalPrice, shippingPrice) {
           targetCurrency: currency,
         };
 
-        convertedShipping = await Module.CurrencyVatModule.getRawPrice(
-          shippingValues,
-          {},
-        );
+        convertedShipping =
+          await Module.CurrencyVatModule.getRawPrice(shippingValues);
       }
 
-      setConvertedTotal(rawSubtotal + taxTotal + convertedShipping);
+      setConvertedTotal(
+        rawSubtotal + taxTotal + convertedShipping - convertedSavings,
+      );
     }
 
     calculateTotal();
   }, [rawSubtotal, taxTotal, shippingPrice, currency]);
+
+  useEffect(() => {
+    async function calculateSavings() {
+      if (savings === null || savings === undefined) {
+        setConvertedSavings(0);
+        return;
+      }
+
+      const values = {
+        price: savings,
+        targetCurrency: currency,
+      };
+
+      const converted = await Module.CurrencyVatModule.getRawPrice(values);
+
+      setConvertedSavings(converted);
+    }
+
+    calculateSavings();
+  }, [currency, savings]);
+
+  useEffect(() => {
+    async function calculateProductDiscounts() {
+      if (!appliedCampaigns || appliedCampaigns.length === 0) {
+        setConvertedProductDiscounts({});
+        return;
+      }
+
+      const convertedDiscounts = {};
+
+      for (const campaign of appliedCampaigns) {
+        const values = {
+          price: campaign.savings,
+          targetCurrency: currency,
+        };
+
+        convertedDiscounts[campaign.id] =
+          await Module.CurrencyVatModule.getRawPrice(values);
+      }
+
+      setConvertedProductDiscounts(convertedDiscounts);
+    }
+
+    calculateProductDiscounts();
+  }, [appliedCampaigns, currency]);
 
   return {
     formattedPrices,
@@ -103,5 +153,7 @@ export function useCartTotal(cartItems, totalPrice, shippingPrice) {
     rawSubtotal,
     currency,
     convertedTotal,
+    convertedSavings,
+    convertedProductDiscounts,
   };
 }

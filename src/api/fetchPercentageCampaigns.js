@@ -2,7 +2,9 @@ const fetchPercentageCampaigns = async () => {
   const response = await fetch("/api/percentageCampaigns");
 
   if (!response.ok) {
-    throw new Error("Error: Kunde inte hämta informationen från servern!");
+    throw new Error(
+      `Kunde inte hämta procentkampanjer (status ${response.status}).`,
+    );
   }
 
   const result = await response.json();
