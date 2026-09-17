@@ -1,13 +1,19 @@
-const fetchBuyXPayForYCampaigns = async () => {
-  const response = await fetch("/api/buyXPayForYCampaigns");
+export default async function fetchBuyXPayForYCampaigns(productIds = []) {
 
-  if (!response.ok) {
-    throw new Error("Error: Kunde inte hämta informationen från servern!");
+  let response;
+  try {
+    response = await fetch(`
+      http: //localhost:3000/buyXPayForYCampaigns?${productIds
+        .map((id) => `id = ${encodeURIComponent(id)}`)}`)
+      .join("&")
+  } catch {
+    throw new Error ("Nätverkfel: kunde inte köp X betala för Y-kampanjer.")
   }
 
-  const result = await response.json();
-
-  return result;
-};
-
-export default fetchBuyXPayForYCampaigns;
+  if (!response.ok) {
+    throw new Error(
+      `Kunde inte hämpa köp X betala för Y-kampanjer (status ${response.status})`
+    );
+  }
+  return response.json();
+}
