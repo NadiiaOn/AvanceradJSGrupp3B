@@ -48,6 +48,7 @@ export default class InventoryService {
         changeData.quantity,
         changeData.timestamp,
         changeData.id,
+        changeData.saleInfo,
       );
 
       item.addChange(change);
@@ -67,7 +68,7 @@ export default class InventoryService {
     return items;
   }
 
-  async registerInventoryChange(productId, type, quantity) {
+  async registerInventoryChange(productId, type, quantity, saleInfo) {
     const products = await this.loadProducts();
 
     const product = products.find(
@@ -94,7 +95,14 @@ export default class InventoryService {
       throw new InventoryValidationError("Lagret kan inte bli negativt.");
     }
 
-    const change = new InventoryChange(productId, type, quantity, new Date());
+    const change = new InventoryChange(
+      productId,
+      type,
+      quantity,
+      new Date(),
+      null,
+      saleInfo,
+    );
 
     try {
       await createInventoryChange(change);

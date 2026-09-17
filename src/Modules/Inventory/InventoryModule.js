@@ -12,7 +12,7 @@ export default class InventoryModule {
       },
       {
         method: "registerInventoryChange",
-        input: ["productId", "type", "quantity"],
+        input: ["productId", "type", "quantity", "saleInfo"],
         output: "The registered inventory change",
       },
     ],
@@ -100,6 +100,7 @@ export default class InventoryModule {
         values.productId,
         values.type,
         values.quantity,
+        values.saleInfo,
       );
 
       this.history.push({

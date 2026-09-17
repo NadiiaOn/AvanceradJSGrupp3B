@@ -6,6 +6,7 @@ import { buildParcelValues } from "../utils/shippingHelper.js";
 import ShippingOptions from "../components/ShippingOptions.jsx";
 import useShippingPrice from "../hooks/useShippingPrice.js";
 import Module from "../Modules/ModuleMaker.js";
+import { toast } from "react-toastify";
 
 // Enkel e-post validering.
 // Dvs något@något.något
@@ -18,7 +19,8 @@ function isValidEmail(email) {
 }
 
 export default function Checkout() {
-  const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart();
+  const { cartItems, totalPrice, updateQuantity, removeFromCart, clearCart } =
+    useCart();
 
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
@@ -60,6 +62,7 @@ export default function Checkout() {
   );
 
   const emailIsValid = isValidEmail(email);
+  const canSubmit = emailIsValid && selectedCarrierId !== null;
 
   const formattedTax = Module.CurrencyVatModule.formatAmount(
     taxTotal,
@@ -117,12 +120,6 @@ export default function Checkout() {
     }
   };
 
-  const handleSubmit = () => {
-    if (!emailIsValid) return;
-    // TODO: skicka order, spara i databas uppdatera saldo osv...
-    console.log("Order skickad med e-post:", email);
-  };
-
   const handleCampaign = async () => {
     const result = await Module.DiscountCampaignsModule.run({
       cartItems,
@@ -141,6 +138,64 @@ export default function Checkout() {
   useEffect(() => {
     handleCampaign();
   }, [cartItems]);
+
+  const handleSubmit = async () => {
+    if (!canSubmit) {
+      return;
+    }
+    // TODO: skicka order, spara i databas uppdatera saldo osv...
+
+    const orderId = crypto.randomUUID();
+
+    try {
+      for (const item of cartItems) {
+        await Module.InventoryModule.run({
+          method: "registerInventoryChange",
+          productId: Number(item.id),
+          type: "SALE",
+          quantity: item.quantity,
+          saleInfo: {
+            orderId,
+            email,
+            productTitle: item.title,
+          },
+        });
+      }
+
+      clearCart();
+
+      toast.success(
+        <div className="flex flex-col justify-center">
+          <p className="font-semibold text-lg text-green-500">
+            Order confirmed!
+          </p>
+          <p>
+            <b>Mail: </b>
+            {email}
+          </p>
+          <p>
+            <b>Order ID: </b>
+            {orderId}
+          </p>
+        </div>,
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+        },
+      );
+    } catch (error) {
+      toast.error(
+        <div className="flex flex-col">
+          <p className="font-semibold text-lg">Order could not be completed</p>
+          <p>{error.message}</p>
+        </div>,
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+        },
+      );
+    }
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -334,9 +389,9 @@ export default function Checkout() {
 
           <button
             onClick={handleSubmit}
-            disabled={!emailIsValid}
+            disabled={!canSubmit}
             className={`w-full py-3 rounded font-semibold transition-opacity ${
-              emailIsValid
+              canSubmit
                 ? "bg-cta text-bg hover:opacity-90 cursor-pointer"
                 : "bg-cta/40 text-bg/70 cursor-not-allowed"
             }`}

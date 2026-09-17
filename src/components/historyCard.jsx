@@ -48,6 +48,17 @@ const HistoryCard = ({ changes, colorCode }) => {
             {date.toLocaleString("sv-SE")}
           </span>
         </p>
+        {changes.type === "SALE" && changes.saleInfo && (
+          <div className="flex flex-col">
+            <span>
+              Mail:{" "}
+              <i className="text-sm font-semibold">{changes.saleInfo.email}</i>
+            </span>
+            <span>
+              ID: <b className="text-sm">{changes.saleInfo.orderId}</b>
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -39,7 +39,6 @@ const buyX = campaignFactory({
 });
 check("buyXpayForY", buyX.calculateDiscountedPriceForCart(cart), 310);
 
-
 /* my result 
 productsIds [ '1', '2' ]
 id=1 → скидка
