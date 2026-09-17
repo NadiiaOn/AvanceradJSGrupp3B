@@ -11262,14 +11262,6 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 2,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
       "id": 3,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
@@ -11302,14 +11294,6 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 7,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
       "id": 8,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
@@ -11326,14 +11310,6 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 10,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
       "id": 11,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
@@ -11343,14 +11319,6 @@
     },
     {
       "id": 12,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 13,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11430,14 +11398,6 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 23,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
       "id": 24,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
@@ -11462,14 +11422,6 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 27,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
       "id": 28,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
@@ -11485,24 +11437,9 @@
       "startDate": "2026-09-01T00:00:00.000Z",
       "endDate": "2026-09-20T00:00:00.000Z"
     },
-    {
-      "id": 30,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
+
     {
       "id": 31,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 32,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11558,14 +11495,6 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 39,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
       "id": 40,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
@@ -11582,23 +11511,7 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 42,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
       "id": 43,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 44,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11638,7 +11551,7 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 49,
+      "id": 50,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11646,7 +11559,95 @@
       "endDate": "2026-09-20T00:00:00.000Z"
     },
     {
-      "id": 50,
+      "id": 92,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 96,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 99,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 103,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 105,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 110,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 111,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 112,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 119,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 124,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 133,
+      "type": "BUY_X_PAY_FOR_Y",
+      "buyX": 3,
+      "payForY": 2,
+      "startDate": "2026-09-01T00:00:00.000Z",
+      "endDate": "2026-09-20T00:00:00.000Z"
+    },
+    {
+      "id": 145,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11656,395 +11657,116 @@
   ],
   "thresholdCampaigns": [
     {
+      "id": 1,
       "type": "THRESHOLD",
-      "threshold": 1000,
-      "discountValue": 100,
+      "threshold": 5000,
+      "discountValue": 500,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     }
   ],
   "percentageCampaigns": [
     {
-      "id": 1,
-      "type": "PERCENTAGE",
-      "discountPercentage": 10.48,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
       "id": 2,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 18.19,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
-    {
-      "id": 3,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.84,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 4,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.16,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 5,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.44,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 6,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1.89,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
+
     {
       "id": 7,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 16.51,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 8,
-      "type": "PERCENTAGE",
-      "discountPercentage": 14.72,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 9,
-      "type": "PERCENTAGE",
-      "discountPercentage": 0.62,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 10,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 14.39,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 11,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.57,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 12,
-      "type": "PERCENTAGE",
-      "discountPercentage": 14.4,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 13,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 19.09,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 14,
-      "type": "PERCENTAGE",
-      "discountPercentage": 2.01,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 15,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.8,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 16,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.62,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 17,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.61,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 18,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.58,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 19,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.7,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 20,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.33,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 21,
-      "type": "PERCENTAGE",
-      "discountPercentage": 0.16,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 22,
-      "type": "PERCENTAGE",
-      "discountPercentage": 10.27,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 23,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 11.05,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 24,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.23,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 25,
-      "type": "PERCENTAGE",
-      "discountPercentage": 0.16,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 26,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 27,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 14.4,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 28,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.69,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 29,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.06,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 30,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 15.22,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 31,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.7,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 32,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 13.74,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 33,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.87,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 34,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1.59,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 35,
-      "type": "PERCENTAGE",
-      "discountPercentage": 5.38,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 36,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.59,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 37,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.9,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 38,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.29,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 39,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 17.48,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 40,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1.12,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 41,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.28,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 42,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 14.92,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 43,
-      "type": "PERCENTAGE",
-      "discountPercentage": 10.41,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 44,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 14.87,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 45,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.46,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 46,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.84,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 47,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.09,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 48,
-      "type": "PERCENTAGE",
-      "discountPercentage": 2.84,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 49,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 15.65,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 50,
-      "type": "PERCENTAGE",
-      "discountPercentage": 10.24,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 51,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.26,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 52,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.53,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 53,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.03,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 54,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.1,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 55,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 14.76,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
@@ -12052,55 +11774,23 @@
     {
       "id": 56,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 14.04,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 57,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.5,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 58,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.07,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 59,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.92,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 60,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.56,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 61,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 17.02,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 62,
-      "type": "PERCENTAGE",
-      "discountPercentage": 0.63,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 63,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 18.91,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
@@ -12108,917 +11798,32 @@
     {
       "id": 64,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 18.86,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 65,
-      "type": "PERCENTAGE",
-      "discountPercentage": 10.34,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 66,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.13,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 67,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.25,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 68,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 69,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.31,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 70,
-      "type": "PERCENTAGE",
-      "discountPercentage": 14.52,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 71,
-      "type": "PERCENTAGE",
-      "discountPercentage": 5.7,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 72,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.35,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 73,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.09,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 74,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1.53,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 75,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.48,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 76,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.75,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 77,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.48,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 78,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.69,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 79,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.14,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 80,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.38,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 81,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.55,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 82,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.89,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 83,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 15.35,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 84,
-      "type": "PERCENTAGE",
-      "discountPercentage": 0.94,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 85,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 19.5,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 86,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.83,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 87,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.38,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 88,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.12,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "id": 89,
       "type": "PERCENTAGE",
+      "campaignCode": "SEP2026",
       "discountPercentage": 18.04,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 90,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.2,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 91,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.97,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 92,
-      "type": "PERCENTAGE",
-      "discountPercentage": 0.04,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 93,
-      "type": "PERCENTAGE",
-      "discountPercentage": 5.99,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 94,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.24,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 95,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.88,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 96,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.52,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 97,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.73,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 98,
-      "type": "PERCENTAGE",
-      "discountPercentage": 5.05,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 99,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.07,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 100,
-      "type": "PERCENTAGE",
-      "discountPercentage": 15.54,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 101,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.67,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 102,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.48,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 103,
-      "type": "PERCENTAGE",
-      "discountPercentage": 18.1,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 104,
-      "type": "PERCENTAGE",
-      "discountPercentage": 18.52,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 105,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.17,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 106,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.02,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 107,
-      "type": "PERCENTAGE",
-      "discountPercentage": 5.73,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 108,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.85,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 109,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.58,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 110,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.4,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 111,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.12,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 112,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.31,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 113,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.1,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 114,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.77,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 115,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.92,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 116,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.27,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 117,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.58,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 118,
-      "type": "PERCENTAGE",
-      "discountPercentage": 18.49,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 119,
-      "type": "PERCENTAGE",
-      "discountPercentage": 16.39,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 120,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.39,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 121,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.91,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 122,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.69,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 123,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.37,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 124,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.59,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 125,
-      "type": "PERCENTAGE",
-      "discountPercentage": 2.43,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 126,
-      "type": "PERCENTAGE",
-      "discountPercentage": 18.64,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 127,
-      "type": "PERCENTAGE",
-      "discountPercentage": 18.29,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 128,
-      "type": "PERCENTAGE",
-      "discountPercentage": 15.3,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 129,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.95,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 130,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.51,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 131,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.55,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 132,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.45,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 133,
-      "type": "PERCENTAGE",
-      "discountPercentage": 5.59,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 134,
-      "type": "PERCENTAGE",
-      "discountPercentage": 10.17,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 135,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.67,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 136,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.41,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 137,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.93,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 138,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1.71,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 139,
-      "type": "PERCENTAGE",
-      "discountPercentage": 2.9,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 140,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.44,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 141,
-      "type": "PERCENTAGE",
-      "discountPercentage": 7.74,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 142,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.63,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 143,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.29,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 144,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.64,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 145,
-      "type": "PERCENTAGE",
-      "discountPercentage": 16.93,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 146,
-      "type": "PERCENTAGE",
-      "discountPercentage": 2.95,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 147,
-      "type": "PERCENTAGE",
-      "discountPercentage": 5.15,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 148,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.37,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 149,
-      "type": "PERCENTAGE",
-      "discountPercentage": 6.53,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 150,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.51,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 151,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.76,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 152,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.61,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 153,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.25,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 154,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.94,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 155,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.94,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 156,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1.01,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 157,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.22,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 158,
-      "type": "PERCENTAGE",
-      "discountPercentage": 1.51,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 159,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.64,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 160,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.31,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 161,
-      "type": "PERCENTAGE",
-      "discountPercentage": 18.2,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 162,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.13,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 163,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.2,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 164,
-      "type": "PERCENTAGE",
-      "discountPercentage": 14.28,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 165,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.45,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 166,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.95,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 167,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.98,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 168,
-      "type": "PERCENTAGE",
-      "discountPercentage": 8.23,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 169,
-      "type": "PERCENTAGE",
-      "discountPercentage": 2.63,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 170,
-      "type": "PERCENTAGE",
-      "discountPercentage": 16.44,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 171,
-      "type": "PERCENTAGE",
-      "discountPercentage": 14.76,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 172,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.88,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 173,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.87,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 174,
-      "type": "PERCENTAGE",
-      "discountPercentage": 14.09,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 175,
-      "type": "PERCENTAGE",
-      "discountPercentage": 15.2,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 176,
-      "type": "PERCENTAGE",
-      "discountPercentage": 11.63,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 177,
-      "type": "PERCENTAGE",
-      "discountPercentage": 10.48,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 178,
-      "type": "PERCENTAGE",
-      "discountPercentage": 16.26,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 179,
-      "type": "PERCENTAGE",
-      "discountPercentage": 15.06,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 180,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.68,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 181,
-      "type": "PERCENTAGE",
-      "discountPercentage": 19.02,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 182,
-      "type": "PERCENTAGE",
-      "discountPercentage": 15.24,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 183,
-      "type": "PERCENTAGE",
-      "discountPercentage": 15.18,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 184,
-      "type": "PERCENTAGE",
-      "discountPercentage": 0.76,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 185,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.33,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 186,
-      "type": "PERCENTAGE",
-      "discountPercentage": 3.19,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 187,
-      "type": "PERCENTAGE",
-      "discountPercentage": 13.93,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 188,
-      "type": "PERCENTAGE",
-      "discountPercentage": 14.14,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 189,
-      "type": "PERCENTAGE",
-      "discountPercentage": 17.69,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 190,
-      "type": "PERCENTAGE",
-      "discountPercentage": 9.45,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 191,
-      "type": "PERCENTAGE",
-      "discountPercentage": 4.11,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 192,
-      "type": "PERCENTAGE",
-      "discountPercentage": 15.94,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 193,
-      "type": "PERCENTAGE",
-      "discountPercentage": 18.34,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 194,
-      "type": "PERCENTAGE",
-      "discountPercentage": 12.6,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     }

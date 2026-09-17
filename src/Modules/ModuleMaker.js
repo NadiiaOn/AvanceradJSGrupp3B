@@ -1,7 +1,7 @@
 import ShippingQuoteModule from "./shippingCalculator/Index.js";
 import CurrencyVatModule from "./currency-vat/index.js";
 import InventoryModule from "./Inventory/index.js";
-import DiscountCampaignsModule from "./Nadiia/index.js";
+import DiscountCampaignsModule from "./Rabatt/index.js";
 
 export default {
   ShippingQuote: new ShippingQuoteModule(),

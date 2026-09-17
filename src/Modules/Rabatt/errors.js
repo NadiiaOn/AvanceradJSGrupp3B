@@ -1,7 +1,5 @@
 // Nadiia's custom error classes
 
-//ToDo: create alla messages in swedish.
-
 //The base class for all custom errors in the Nadiia module.
 export class ModuleError extends Error {
   constructor(message) {
@@ -10,7 +8,7 @@ export class ModuleError extends Error {
   }
 }
 
-//Thrown when indate to the module is invalid or does not meet the expected criteria.
+//Thrown when input data to the module is invalid or does not meet the expected criteria.
 export class ValidationError extends ModuleError {
   constructor(message, field = null) {
     super(message);
@@ -23,7 +21,7 @@ export class ValidationError extends ModuleError {
 export class UnknownCampaignError extends ModuleError {
   constructor(code) {
     super(
-      `Kampanjkeden "${code}" är okänd. Kontrollera stavningen och försök igen.`,
+      `Kampanjkoden "${code}" är okänd. Kontrollera stavningen och försök igen.`,
     );
     this.name = "UnknownCampaignError";
     this.code = code;
@@ -33,8 +31,15 @@ export class UnknownCampaignError extends ModuleError {
 //Thrown when a campaign is not active due to being outside its valid date range.
 export class CampaignIsNotActiveError extends ModuleError {
   constructor(code, currentDate, startDate, endDate) {
+    const from = startDate
+      ? new Date(startDate).toISOString().slice
+      : "okänd datum";
+    const to = endDate
+      ? new Date(endDate).toISOString().slice(0, 10)
+      : "okänd datum";
+
     super(
-      `Kampanjen "${code}" är inte aktiv. Den var giltig från ${startDate} till ${endDate}. Kontrollera kampanjens start- och slutdatum.`,
+      `Kampanjen "${code}" är inte aktiv. Den gäller från ${from} till ${to}. Kontrollera kampanjens start- och slutdatum.`,
     );
     this.name = "CampaignIsNotActiveError";
     this.code = code;
@@ -44,9 +49,19 @@ export class CampaignIsNotActiveError extends ModuleError {
   }
 }
 
+//Thrown when a campaign code exists and is active,
+//but does not cover any product in the cart.
+export class CampaignIsNotApplicable extends ModuleError {
+  constructor(code) {
+    super(`Kampagjkoden "${code}" gäller inte för varorna i din varukorg,`);
+    this.name = "CampaignIsNotApplicableError";
+    this.code = code;
+  }
+}
+
 //Thrown when an API request fails or returns an error response.
 export class ApiError extends ModuleError {
-  constructor(message, statusCode) {
+  constructor(message, statusCode = null) {
     super(message);
     this.name = "ApiError";
     this.statusCode = statusCode;
