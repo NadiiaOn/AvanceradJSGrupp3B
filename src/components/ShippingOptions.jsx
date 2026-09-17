@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Module from "../Modules/ModuleMaker";
 
 const PRICING_TYPE_LABELS = {
-  weight: "Viktbaserad",
-  volumetric: "Volymbaserad",
-  zone: "Zonbaserad",
+  weight: "Weight based",
+  volumetric: "Volume based",
+  zone: "Zone based",
 };
 
 export default function ShippingOptions({
@@ -61,7 +61,7 @@ export default function ShippingOptions({
         onChange={(e) => setDestinationCountry(e.target.value)}
         className="w-full p-2 rounded border bg-bg text-text outline-none mb-2"
       >
-        <option value="">Välj land</option>
+        <option value="">Select country</option>
         {countryOptions.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
@@ -73,7 +73,7 @@ export default function ShippingOptions({
         disabled={!destinationCountry || loading}
         className="w-full py-2 mt-2 rounded border border-text/20 text-sm hover:bg-text/5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
       >
-        {loading ? "Beräknar frakt..." : "Beräkna frakt"}
+        {loading ? "Calculating shipping..." : "Calculate Shipping"}
       </button>
 
       {error ? <p className="text-red-500 text-xs mt-1">{error}</p> : null}
@@ -98,7 +98,7 @@ export default function ShippingOptions({
                     ·
                     {PRICING_TYPE_LABELS[quote.pricingType] ??
                       quote.pricingType}
-                    · {quote.estimatedDays} dagar
+                    · {quote.estimatedDays} Days
                   </span>
                 </span>
               </span>

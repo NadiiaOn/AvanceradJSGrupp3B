@@ -66,14 +66,14 @@ export default function Cart() {
           {cartItems.length === 0 ? (
             <div className="flex flex-col items-center">
               <h1 className="text-2xl font-bold font-heading mb-4">
-                Din varukorg
+                Your cart
               </h1>
-              <p>Varukorgen är tom.</p>
+              <p>Your cart is empty.</p>
             </div>
           ) : (
             <>
               <h1 className="text-2xl font-bold font-heading mb-6">
-                Din varukorg
+                Your Cart
               </h1>
 
               <div className="flex flex-col gap-4">
@@ -91,7 +91,7 @@ export default function Cart() {
                       <div>
                         <h3 className="font-semibold">{item.name}</h3>
                         <p className="text-sm text-text/60">
-                          {formattedPrices[item.id]} / st
+                          {formattedPrices[item.id]} / each
                         </p>
                       </div>
                     </div>
@@ -118,7 +118,7 @@ export default function Cart() {
                         onClick={() => removeFromCart(item.id)}
                         className="ml-4 text-cta cursor-pointer"
                       >
-                        Ta bort
+                        Remove
                       </button>
                     </div>
 
@@ -129,23 +129,21 @@ export default function Cart() {
 
               {/* Sammanfattning */}
               <div className="mt-8 border-t border-text/10 pt-6">
-                <h2 className="text-lg font-bold font-heading mb-4">
-                  Sammanfattning
-                </h2>
+                <h2 className="text-lg font-bold font-heading mb-4">Summary</h2>
                 <div className="flex justify-between text-sm mb-2">
-                  <span>Delsumma</span>
+                  <span>Subtotal</span>
                   <span>{formattedRawSubtotal}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-4 text-text/60">
-                  <span>Moms</span>
+                  <span>Vat</span>
                   <span>{formattedTax}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-4 text-text/60">
-                  <span>Frakt</span>
-                  <span>Beräknas i kassan</span>
+                  <span>Shipping</span>
+                  <span>Calculated in Checkout</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
-                  <span>Totalt</span>
+                  <span>Total</span>
                   <span>{formattedTotalPrice}</span>
                 </div>
                 {/* Har sökt igenom projektet, finns ingen funktion som heter calculatedDiscontedPriceForCart?
@@ -158,7 +156,7 @@ export default function Cart() {
                   onClick={handleCheckout}
                   className="bg-cta text-bg w-full py-3 rounded font-semibold cursor-pointer hover:opacity-90 transition-opacity"
                 >
-                  Till kassan
+                  To Checkout
                 </button>
               </div>
             </>

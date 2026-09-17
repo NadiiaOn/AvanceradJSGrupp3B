@@ -200,10 +200,10 @@ export default function Checkout() {
   if (cartItems.length === 0) {
     return (
       <div className="flex flex-col items-center p-8 text-text">
-        <h1 className="text-2xl font-bold font-heading mb-4">Kassan</h1>
-        <p className="font-body">Din varukorg är tom.</p>
+        <h1 className="text-2xl font-bold font-heading mb-4">Cart</h1>
+        <p className="font-body">Your cart is empty.</p>
         <Link to="/" className="mt-4 underline font-body">
-          Fortsätt handla
+          Keep shopping
         </Link>
       </div>
     );
@@ -211,7 +211,7 @@ export default function Checkout() {
 
   return (
     <div className="max-w-6xl mx-auto p-8 text-text font-body">
-      <h1 className="text-2xl font-bold font-heading mb-6">Kassan</h1>
+      <h1 className="text-2xl font-bold font-heading mb-6">Cart</h1>
 
       <div className="flex flex-col lg:flex-row gap-8 items-start">
         {/* Vänster kolumn, produkter med bilder */}
@@ -235,7 +235,7 @@ export default function Checkout() {
                   <div>
                     <h3 className="font-semibold">{item.title}</h3>
                     <p className="text-sm text-text/60">
-                      {formattedPrices[item.id]} / st
+                      {formattedPrices[item.id]} / each
                     </p>
 
                     <div className="flex items-center gap-2 mt-2">
@@ -260,7 +260,7 @@ export default function Checkout() {
                         onClick={() => removeFromCart(item.id)}
                         className="ml-2 text-xs text-cta cursor-pointer"
                       >
-                        Ta bort
+                        Remove
                       </button>
                     </div>
                   </div>
@@ -283,9 +283,7 @@ export default function Checkout() {
 
         {/* Höger kolumn, kompakt sammanfattning utan bilder typ som ett kvitto*/}
         <div className="w-full lg:w-80 bg-card rounded-lg p-6 sticky top-30">
-          <h2 className="text-lg font-bold font-heading mb-4">
-            Sammanfattning
-          </h2>
+          <h2 className="text-lg font-bold font-heading mb-4">Summary</h2>
 
           <div className="flex flex-col gap-2 mb-4">
             {cartItems.map((item) => (
@@ -302,31 +300,31 @@ export default function Checkout() {
           </div>
 
           <div className="flex justify-between text-sm mb-2 border-t border-text/10 pt-4">
-            <span>Delsumma</span>
+            <span>Subtotal</span>
             <span>{formattedSubtotal}</span>
           </div>
 
           <div className="flex justify-between text-sm mb-4 text-text/60">
-            <span>Moms</span>
+            <span>Vat</span>
             <span>{formattedTax}</span>
           </div>
 
           <div className="flex justify-between text-sm mb-2 border-t border-text/10 pt-4">
-            <span>Rabatt: </span>
+            <span>Discounts: </span>
             <span className="text-red-400">{formattedSavings}</span>
           </div>
 
           <div className="flex justify-between text-sm mb-4 text-text/60">
-            <span>Frakt</span>
+            <span>Shipping</span>
             <span>
               {selectedQuote
                 ? `${formattedShippingPrice} (${selectedQuote.carrierName})`
-                : "Ej beräknad"}
+                : "Not calculated"}
             </span>
           </div>
 
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
-            <span>Totalt</span>
+            <span>Total</span>
             <span>{formattedTotalPrice}</span>
           </div>
 
@@ -340,7 +338,7 @@ export default function Checkout() {
           {/* MAIL */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm mb-1 text-text/70">
-              E-postadress
+              Email address
             </label>
             <input
               id="email"
@@ -355,7 +353,7 @@ export default function Checkout() {
             />
             {touched && !emailIsValid ? (
               <p className="text-red-500 text-xs mt-1">
-                Ange en giltig e-postadress (namn@mail.se).
+                Enter a valid email adress (name@mail.se).
               </p>
             ) : null}
           </div>
@@ -363,7 +361,7 @@ export default function Checkout() {
           {/* Discount */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm mb-1 text-text/70">
-              Rabatt
+              Discount
             </label>
             <input
               type="text"
@@ -396,7 +394,7 @@ export default function Checkout() {
                 : "bg-cta/40 text-bg/70 cursor-not-allowed"
             }`}
           >
-            Bekräfta köp
+            Confirm purchase
           </button>
         </div>
       </div>
