@@ -12,9 +12,8 @@ import {
   ValidationError,
 } from "./errors.js";
 import {
+  CAMPAIGN_PRIORITY,
   ALLOWED_COMBINATIONS,
-  CampaignType,
-  MIN_BUY_X,
   campaignFactory,
 } from "./DiscountCampaigns.js";
 
@@ -53,7 +52,7 @@ export async function loadThresholdCampaigns() {
 }
 
 //Finds active PERCENTAGE campaigns for the entered code and the products in the cart.
-async function findPercentageCampaigns(code, productIds, now) {
+async function findPercentageCampaigns(code, formattedSubtotal, now) {
   const campaignsForCart = makeInstances(
     await fetchPercentageCampaigns(code, productIds),
   ).filter(
@@ -113,7 +112,7 @@ async function findPercentageCampaigns(code, productIds, now) {
 //Loads as little as possible for this cart.
 export async function loadCampaignsForCart(
   cartItems,
-  campaignCode,
+  discountCode,
   now = new Date(),
 ) {
   //Products with quantity 0 can not get a discount, so they are ignored
@@ -125,7 +124,7 @@ export async function loadCampaignsForCart(
     ...new Set(cartItemsWithQuantity.map((cartItem) => String(cartItem.id))),
   ];
 
-  const code = String(campaignCode ?? "")
+  const code = String(discountCode ?? "")
     .trim()
     .toUpperCase();
 
@@ -138,11 +137,11 @@ export async function loadCampaignsForCart(
   }
   let codeError = null;
 
-  //PERCENTAGE Campaign has the highest priority and needs a code
-  if (code) {
+  //PERCENTAGE Campaign has the highest priority and needs a discountCode
+  if (discountCode) {
     try {
       const percentageCampaigns = await findPercentageCampaigns(
-        code,
+        discountCode,
         productIds,
         now,
       );
@@ -162,8 +161,9 @@ export async function loadCampaignsForCart(
     (sum, cartItem) => sum + cartItem.quantity,
     0,
   );
+  const MIN_QUANTITY = 2;
 
-  if (totalQuantity < MIN_BUY_X) {
+  if (totalQuantity < MIN_QUANTITY) {
     return {
       campaigns: [],
       code: "",
@@ -179,42 +179,6 @@ export async function loadCampaignsForCart(
     code: "",
     error: codeError,
   };
-}
-
-//Checks the cart and returns copies where price and quantity are real numbers
-export function prepareCartItems(cartItems) {
-  return cartItems.map((cartItem) => {
-    if (cartItem?.id === undefined || cartItem?.id === null) {
-      throw new ValidationError("Varan saknar id.", "id");
-    }
-
-    const price = Number(cartItem.price);
-    const quantity = Number(cartItem.quantity);
-
-    if (!Number.isFinite(price) || price < 0) {
-      throw new ValidationError(`Ogiltigt pris: ${cartItem.price}`, "price");
-    }
-
-    if (!Number.isInteger(quantity) || quantity < 0) {
-      throw new ValidationError(
-        `Ogiltigt antal: ${cartItem.quantity}`,
-        "quantity",
-      );
-    }
-
-    return {
-      ...cartItem,
-      price,
-      quantity,
-    };
-  });
-}
-
-export function getCartTotal(cartItems) {
-  return cartItems.reduce(
-    (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
-    0,
-  );
 }
 
 //Applies product campaigns, each product gets the first campaign that covers it
@@ -255,6 +219,15 @@ function applyProductCampaigns(productCampaigns, cartItems) {
   };
 }
 
+//New rules that should to be implemented
+//1.BUY_X_PAY_FOR_Y has the highest priority.
+//2.PERCENTAGE and BUY_X_PAY_FOR_Y are never combined.
+//3.BUY_X_PAY_FOR_Y can be combined with THRESHOLD.
+//4.PERCENTAGE can be combined with THRESHOLD.
+//5.THRESHOLD is checked last, on the total after the product discount.
+//3.PERCENTAGE and BUY_X_PAY_FOR_Y are never combined.
+// If no product campaign was applied, THRESHOLD can be applied alone.
+
 //Campaigns rules:
 //1.PERCENTAGE has the highest priority.
 //2.BUY_X_PAY_FOR_Y is used only if no PERCENTAGE campaign fits.
@@ -267,7 +240,7 @@ function applyProductCampaigns(productCampaigns, cartItems) {
 export function calculateDiscount(
   campaigns,
   cartItems,
-  code,
+  discountCode,
   now = new Date(),
 ) {
   //Only active campaigns that match the code (campaigns without a code always match).

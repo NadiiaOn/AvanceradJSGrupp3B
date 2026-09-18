@@ -11255,6 +11255,7 @@
   "buyXPayForYCampaigns": [
     {
       "id": 1,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11263,6 +11264,7 @@
     },
     {
       "id": 3,
+      "campaignId": 2,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 3,
@@ -11271,6 +11273,7 @@
     },
     {
       "id": 4,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11279,6 +11282,7 @@
     },
     {
       "id": 5,
+      "campaignId": 2,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 3,
@@ -11287,6 +11291,7 @@
     },
     {
       "id": 6,
+      "campaignId": 3,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 5,
       "payForY": 4,
@@ -11295,6 +11300,7 @@
     },
     {
       "id": 8,
+      "campaignId": 3,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 5,
       "payForY": 4,
@@ -11303,6 +11309,7 @@
     },
     {
       "id": 9,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11311,6 +11318,7 @@
     },
     {
       "id": 11,
+      "campaignId": 2,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 3,
@@ -11319,6 +11327,7 @@
     },
     {
       "id": 12,
+      "campaignId": 4,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 2,
@@ -11327,6 +11336,7 @@
     },
     {
       "id": 14,
+      "campaignId": 4,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 2,
@@ -11335,6 +11345,7 @@
     },
     {
       "id": 15,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11343,6 +11354,7 @@
     },
     {
       "id": 16,
+      "campaignId": 3,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 5,
       "payForY": 4,
@@ -11351,6 +11363,7 @@
     },
     {
       "id": 17,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11359,6 +11372,7 @@
     },
     {
       "id": 18,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11367,6 +11381,7 @@
     },
     {
       "id": 19,
+      "campaignId": 2,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 3,
@@ -11375,6 +11390,7 @@
     },
     {
       "id": 20,
+      "campaignId": 3,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 5,
       "payForY": 4,
@@ -11383,6 +11399,7 @@
     },
     {
       "id": 21,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11391,6 +11408,7 @@
     },
     {
       "id": 22,
+      "campaignId": 2,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 3,
@@ -11399,6 +11417,7 @@
     },
     {
       "id": 24,
+      "campaignId": 1,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 3,
       "payForY": 2,
@@ -11407,6 +11426,7 @@
     },
     {
       "id": 25,
+      "campaignId": 4,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 2,
@@ -11415,6 +11435,7 @@
     },
     {
       "id": 26,
+      "campaignId": 4,
       "type": "BUY_X_PAY_FOR_Y",
       "buyX": 4,
       "payForY": 2,
@@ -11424,7 +11445,7 @@
   ],
   "thresholdCampaigns": [
     {
-      "campanignId": 1,
+      "campaignId": 1,
       "type": "THRESHOLD",
       "threshold": 5000,
       "discountValue": 500,
@@ -11441,14 +11462,14 @@
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
-     {
-       "campaignId": 2,
-       "type": "PERCENTAGE",
-       "discountValue": 25,
-       "discountCode": "LUCKY26",
-       "startDate": "2026-09-09T00:00:00.000Z",
-       "endDate": "2026-09-30T00:00:00.000Z"
-     }
+    {
+      "campaignId": 2,
+      "type": "PERCENTAGE",
+      "discountValue": 25,
+      "discountCode": "LUCKY26",
+      "startDate": "2026-09-09T00:00:00.000Z",
+      "endDate": "2026-09-30T00:00:00.000Z"
+    }
   ],
   "carriers": [
     {

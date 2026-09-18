@@ -1,10 +1,7 @@
 // The main file for the Nadiia module, which exports all the campaign functions.
 import {
   calculateDiscount,
-  getCartTotal,
   loadCampaignsForCart,
-  loadThresholdCampaigns,
-  prepareCartItems,
 } from "./CampaignService.js";
 
 export default class DiscountCampaignsModule {
@@ -13,26 +10,16 @@ export default class DiscountCampaignsModule {
     methodsAndInputs: [
       {
         method: "run",
-        input: ["cartItems", "campaignCode"],
-        output: "discountResult",
+        input: ["cartItems", "discountCode", "formattedSubtotal", "cartTotal"],
+        output: ["originalTotal", "discountedTotalPrice", "discount"],
       },
+      //implement the history
     ],
   };
 
-  get descriptor() {
-    return DiscountCampaignsModule.descriptor;
-  }
-
-  async getThresholdCampaigns(forceReload = false) {
-    if (!this.thresholdCampaigns || forceReload) {
-      this.thresholdCampaigns = await loadThresholdCampaigns();
-    }
-    return this.thresholdCampaigns;
-  }
-
   async run(value = {}, now = new Date()) {
     const input = Array.isArray(value) ? { cartItems: value } : (value ?? {});
-    const { cartItems = [], campaignCode = "" } = input;
+    const { cartItems = [], campaignCode = "", formattedSubtotal = 0, cartTotal } = input;
 
     // If the caller passes something else as the second argument, use today's date
     const today =
@@ -42,29 +29,23 @@ export default class DiscountCampaignsModule {
       return {
         originalTotal: 0,
         discountedTotalPrice: 0,
-        savings: 0,
-        appliedCampaigns: [],
-        campaignCode: null,
-        message: null,
-        errorType: null,
+        discount: 0,
       };
     }
+    // think about the validation of the cartItems
 
-    // Throws ValidationError if the cart data is broken
-    const preparedCartItems = prepareCartItems(cartItems);
-    const originalTotal =
-      Math.round(getCartTotal(preparedCartItems) * 100) / 100;
+    const originalTotal = cartTotal; 
 
     // Threshold campaigns (from cache) and cart campaigns are loaded at the same time
     const [thresholdCampaigns, cartData] = await Promise.all([
-      this.getThresholdCampaigns(),
-      loadCampaignsForCart(preparedCartItems, campaignCode, today),
+      this.getThresholdCampaigns(),ƒ
+      loadCampaignsForCart(cartItems, discountCode, today),
     ]);
 
     const campaigns = [...thresholdCampaigns, ...cartData.campaigns];
     const discount = calculateDiscount(
       campaigns,
-      preparedCartItems,
+      cartItems,
       cartData.code,
       today,
     );

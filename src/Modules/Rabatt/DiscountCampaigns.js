@@ -1,13 +1,14 @@
 import { ValidationError } from "./errors.js";
 
-export const CampaignType = Object.freeze({
-  THRESHOLD: "THRESHOLD",
-  BUY_X_PAY_FOR_Y: "BUY_X_PAY_FOR_Y",
-  PERCENTAGE: "PERCENTAGE",
+//New order for the campaigns
+export const CAMPAIGN_PRIORITY = Object.freeze({
+  [CampaignType.BUY_X_PAY_FOR_Y]: 0,
+  [CampaignType.PERCENTAGE]: 1,
+  [CampaignType.THRESHOLD]: 2,
 });
 
 export const ALLOWED_COMBINATIONS = Object.freeze({
-  [CampaignType.PERCENTAGE]: [CampaignType.PERCENTAGE],
+  [CampaignType.PERCENTAGE]: [CampaignType.THRESHOLD],
   [CampaignType.BUY_X_PAY_FOR_Y]: [CampaignType.THRESHOLD],
   [CampaignType.THRESHOLD]: [
     CampaignType.PERCENTAGE,
@@ -15,29 +16,21 @@ export const ALLOWED_COMBINATIONS = Object.freeze({
   ],
 });
 
-export const MIN_BUY_X = 2;
-
 export class CampaignModule {
-  constructor({
-    id,
-    type,
-    priority = 0,
-    startDate,
-    endDate,
-    campaignCode,
-  } = {}) {
-    this.id = id;
+  constructor({ id, campaignId, type, startDate, endDate } = {}) {
+    this.id = Number(id);
+    this.campaignId = Number(campaignId);
     this.type = String(type ?? "")
-      .trim()
-      .toUpperCase();
-    this.priority = Number(priority) || 0;
-    this.campaignCode = String(campaignCode ?? "")
       .trim()
       .toUpperCase();
     this.startDate = startDate ? new Date(startDate) : null;
     this.endDate = endDate ? new Date(endDate) : null;
 
-    if (this.id === undefined || this.id === null || this.id === "") {
+    if (
+      this.campaignId === undefined ||
+      this.campaignId === null ||
+      this.campaignId === ""
+    ) {
       throw new ValidationError(`Kampanjen saknar id`);
     }
 
@@ -68,18 +61,6 @@ export class CampaignModule {
     return true;
   }
 
-  requiresCode() {
-    return this.campaignCode !== "";
-  }
-
-  matchesCode(inputCode) {
-    if (!this.requiresCode()) return true;
-    return (
-      String(inputCode ?? "")
-        .trim()
-        .toUpperCase() === this.campaignCode
-    );
-  }
 
   isApplicableToCart() {
     throw new Error("isApplicableToCart måste implementeras.");
@@ -90,37 +71,13 @@ export class CampaignModule {
   }
 }
 
-export class ProductCampaign extends CampaignModule {
-  constructor(data) {
-    super(data);
-    const products = data.products ?? [data.id];
-    this.productIds = new Set(
-      products
-        .filter((p) => p !== undefined && p !== null)
-        .map((p) => String(typeof p === "object" ? p.id : p)),
-    );
-  }
-
-  appliesTo(cartItem) {
-    return this.productIds.has(String(cartItem.id));
-  }
-
-  isApplicableToCart(cartItems) {
-    return cartItems.some((c) => this.appliesTo(c));
-  }
-}
-
 // Regeln: x% rabatt på alla varor i kampanjen.
-export class PercentageDiscount extends ProductCampaign {
+export class PercentageDiscount extends CampaignModule {
   constructor(data) {
     super(data);
-    this.discountPercentage = Number(data.discountPercentage);
+    this.discountValue = Number(data.discountValue); // discount in percent
+    this.discountCode = String(data.discountCode ?? "").trim().toUpperCase();
 
-    if (!this.requiresCode()) {
-      throw new ValidationError(
-        `Procentkampanjen med id ${this.id} saknar kampanjkod.`,
-      );
-    }
     if (
       Number.isNaN(this.discountPercentage) ||
       this.discountPercentage < 0 ||
@@ -131,27 +88,41 @@ export class PercentageDiscount extends ProductCampaign {
       );
     }
   }
+//think about if I really need It
+  requiresCode() {
+    return this.discountCode !== "";
+  } 
 
-  calculateDiscountedPriceForCart(cartItems) {
-    let discountedTotalPrice = 0;
+  calculateDiscountedPriceForCart(formattedSubtotal, inputedDiscountCode) {
 
-    for (const cartItem of cartItems) {
-      const unitPrice = this.appliesTo(cartItem)
-        ? cartItem.price * (1 - this.discountPercentage / 100)
-        : cartItem.price;
+    matchesCode(inputedDiscountCode)
+      if (typeof inputedDiscountCode !== "string") return false;
+      return inputedDiscountCode.trim().toUpperCase() === this.discountCode;
+    };
+      
+    if (matchesCode) {
+    const discountedTotalPrice = totalPrice * (1 - this.discountValue / 100);
 
-      discountedTotalPrice += unitPrice * cartItem.quantity;
+    return Math.round(discountedTotalPrice * 100) / 100;
     }
+    //implement the logic with the discount in percent
     return Math.round(discountedTotalPrice * 100) / 100;
   }
 }
 
 // Regeln: handla x antal varor och betala endast för y antal varor.
-export class BuyXPayForYDiscount extends ProductCampaign {
+export class BuyXPayForYDiscount extends CampaignModule {
   constructor(data) {
     super(data);
     this.buyX = Number(data.buyX);
     this.payForY = Number(data.payForY);
+
+    const products = data.products ?? [data.id];
+    this.productIds = new Set(
+      products
+        .filter((p) => p !== undefined && p !== null)
+        .map((p) => String(typeof p === "object" ? p.id : p)),
+    );
 
     if (
       !Number.isInteger(this.buyX) ||
@@ -164,6 +135,15 @@ export class BuyXPayForYDiscount extends ProductCampaign {
           `buyX=${data.buyX}, payForY=${data.payForY}.`,
       );
     }
+
+    if (!this.requiresCode()) {
+      throw new ValidationError(
+        `Procentkampanjen med id ${this.id} saknar kampanjkod.`,
+      );
+    }
+  }
+  appliesTo(cartItem) {
+    return this.productIds.has(String(cartItem.id));
   }
 
   isApplicableToCart(cartItems) {
@@ -227,51 +207,31 @@ export class ThresholdDiscount extends CampaignModule {
         `Kampanjen har en ogiltig rabattprocent: ${data.discountValue}. `,
       );
     }
+
+    if (!this.requiresCode()) {
+      throw new ValidationError(
+        `Procentkampanjen med id ${this.id} saknar kampanjkod.`,
+      );
+    }
   }
 
-  isApplicableToTotal(total) {
-    return total >= this.threshold;
+  isApplicableToCart(formattedSubTotal) {
+    return formattedSubTotal >= this.threshold;
   }
 
-  applyToTotal(total) {
+  applyToTotal(formattedSubTotal) {
     if (!this.isApplicableToTotal(total)) return Math.round(total * 100) / 100;
     return Math.round(MathMax.max(0, total - this.discountValue) * 100) / 100;
   }
 
-  isApplicableToCart(cartItems) {
-    const totalPrice = cartItems.reduce(
-      (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
-      0,
-    );
-
-    return totalPrice >= this.threshold;
-  }
-
-  calculateDiscountedPriceForCart(cartItems) {
-    const totalPrice = cartItems.reduce(
-      (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
-      0,
-    );
-
-    if (totalPrice < this.threshold) {
-      return Math.round(totalPrice * 100) / 100;
+  calculateDiscountedPriceForCart(formattedSubtotal) {
+    if (formattedSubtotal < this.threshold) {
+      return Math.round(formattedSubtotal * 100) / 100;
     }
 
     const discountedTotalPrice = totalPrice * (1 - this.discountValue / 100);
 
     return Math.round(discountedTotalPrice * 100) / 100;
-  }
-
-  getCartTotal(cartItems) {
-    return cartItems.reduce(
-      (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
-      0,
-    );
-  }
-
-  isApplicableToCart(cartItems) {
-    const total = this.getCartTotal(cartItems);
-    return this.isApplicableToCart(total);
   }
 
   calculateDiscountedPriceForCart(cartItems) {
@@ -292,12 +252,12 @@ export function campaignFactory(data) {
     .toUpperCase();
 
   switch (type) {
-    case CampaignType.THRESHOLD:
-      return new ThresholdDiscount({ ...data, type });
     case CampaignType.BUY_X_PAY_FOR_Y:
       return new BuyXPayForYDiscount({ ...data, type });
     case CampaignType.PERCENTAGE:
       return new PercentageDiscount({ ...data, type });
+    case CampaignType.THRESHOLD:
+      return new ThresholdDiscount({ ...data, type });
     default:
       throw new ValidationError(`Okänd kampanjtyp: ${data.type}.`);
   }
