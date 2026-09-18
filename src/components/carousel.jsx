@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ProductCard from "./productCard";
 import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 
-const MAX_PRODUCTS = 8;
+const MAX_PRODUCTS = 7;
 const GAP = 0.5;
 
 const Carousel = ({ products, errorMessage, formattedPrices }) => {

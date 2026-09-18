@@ -23,7 +23,7 @@ const InventoryCard = ({ product, width, height, onClick }) => {
 
         <div className="flex justify-between">
           <span className="flex justify-start ml-3 pt-1 text-sm text-text italic">
-            ${product.price}
+            {/*${product.price}*/}
           </span>
           <span className="italic">
             Stock: <b className="text-red-500">{product.stock}</b>

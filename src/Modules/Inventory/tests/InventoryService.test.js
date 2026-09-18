@@ -1,4 +1,16 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
+import InventoryService from "../InventoryService";
+import InventoryItem from "../InventoryItem";
+import InventoryChange from "../InventoryChange";
+import {
+  createInventoryChange,
+  getInventoryHistory,
+} from "../../../api/inventory";
+import fetchProducts from "../../../api/fetchProducts";
+import { updateProductStock } from "../../../api/products";
+import InventoryNotFoundError from "../errors/InventoryNotFoundError";
+import InventoryOperationError from "../errors/InventoryOperationError";
+import InventoryValidationError from "../errors/InventoryValidationError";
 
 let product = {
   id: "1",
@@ -240,8 +252,344 @@ let products = [
   },
 ];
 
-describe("InventoryService", () => {
-  it("Creates InventoryItem from product", () => {});
+vi.mock("../../../api/inventory", () => ({
+  getInventoryHistory: vi.fn(),
+  createInventoryChange: vi.fn(),
+}));
 
-  it("Creates InventoryItems from products", () => {});
+vi.mock("../../../api/fetchProducts", () => ({
+  default: vi.fn(),
+}));
+
+vi.mock("../../../api/products", () => ({
+  updateProductStock: vi.fn(),
+}));
+
+describe("InventoryService", () => {
+  it("Creates InventoryItem from product", () => {
+    const inventoryService = new InventoryService();
+
+    const result = inventoryService.createInventoryItems([product]);
+
+    expect(result[0]).toBeInstanceOf(InventoryItem);
+  });
+
+  it("Creates InventoryItems from products", () => {
+    const inventoryService = new InventoryService();
+
+    const result = inventoryService.createInventoryItems(products);
+
+    expect(result.length).toBe(3);
+  });
+
+  it("Adds inventory change to matching product", () => {
+    const inventoryService = new InventoryService();
+
+    const item = new InventoryItem(product);
+
+    const types = ["ORDER", "SALE", "ADJUSTMENTINCREASE", "ADJUSTMENTDECREASE"];
+
+    const inventoryData = [
+      {
+        productId: product.id,
+        type: types[1],
+        quantity: 1,
+        id: crypto.randomUUID(),
+        saleInfo: null,
+      },
+    ];
+
+    const changeData = inventoryService.addInventoryChanges(
+      [item],
+      inventoryData,
+    );
+
+    expect(item.changes.length).toBe(1);
+  });
+
+  it("Adds multiple inventory changes to matching product", () => {
+    const inventoryService = new InventoryService();
+
+    const item = new InventoryItem(product);
+
+    const types = ["ORDER", "SALE", "ADJUSTMENTINCREASE", "ADJUSTMENTDECREASE"];
+
+    const inventoryData1 = [
+      {
+        productId: product.id,
+        type: types[1],
+        quantity: 1,
+        id: crypto.randomUUID(),
+        saleInfo: null,
+      },
+    ];
+
+    const inventoryData2 = [
+      {
+        productId: product.id,
+        type: types[0],
+        quantity: 4,
+        id: crypto.randomUUID(),
+        saleInfo: null,
+      },
+    ];
+
+    const inventoryData3 = [
+      {
+        productId: product.id,
+        type: types[3],
+        quantity: 2,
+        id: crypto.randomUUID(),
+        saleInfo: null,
+      },
+    ];
+
+    const inventoryData4 = [
+      {
+        productId: product.id,
+        type: types[2],
+        quantity: 4,
+        id: crypto.randomUUID(),
+        saleInfo: null,
+      },
+    ];
+
+    const changeData = inventoryService.addInventoryChanges(
+      [item],
+      inventoryData1,
+    );
+
+    const changeData2 = inventoryService.addInventoryChanges(
+      [item],
+      inventoryData2,
+    );
+
+    const changeData3 = inventoryService.addInventoryChanges(
+      [item],
+      inventoryData3,
+    );
+
+    const changeData4 = inventoryService.addInventoryChanges(
+      [item],
+      inventoryData4,
+    );
+
+    expect(item.changes.length).toBe(4);
+  });
+
+  it("Ignores inventory change if product does not exist", () => {
+    const inventoryService = new InventoryService();
+
+    const item = new InventoryItem(product);
+
+    const types = ["ORDER", "SALE", "ADJUSTMENTINCREASE", "ADJUSTMENTDECREASE"];
+
+    const inventoryData = [
+      {
+        productId: 100,
+        type: types[1],
+        quantity: 1,
+        id: crypto.randomUUID(),
+        saleInfo: null,
+      },
+    ];
+
+    const changeData = inventoryService.addInventoryChanges(
+      [item],
+      inventoryData,
+    );
+
+    expect(item.changes.length).toBe(0);
+  });
+
+  it("Creates InventoryChange with change data", () => {
+    const inventoryService = new InventoryService();
+
+    const item = new InventoryItem(product);
+
+    const types = ["ORDER", "SALE", "ADJUSTMENTINCREASE", "ADJUSTMENTDECREASE"];
+
+    const inventoryData = [
+      {
+        productId: product.id,
+        type: types[1],
+        quantity: 1,
+        id: crypto.randomUUID(),
+        saleInfo: null,
+      },
+    ];
+
+    const changeData = inventoryService.addInventoryChanges(
+      [item],
+      inventoryData,
+    );
+
+    expect(item.changes[0]).toBeInstanceOf(InventoryChange);
+  });
+
+  it("Loads inventory history", async () => {
+    const inventoryService = new InventoryService();
+
+    getInventoryHistory.mockResolvedValue([
+      {
+        productId: "1",
+        type: "SALE",
+        quantity: 2,
+      },
+    ]);
+
+    const result = await inventoryService.loadInventoryHistory();
+
+    expect(result).toEqual([
+      {
+        productId: "1",
+        type: "SALE",
+        quantity: 2,
+      },
+    ]);
+  });
+
+  it("Loads products", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+
+    const result = await inventoryService.loadProducts();
+
+    expect(result).toEqual(products);
+  });
+
+  it("Returns inventory report with products and changes", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+    getInventoryHistory.mockResolvedValue([
+      {
+        productId: "1",
+        type: "SALE",
+        quantity: 2,
+      },
+    ]);
+
+    const result = await inventoryService.getInventoryReport();
+
+    expect(result[0]).toBeInstanceOf(InventoryItem);
+    expect(result[0].changes.length).toBe(1);
+  });
+
+  it("Returns inventory items without changes when history is empty", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+    getInventoryHistory.mockResolvedValue([]);
+
+    const result = await inventoryService.getInventoryReport();
+
+    expect(result[0]).toBeInstanceOf(InventoryItem);
+    expect(result[0].changes.length).toBe(0);
+  });
+
+  it("Registers inventory change for existing product", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+    createInventoryChange.mockResolvedValue();
+    updateProductStock.mockResolvedValue();
+
+    await inventoryService.registerInventoryChange("1", "SALE", 2);
+
+    expect(updateProductStock).toHaveBeenCalledWith("1", 12);
+    expect(createInventoryChange).toHaveBeenCalled();
+    expect(createInventoryChange.mock.calls[0][0].productId).toBe("1");
+    expect(createInventoryChange.mock.calls[0][0].type).toBe("SALE");
+    expect(createInventoryChange.mock.calls[0][0].quantity).toBe(2);
+  });
+
+  it("Throws InventoryNotFoundError if product does not exist", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+
+    await expect(
+      inventoryService.registerInventoryChange("100", "ORDER", 3),
+    ).rejects.toBeInstanceOf(InventoryNotFoundError);
+  });
+
+  it("Increases stock when registering an order", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+    createInventoryChange.mockResolvedValue();
+    updateProductStock.mockResolvedValue();
+
+    await inventoryService.registerInventoryChange("1", "ORDER", 3);
+
+    expect(updateProductStock).toHaveBeenCalledWith("1", 17);
+  });
+
+  it("Decreases stock when registering a sale", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+    createInventoryChange.mockResolvedValue();
+    updateProductStock.mockResolvedValue();
+
+    await inventoryService.registerInventoryChange("1", "SALE", 2);
+
+    expect(updateProductStock).toHaveBeenCalledWith("1", 12);
+  });
+
+  it("Increases stock for an inventory adjustment", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+    createInventoryChange.mockResolvedValue();
+    updateProductStock.mockResolvedValue();
+
+    await inventoryService.registerInventoryChange(
+      "1",
+      "ADJUSTMENTINCREASE",
+      10,
+    );
+
+    expect(updateProductStock).toHaveBeenCalledWith("1", 24);
+  });
+
+  it("Decreases stock for an inventory adjustment", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+    createInventoryChange.mockResolvedValue();
+    updateProductStock.mockResolvedValue();
+
+    await inventoryService.registerInventoryChange(
+      "1",
+      "ADJUSTMENTDECREASE",
+      14,
+    );
+
+    expect(updateProductStock).toHaveBeenCalledWith("1", 0);
+  });
+
+  it("Throws InventoryValidationError if stock becomes negative", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+
+    await expect(
+      inventoryService.registerInventoryChange("1", "SALE", 15),
+    ).rejects.toBeInstanceOf(InventoryValidationError);
+  });
+
+  it("Throws InventoryOperationError if inventory operation fails", async () => {
+    const inventoryService = new InventoryService();
+
+    fetchProducts.mockResolvedValue(products);
+
+    createInventoryChange.mockRejectedValue(new Error("Something went wrong!"));
+
+    await expect(
+      inventoryService.registerInventoryChange("1", "SALE", 2),
+    ).rejects.toBeInstanceOf(InventoryOperationError);
+  });
 });

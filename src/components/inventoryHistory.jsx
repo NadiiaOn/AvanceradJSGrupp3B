@@ -14,9 +14,13 @@ const InventoryHistory = ({ history }) => {
   );
 
   const colorCodes = ["#2B6CB5", "#479C4B", "#F1C20C", "#AC022E"];
-
+  /*
   if (history === null || history === undefined || history.length == 0) {
     return <p>Ingen historik att hämta..</p>;
+  }
+*/
+  if (history === null || history === undefined || history.length == 0) {
+    return <p>No inventory history..</p>;
   }
 
   return (
