@@ -49,14 +49,14 @@ Errors.js   <- ShippingModuleError + fem underklasser (arv)r
 ## Varför komposition istället för arv för prismodellerna
 
 De tre prismodellerna är egentligen ganska olika (vikt, volym, zon),
-och flera transportörer skulle kunna dela exakt samma prislogik. Jag
+och flera transportörer skulle kunna använda exakt samma prislogik. Jag
 funderade först på att låta `Carrier` ärva från något i stil med
 `WeightBasedCarrier`, men insåg att det skulle låsa fast varje
-transportör vid en enda prismodell för alltid, och om jag senare
+transportör vid en enda prismodell. Om jag senare
 ville lägga till något som express-frakt hade jag fått en helt egen
 underklass för varje kombination.
 
-Istället får `Carrier` sin prisstrategi injicerad – den bryr sig bara
+Istället får `Carrier` sin prisstrategi injicerad, den bryr sig bara
 om att objektet har en `calculate`-metod, inte vilken klass det
 faktiskt är (duck typing). Det gör att:
 
@@ -126,7 +126,7 @@ Alla fel modulen kastar ärver `ShippingModuleError`, har `.code` och
 
 ## Tester
 
-Testerna ligger i `tests/` och körs med Vitest:
+Testerna för modulen ligger i `Modules/shippingCalculator/tests/` och körs med Vitest:
 
 ```
 npm test
