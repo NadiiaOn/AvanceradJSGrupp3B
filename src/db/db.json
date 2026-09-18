@@ -11288,7 +11288,7 @@
     {
       "id": 6,
       "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
+      "buyX": 4,
       "payForY": 2,
       "startDate": "2026-09-01T00:00:00.000Z",
       "endDate": "2026-09-20T00:00:00.000Z"
@@ -11296,7 +11296,7 @@
     {
       "id": 8,
       "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
+      "buyX": 4,
       "payForY": 2,
       "startDate": "2026-09-01T00:00:00.000Z",
       "endDate": "2026-09-20T00:00:00.000Z"
@@ -11304,7 +11304,7 @@
     {
       "id": 9,
       "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
+      "buyX": 4,
       "payForY": 2,
       "startDate": "2026-09-01T00:00:00.000Z",
       "endDate": "2026-09-20T00:00:00.000Z"
@@ -11320,8 +11320,8 @@
     {
       "id": 12,
       "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
+      "buyX": 5,
+      "payForY": 4,
       "startDate": "2026-09-01T00:00:00.000Z",
       "endDate": "2026-09-20T00:00:00.000Z"
     },
@@ -11332,332 +11332,10 @@
       "payForY": 2,
       "startDate": "2026-09-01T00:00:00.000Z",
       "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 15,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 16,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 17,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 18,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 19,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 20,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 21,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 22,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 24,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 25,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 26,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 28,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 29,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-
-    {
-      "id": 31,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 33,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 34,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 35,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 36,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 37,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 38,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 40,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 41,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 43,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 45,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 46,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 47,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 48,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 50,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 92,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 96,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 99,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 103,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 105,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 110,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 111,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 112,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 119,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 124,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 133,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
-    },
-    {
-      "id": 145,
-      "type": "BUY_X_PAY_FOR_Y",
-      "buyX": 3,
-      "payForY": 2,
-      "startDate": "2026-09-01T00:00:00.000Z",
-      "endDate": "2026-09-20T00:00:00.000Z"
     }
   ],
   "thresholdCampaigns": [
     {
-      "id": 1,
       "type": "THRESHOLD",
       "threshold": 5000,
       "discountValue": 500,
@@ -11667,163 +11345,16 @@
   ],
   "percentageCampaigns": [
     {
-      "id": 2,
       "type": "PERCENTAGE",
       "campaignCode": "SEP2026",
-      "discountPercentage": 18.19,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-
-    {
-      "id": 7,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 16.51,
+      "discountPercentage": 20,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
-      "id": 10,
       "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 14.39,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 13,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 19.09,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 23,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 11.05,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 27,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 14.4,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 30,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 15.22,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 32,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 13.74,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 39,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 17.48,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 42,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 14.92,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 44,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 14.87,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 49,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 15.65,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 55,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 14.76,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 56,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 14.04,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 61,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 17.02,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 63,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 18.91,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 64,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 18.86,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 83,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 15.35,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 85,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 19.5,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
-    },
-    {
-      "id": 89,
-      "type": "PERCENTAGE",
-      "campaignCode": "SEP2026",
-      "discountPercentage": 18.04,
+      "campaignCode": "LUCKY",
+      "discountPercentage": 30,
       "startDate": "2026-09-09T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     }

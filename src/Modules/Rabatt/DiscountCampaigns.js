@@ -7,7 +7,7 @@ export const CampaignType = Object.freeze({
 });
 
 export const ALLOWED_COMBINATIONS = Object.freeze({
-  [CampaignType.PERCENTAGE]: [CampaignType.PERCENTAGE],
+  [CampaignType.PERCENTAGE]: [CampaignType.THRESHOLD],
   [CampaignType.BUY_X_PAY_FOR_Y]: [CampaignType.THRESHOLD],
   [CampaignType.THRESHOLD]: [
     CampaignType.PERCENTAGE,
@@ -72,10 +72,10 @@ export class CampaignModule {
     return this.campaignCode !== "";
   }
 
-  matchesCode(inputCode) {
+  matchesCode(discountCode) {
     if (!this.requiresCode()) return true;
     return (
-      String(inputCode ?? "")
+      String(discountCode ?? "")
         .trim()
         .toUpperCase() === this.campaignCode
     );
@@ -107,42 +107,6 @@ export class ProductCampaign extends CampaignModule {
 
   isApplicableToCart(cartItems) {
     return cartItems.some((c) => this.appliesTo(c));
-  }
-}
-
-// Regeln: x% rabatt på alla varor i kampanjen.
-export class PercentageDiscount extends ProductCampaign {
-  constructor(data) {
-    super(data);
-    this.discountPercentage = Number(data.discountPercentage);
-
-    if (!this.requiresCode()) {
-      throw new ValidationError(
-        `Procentkampanjen med id ${this.id} saknar kampanjkod.`,
-      );
-    }
-    if (
-      Number.isNaN(this.discountPercentage) ||
-      this.discountPercentage < 0 ||
-      this.discountPercentage > 100
-    ) {
-      throw new ValidationError(
-        `Kampanjen har en ogiltig rabattprocent: ${data.discountPercentage}. Den måste vara mellan 0 och 100 %.`,
-      );
-    }
-  }
-
-  calculateDiscountedPriceForCart(cartItems) {
-    let discountedTotalPrice = 0;
-
-    for (const cartItem of cartItems) {
-      const unitPrice = this.appliesTo(cartItem)
-        ? cartItem.price * (1 - this.discountPercentage / 100)
-        : cartItem.price;
-
-      discountedTotalPrice += unitPrice * cartItem.quantity;
-    }
-    return Math.round(discountedTotalPrice * 100) / 100;
   }
 }
 
@@ -206,6 +170,42 @@ export class BuyXPayForYDiscount extends ProductCampaign {
   }
 }
 
+// Regeln: x% rabatt på alla varor i kampanjen.
+export class PercentageDiscount extends CampaignModule {
+  constructor(data) {
+    super(data);
+    this.campaignCode = String(data.campaignCode).trim().toUpperCase();
+    this.discountPercentage = Number(data.discountPercentage);
+
+    if (!this.requiresCode()) {
+      throw new ValidationError(
+        `Procentkampanjen med id ${this.id} saknar kampanjkod.`,
+      );
+    }
+    if (
+      Number.isNaN(this.discountPercentage) ||
+      this.discountPercentage < 0 ||
+      this.discountPercentage > 100
+    ) {
+      throw new ValidationError(
+        `Kampanjen har en ogiltig rabattprocent: ${data.discountPercentage}. Den måste vara mellan 0 och 100 %.`,
+      );
+    }
+  }
+
+  isApplicableToCart(discountCode) {
+    return discountCode === this.campaignCode; //from Checkout
+  }
+
+  calculateDiscountedPriceForCart(rawSubtotalNumber) {
+    return (
+      Math.round(
+        rawSubtotalNumber * (1 - this.discountPercentage / 100) * 100,
+      ) / 100
+    );
+  }
+}
+
 // Regeln: handla för över ett visst belopp och få x% rabatt på hela köpet.
 export class ThresholdDiscount extends CampaignModule {
   constructor(data) {
@@ -229,54 +229,37 @@ export class ThresholdDiscount extends CampaignModule {
     }
   }
 
-  isApplicableToTotal(total) {
-    return total >= this.threshold;
+  isApplicableToTotal(rawSubtotalNumber) {
+    return rawSubtotalNumber >= this.threshold;
   }
 
-  applyToTotal(total) {
-    if (!this.isApplicableToTotal(total)) return Math.round(total * 100) / 100;
-    return Math.round(MathMax.max(0, total - this.discountValue) * 100) / 100;
+  applyToTotal(rawSubtotalNumber) {
+    if (!this.isApplicableToTotal(rawSubtotalNumber))
+      return Math.round(rawSubtotalNumber * 100) / 100;
+    return (
+      Math.round(Math.max(0, rawSubtotalNumber - this.discountValue) * 100) /
+      100
+    );
   }
 
-  isApplicableToCart(cartItems) {
+  isApplicableToCart(rawSubtotalNumber) {
+    return rawSubtotalNumber >= this.threshold;
+  }
+
+  calculateDiscountedPriceForCart(cartItems, rawSubtotalNumber) {
     const totalPrice = cartItems.reduce(
       (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
       0,
     );
 
-    return totalPrice >= this.threshold;
-  }
-
-  calculateDiscountedPriceForCart(cartItems) {
-    const totalPrice = cartItems.reduce(
-      (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
-      0,
-    );
-
-    if (totalPrice < this.threshold) {
+    if (rawSubtotalNumber < this.threshold) {
       return Math.round(totalPrice * 100) / 100;
     }
 
-    const discountedTotalPrice = totalPrice * (1 - this.discountValue / 100);
+    const discountedTotalPrice =
+      rawSubtotalNumber * (1 - this.discountValue / 100);
 
     return Math.round(discountedTotalPrice * 100) / 100;
-  }
-
-  getCartTotal(cartItems) {
-    return cartItems.reduce(
-      (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
-      0,
-    );
-  }
-
-  isApplicableToCart(cartItems) {
-    const total = this.getCartTotal(cartItems);
-    return this.isApplicableToCart(total);
-  }
-
-  calculateDiscountedPriceForCart(cartItems) {
-    const total = this.getCartTotal(cartItems);
-    return this.applyToTotal(total);
   }
 }
 

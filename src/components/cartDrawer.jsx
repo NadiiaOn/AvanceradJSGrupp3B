@@ -148,12 +148,12 @@ export default function Cart() {
                   <span>Totalt</span>
                   <span>{formattedTotalPrice}</span>
                 </div>
-                {/* Har sökt igenom projektet, finns ingen funktion som heter calculatedDiscontedPriceForCart?
+                
                 <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
                   <span>Totalt med rabatt </span>
-                  <span>${calculatedDiscountedPriceForCart.toFixed(2)}</span>
+                  <span>${}</span>
                 </div>
-                */}
+               
                 <button
                   onClick={handleCheckout}
                   className="bg-cta text-bg w-full py-3 rounded font-semibold cursor-pointer hover:opacity-90 transition-opacity"

@@ -1,11 +1,11 @@
 // The main file for the Nadiia module, which exports all the campaign functions.
 import {
   calculateDiscount,
-  getCartTotal,
   loadCampaignsForCart,
   loadThresholdCampaigns,
   prepareCartItems,
 } from "./CampaignService.js";
+import { ValidationError } from "./errors.js";
 
 export default class DiscountCampaignsModule {
   static descriptor = {
@@ -13,7 +13,7 @@ export default class DiscountCampaignsModule {
     methodsAndInputs: [
       {
         method: "run",
-        input: ["cartItems", "campaignCode"],
+        input: ["cartItems", "discountCode", "rawSubtotal"],
         output: "discountResult",
       },
     ],
@@ -32,7 +32,7 @@ export default class DiscountCampaignsModule {
 
   async run(value = {}, now = new Date()) {
     const input = Array.isArray(value) ? { cartItems: value } : (value ?? {});
-    const { cartItems = [], campaignCode = "" } = input;
+    const { cartItems = [], discountCode = "", rawSubtotal } = input;
 
     // If the caller passes something else as the second argument, use today's date
     const today =
@@ -52,20 +52,40 @@ export default class DiscountCampaignsModule {
 
     // Throws ValidationError if the cart data is broken
     const preparedCartItems = prepareCartItems(cartItems);
+
+    const cartTotal =
+      Math.round(
+        preparedCartItems.reduce((sum, i) => sum + i.price * i.quantity, 0) *
+          100,
+      ) / 100;
+
+    const rawSubtotalNumber = Number(rawSubtotal);
+
+    if (
+      rawSubtotal !== undefined &&
+      rawSubtotal !== "" &&
+      (!Number.isFinite(rawSubtotalNumber) || rawSubtotalNumber < 0)
+    ) {
+      throw new ValidationError(`Ogiltigt pris`);
+    }
+
     const originalTotal =
-      Math.round(getCartTotal(preparedCartItems) * 100) / 100;
+      Math.round(
+        preparedCartItems.reduce((sum, i) => sum + i.price * i.quantity, 0) *
+          100,
+      ) / 100;
 
     // Threshold campaigns (from cache) and cart campaigns are loaded at the same time
     const [thresholdCampaigns, cartData] = await Promise.all([
       this.getThresholdCampaigns(),
-      loadCampaignsForCart(preparedCartItems, campaignCode, today),
+      loadCampaignsForCart(preparedCartItems, discountCode, rawSubtotal, today),
     ]);
 
     const campaigns = [...thresholdCampaigns, ...cartData.campaigns];
     const discount = calculateDiscount(
       campaigns,
       preparedCartItems,
-      cartData.code,
+      cartData.discountCode,
       today,
     );
 
@@ -79,10 +99,11 @@ export default class DiscountCampaignsModule {
         campaignCode: campaign.campaignCode || null,
         savings,
       })),
-      campaignCode: cartData.code || null,
+      discountCode: cartData.discountCode || null,
       message: cartData.error?.message ?? null,
       errorType: cartData.error?.name ?? null,
     };
+    console.log("discountResult", result);
 
     return result;
   }

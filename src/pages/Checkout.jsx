@@ -23,16 +23,15 @@ export default function Checkout() {
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
 
-  const [discountCode, setDiscountCode] = useState("");
-
   const [shippingResult, setShippingResult] = useState(null);
   const [shippingLoading, setShippingLoading] = useState(false);
   const [shippingError, setShippingError] = useState(null);
   const [selectedCarrierId, setSelectedCarrierId] = useState(null);
 
   const [discountResult, setDiscountResult] = useState(null);
-  const [campaignCode, setCampaignCode] = useState("SEP2026");
+  const [campaignCode, setCampaignCode] = useState("");
   const [discountSavings, setDiscountSavings] = useState(null);
+  const [discountCode, setDiscountCode] = useState("");
 
   // Den fullständiga offerten som matchar användarens val (eller null om
   // inget beräknat/valt än).
@@ -126,7 +125,7 @@ export default function Checkout() {
   const handleCampaign = async () => {
     const result = await Module.DiscountCampaignsModule.run({
       cartItems,
-      campaignCode,
+      discountCode,  //campaignCode
     });
 
     setDiscountResult(result);
@@ -257,8 +256,8 @@ export default function Checkout() {
           </div>
 
           <div className="flex justify-between text-sm mb-2 border-t border-text/10 pt-4">
-            <span>Rabatt: </span>
-            <span className="text-red-400">{formattedSavings}</span>
+            <span className="text-olive bold"> Rabatt: </span>
+            <span className="text-olive bold">{formattedSavings}</span>
           </div>
 
           <div className="flex justify-between text-sm mb-4 text-text/60">
@@ -275,12 +274,12 @@ export default function Checkout() {
             <span>{formattedTotalPrice}</span>
           </div>
 
-          {/* Har sökt igenom projektet, finns ingen funktion som heter calculatedDiscontedPriceForCart?
           <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
-            <span>Totalt med rabatt </span>
-            <span>${calculatedDiscountedPriceForCart.toFixed(2)}</span>
+            <span>
+              Totalt <br /> med rabatt{" "}
+            </span>
+            <span>{}</span>
           </div>
-          */}
 
           {/* MAIL */}
           <div className="mb-4">
@@ -308,7 +307,7 @@ export default function Checkout() {
           {/* Discount */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm mb-1 text-text/70">
-              Rabatt
+              Rabatt kod
             </label>
             <input
               type="text"

@@ -19,30 +19,31 @@ export class ValidationError extends ModuleError {
 
 //Thrown when a campaign code is not recognized or does not exist in the system.
 export class UnknownCampaignError extends ModuleError {
-  constructor(code) {
+  constructor(discountCode) {
     super(
-      `Kampanjkoden "${code}" är okänd. Kontrollera stavningen och försök igen.`,
+      `Kampanjkoden "${discountCode}" är okänd. Kontrollera stavningen och försök igen.`,
     );
     this.name = "UnknownCampaignError";
-    this.code = code;
+    this.discountCode = discountCode;
   }
 }
 
 //Thrown when a campaign is not active due to being outside its valid date range.
 export class CampaignIsNotActiveError extends ModuleError {
-  constructor(code, currentDate, startDate, endDate) {
+  constructor( discountCode, currentDate = new Date(), startDate, endDate) {
+   
     const from = startDate
-      ? new Date(startDate).toISOString().slice
-      : "okänd datum";
+      ? new Date(startDate).toISOString().slice(0, 10)
+      : "okänt datum";
     const to = endDate
       ? new Date(endDate).toISOString().slice(0, 10)
-      : "okänd datum";
+      : "okänt datum";
 
     super(
-      `Kampanjen "${code}" är inte aktiv. Den gäller från ${from} till ${to}. Kontrollera kampanjens start- och slutdatum.`,
+      `Kampanjen "${discountCode}" är inte aktiv. Den gäller från ${from} till ${to}. Kontrollera kampanjens start- och slutdatum.`,
     );
     this.name = "CampaignIsNotActiveError";
-    this.code = code;
+    this.discountCode = discountCode;
     this.currentDate = currentDate;
     this.campaignStartDate = startDate;
     this.campaignEndDate = endDate;
@@ -51,11 +52,13 @@ export class CampaignIsNotActiveError extends ModuleError {
 
 //Thrown when a campaign code exists and is active,
 //but does not cover any product in the cart.
-export class CampaignIsNotApplicable extends ModuleError {
-  constructor(code) {
-    super(`Kampagjkoden "${code}" gäller inte för varorna i din varukorg,`);
+export class CampaignIsNotApplicableError extends ModuleError {
+  constructor(discountCode) {
+    super(
+      `Kampanjkoden "${discountCode}" gäller inte för varorna i din varukorg.`,
+    );
     this.name = "CampaignIsNotApplicableError";
-    this.code = code;
+    this.discountCode = discountCode;
   }
 }
 

@@ -6,7 +6,7 @@ import fetchPercentageCampaigns from "../../api/fetchPercentageCampaigns.js";
 import {
   ApiError,
   CampaignIsNotActiveError,
-  CampaignIsNotApplicable,
+  CampaignIsNotApplicableError,
   ModuleError,
   UnknownCampaignError,
   ValidationError,
@@ -52,13 +52,14 @@ export async function loadThresholdCampaigns() {
   return makeInstances(await safeFetch(() => fetchThresholdCampaigns()));
 }
 
-//Finds active PERCENTAGE campaigns for the entered code and the products in the cart.
-async function findPercentageCampaigns(code, productIds, now) {
+//Finds active PERCENTAGE campaigns for the entered discountCode and the total
+async function findPercentageCampaigns(discountCode, now) {
   const campaignsForCart = makeInstances(
-    await fetchPercentageCampaigns(code, productIds),
+    await fetchPercentageCampaigns(),
   ).filter(
     (campaign) =>
-      campaign.type === CampaignType.PERCENTAGE && campaign.matchesCode(code),
+      campaign.type === CampaignType.PERCENTAGE &&
+      campaign.matchesCode(discountCode),
   );
 
   const activeCampaigns = campaignsForCart.filter((campaign) =>
@@ -68,7 +69,7 @@ async function findPercentageCampaigns(code, productIds, now) {
     return activeCampaigns;
   }
 
-  //The code covers these products, but the campaign is not active today
+  //The discountCode covers these products, but the campaign is not active today
   if (campaignsForCart.length > 0) {
     const upcoming = campaignsForCart
       .filter((campaign) => campaign.startDate && campaign.startDate > now)
@@ -81,39 +82,24 @@ async function findPercentageCampaigns(code, productIds, now) {
     const shown = upcoming[0] ?? ended[0] ?? campaignsForCart[0];
 
     throw new CampaignIsNotActiveError(
-      code,
+      discountCode,
       now,
       shown.startDate,
       shown.endDate,
     );
   }
 
-  //Only if nothing was found
-  const anyWithCode = makeInstances(
-    await fetchPercentageCampaigns(code, [], 1),
-  ).filter((campaign) => campaign.matchesCode(code));
-
-  if (anyWithCode.length === 0) {
-    throw new UnknownCampaignError(code);
+  if (campaignsForCart.length === 0) {
+    throw new UnknownCampaignError(discountCode);
   }
-
-  const first = anyWithCode[0];
-  if (!first.isActive(now)) {
-    throw new CampaignIsNotActiveError(
-      code,
-      now,
-      first.startDate,
-      first.endDate,
-    );
-  }
-  //The code exists and is active, but not for the products in this cart
-  throw new CampaignIsNotApplicable(code);
 }
 
+//add threshold and percentage campaign
 //Loads as little as possible for this cart.
 export async function loadCampaignsForCart(
   cartItems,
-  campaignCode,
+  discountCode,
+  rawSubtotalNumber,
   now = new Date(),
 ) {
   //Products with quantity 0 can not get a discount, so they are ignored
@@ -125,30 +111,29 @@ export async function loadCampaignsForCart(
     ...new Set(cartItemsWithQuantity.map((cartItem) => String(cartItem.id))),
   ];
 
-  const code = String(campaignCode ?? "")
+  const code = String(discountCode ?? "")
     .trim()
     .toUpperCase();
 
   if (productIds.length === 0) {
     return {
       campaigns: [],
-      code: "",
+      discountCode: "",
       error: null,
     };
   }
   let codeError = null;
 
-  //PERCENTAGE Campaign has the highest priority and needs a code
-  if (code) {
+  //PERCENTAGE Campaign has the highest priority and needs a discountCode
+  if (discountCode) {
     try {
       const percentageCampaigns = await findPercentageCampaigns(
-        code,
-        productIds,
+        discountCode,
         now,
       );
       return {
         campaigns: percentageCampaigns,
-        code,
+        discountCode,
         error: null,
       };
     } catch (err) {
@@ -172,7 +157,7 @@ export async function loadCampaignsForCart(
   }
 
   const buyXPayForYCampaigns = makeInstances(
-    await safeFetch(() => fetchBuyXPayForYCampaigns(productIds)),
+    await safeFetch(() => fetchBuyXPayForYCampaigns()),
   );
   return {
     campaigns: buyXPayForYCampaigns,
@@ -210,13 +195,6 @@ export function prepareCartItems(cartItems) {
   });
 }
 
-export function getCartTotal(cartItems) {
-  return cartItems.reduce(
-    (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
-    0,
-  );
-}
-
 //Applies product campaigns, each product gets the first campaign that covers it
 function applyProductCampaigns(productCampaigns, cartItems) {
   const cartItemsByCampaign = new Map();
@@ -238,20 +216,20 @@ function applyProductCampaigns(productCampaigns, cartItems) {
   }
   const applied = [];
 
-  //Every campaign calculates the price of its own products
   for (const [campaign, campaignCartItems] of cartItemsByCampaign) {
-    const fullPrice = getCartTotal(campaignCartItems);
+    const originalPrice = campaignCartItems.reduce(
+      (sum, i) => sum + i.price * i.quantity,
+      0,
+    );
     const discountedPrice =
       campaign.calculateDiscountedPriceForCart(campaignCartItems);
     subtotal += discountedPrice;
 
-    const savings = Math.round((fullPrice - discountedPrice) * 100) / 100;
-    //A campaign that saves nothind is not listed
+    const savings = Math.round((originalPrice - discountedPrice) * 100) / 100;
     if (savings > 0) applied.push({ campaign, savings });
   }
   return {
-    subtotal: Math.round(subtotal * 100) / 100,
-    applied,
+    subtotal: Math.round(subtotal * 100) / 100, applied
   };
 }
 
@@ -267,18 +245,18 @@ function applyProductCampaigns(productCampaigns, cartItems) {
 export function calculateDiscount(
   campaigns,
   cartItems,
-  code,
+  discountCode,
   now = new Date(),
 ) {
-  //Only active campaigns that match the code (campaigns without a code always match).
+  //Only active campaigns that match the discountCode (campaigns without a discountCode always match).
   //A higher priority is checked first.
   const usable = campaigns
-    .filter((c) => c.isActive(now) && c.matchesCode(code))
+    .filter((c) => c.isActive(now) && c.matchesCode(discountCode))
     .sort((a, b) => b.priority - a.priority);
 
   const percentageCampaigns = usable.filter(
     (c) =>
-      c.type === CampaignType.PERCENTAGE && c.isApplicableToCart(cartItems),
+      c.type === CampaignType.PERCENTAGE && c.isApplicableToCart(discountCode),
   );
 
   const buyXPayForYCampaigns = usable.filter(
@@ -291,14 +269,29 @@ export function calculateDiscount(
     (c) => c.type === CampaignType.THRESHOLD,
   );
 
+  let total;
+  const applied = [];
+
+  if (percentageCampaigns.length > 0) {
+    const campaign = percentageCampaigns[0];
+    const raw = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
+    total = campaign.calculateDiscountedPriceForCart(raw);
+    applied.push({ campaign, savings: Math.round((raw - total) * 100) / 100 });
+  } else {
+    const step = applyProductCampaigns(buyXPayForYCampaigns, cartItems);
+    total = step.subtotal;
+    applied.push(...step.applied);
+  }
+
   //Step 1: product discount (rules 1-3)
-  const productCampaigns =
-    percentageCampaigns.length > 0 ? percentageCampaigns : buyXPayForYCampaigns;
+  //const productCampaign = buyXPayForYCampaigns;
 
-  const productStep = applyProductCampaigns(productCampaigns, cartItems);
+  //const productStep = applyProductCampaigns(productCampaign, cartItems);
 
-  let total = productStep.subtotal;
-  const applied = [...productStep.applied];
+  //let total = productStep.subtotal;
+  //const applied = [...productStep.applied];
+
+
 
   //Step 2: discount the whole purchase (rules 4-6).
   //Every campaign already applied must allow the combination with THRESHOLD.
