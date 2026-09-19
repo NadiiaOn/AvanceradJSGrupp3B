@@ -103,7 +103,6 @@ export default class DiscountCampaignsModule {
       message: cartData.error?.message ?? null,
       errorType: cartData.error?.name ?? null,
     };
-    console.log("discountResult", result);
 
     return result;
   }

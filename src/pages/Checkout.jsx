@@ -84,6 +84,14 @@ export default function Checkout() {
     selectedQuote?.priceUsd ?? null,
   );
 
+  const totaltMedRabatt = totalPrice - discountSavings + taxTotal;
+
+  const formattedTotaltMedRabatt = Module.CurrencyVatModule.formatAmount(
+    totaltMedRabatt,
+    currency,
+  );
+  //const totaltMedRabatt = Math.round((totalPrice - (discountSavings ?? 0)) * 100) / 100;
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -273,11 +281,11 @@ export default function Checkout() {
             <span>{formattedTotalPrice}</span>
           </div>
 
-          <div className="flex justify-between font-bold text-lg border-t border-text/10 pt-4 mb-6">
+          <div className="flex justify-between items-center font-bold text-lg border-t border-text/10 pt-4 mb-6">
             <span>
               Totalt <br /> med rabatt{" "}
             </span>
-            <span>{}</span>
+            <span>{formattedTotaltMedRabatt}</span>
           </div>
 
           {/* MAIL */}
