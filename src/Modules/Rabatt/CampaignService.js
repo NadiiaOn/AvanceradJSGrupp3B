@@ -122,46 +122,38 @@ export async function loadCampaignsForCart(
       error: null,
     };
   }
-  let codeError = null;
 
-  //PERCENTAGE Campaign has the highest priority and needs a discountCode
-  if (discountCode) {
+  let codeError = null;
+  const foundCampaigns = [];
+  let usedCode = "";
+
+  //PERCENTAGE needs a discountCode
+  if (code) {
     try {
-      const percentageCampaigns = await findPercentageCampaigns(
-        discountCode,
-        now,
-      );
-      return {
-        campaigns: percentageCampaigns,
-        discountCode,
-        error: null,
-      };
+      const percentageCampaigns = await findPercentageCampaigns(code, now);
+      foundCampaigns.push(...percentageCampaigns);
+      usedCode = code;
     } catch (err) {
       if (!(err instanceof ModuleError)) throw err;
       codeError = err;
     }
   }
 
-  //BUY_X_PAY_FOR_Y only if the cart has enough items (at least 2)
+  //BUY_X_PAY_FOR_Y only if the cart has enough items(at least 3)
   const totalQuantity = cartItemsWithQuantity.reduce(
     (sum, cartItem) => sum + cartItem.quantity,
     0,
   );
-
-  if (totalQuantity < MIN_BUY_X) {
-    return {
-      campaigns: [],
-      code: "",
-      error: codeError,
-    };
+  if (totalQuantity >= MIN_BUY_X) {
+    const buyXPayForYCampaigns = makeInstances(
+      await safeFetch(() => fetchBuyXPayForYCampaigns()),
+    );
+    foundCampaigns.push(...buyXPayForYCampaigns);
   }
 
-  const buyXPayForYCampaigns = makeInstances(
-    await safeFetch(() => fetchBuyXPayForYCampaigns()),
-  );
   return {
-    campaigns: buyXPayForYCampaigns,
-    code: "",
+    campaigns: foundCampaigns,
+    discountCode: usedCode,
     error: codeError,
   };
 }
@@ -229,17 +221,18 @@ function applyProductCampaigns(productCampaigns, cartItems) {
     if (savings > 0) applied.push({ campaign, savings });
   }
   return {
-    subtotal: Math.round(subtotal * 100) / 100, applied
+    subtotal: Math.round(subtotal * 100) / 100,
+    applied,
   };
 }
 
 //Campaigns rules:
 //1.PERCENTAGE has the highest priority.
-//2.BUY_X_PAY_FOR_Y is used only if no PERCENTAGE campaign fits.
-//3.PERCENTAGE and BUY_X_PAY_FOR_Y are never combined.
-//4.PERCENTAGE can be combined with THRESHOLD.
+//3.PERCENTAGE and BUY_X_PAY_FOR_Y can be combined.
+//2.BUY_X_PAY_FOR_Y is applied on the prices after the PERCENTAGE discount.
+//4.PERCENTAGE and THRESHOLD are never combined.
 //5.BUY_X_PAY_FOR_Y can be combined with THRESHOLD.
-//6.THRESHOLD is checked last, on the total after the product discount.
+//6.THRESHOLD is checked last, on the total after the product discounts.
 // If no product campaign was applied, THRESHOLD can be applied alone.
 
 export function calculateDiscount(
@@ -272,26 +265,34 @@ export function calculateDiscount(
   let total;
   const applied = [];
 
+  let itemsForProductCampaigns = cartItems;
+
   if (percentageCampaigns.length > 0) {
     const campaign = percentageCampaigns[0];
-    const raw = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
-    total = campaign.calculateDiscountedPriceForCart(raw);
-    applied.push({ campaign, savings: Math.round((raw - total) * 100) / 100 });
-  } else {
-    const step = applyProductCampaigns(buyXPayForYCampaigns, cartItems);
-    total = step.subtotal;
-    applied.push(...step.applied);
+
+    const rawTotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
+    const discountedTotal =
+      Math.round(rawTotal * (1 - campaign.discountPercentage / 100) * 100) /
+      100;
+    const savings = Math.round((rawTotal - discountedTotal) * 100) / 100;
+
+    if (savings > 0) applied.push({ campaign, savings });
+
+    itemsForProductCampaigns = cartItems.map((item) => ({
+      ...item,
+      price:
+        Math.round(item.price * (1 - campaign.discountPercentage / 100) * 100) /
+        100,
+    }));
   }
 
-  //Step 1: product discount (rules 1-3)
-  //const productCampaign = buyXPayForYCampaigns;
+  const step = applyProductCampaigns(
+    buyXPayForYCampaigns,
+    itemsForProductCampaigns,
+  );
 
-  //const productStep = applyProductCampaigns(productCampaign, cartItems);
-
-  //let total = productStep.subtotal;
-  //const applied = [...productStep.applied];
-
-
+  total = step.subtotal;
+  applied.push(...step.applied);
 
   //Step 2: discount the whole purchase (rules 4-6).
   //Every campaign already applied must allow the combination with THRESHOLD.

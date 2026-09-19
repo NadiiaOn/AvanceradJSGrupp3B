@@ -75,7 +75,7 @@ export default class DiscountCampaignsModule {
           100,
       ) / 100;
 
-    // Threshold campaigns (from cache) and cart campaigns are loaded at the same time
+    
     const [thresholdCampaigns, cartData] = await Promise.all([
       this.getThresholdCampaigns(),
       loadCampaignsForCart(preparedCartItems, discountCode, rawSubtotal, today),

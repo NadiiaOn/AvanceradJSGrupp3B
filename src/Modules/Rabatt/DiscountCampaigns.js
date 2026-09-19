@@ -7,15 +7,15 @@ export const CampaignType = Object.freeze({
 });
 
 export const ALLOWED_COMBINATIONS = Object.freeze({
-  [CampaignType.PERCENTAGE]: [CampaignType.THRESHOLD],
-  [CampaignType.BUY_X_PAY_FOR_Y]: [CampaignType.THRESHOLD],
-  [CampaignType.THRESHOLD]: [
+  [CampaignType.PERCENTAGE]: [CampaignType.BUY_X_PAY_FOR_Y],
+  [CampaignType.BUY_X_PAY_FOR_Y]: [
     CampaignType.PERCENTAGE,
-    CampaignType.BUY_X_PAY_FOR_Y,
+    CampaignType.THRESHOLD,
   ],
+  [CampaignType.THRESHOLD]: [CampaignType.BUY_X_PAY_FOR_Y],
 });
 
-export const MIN_BUY_X = 2;
+export const MIN_BUY_X = 3;
 
 export class CampaignModule {
   constructor({
