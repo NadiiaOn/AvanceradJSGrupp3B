@@ -8,6 +8,8 @@ import {
 import { ValidationError } from "./errors.js";
 
 export default class DiscountCampaignsModule {
+  history = [];
+
   static descriptor = {
     name: "DiscountCampaigns",
     methodsAndInputs: [
@@ -75,7 +77,6 @@ export default class DiscountCampaignsModule {
           100,
       ) / 100;
 
-    
     const [thresholdCampaigns, cartData] = await Promise.all([
       this.getThresholdCampaigns(),
       loadCampaignsForCart(preparedCartItems, discountCode, rawSubtotal, today),
@@ -104,6 +105,22 @@ export default class DiscountCampaignsModule {
       errorType: cartData.error?.name ?? null,
     };
 
+    this.history.push({
+      time: today,
+      discountCode: result.discountCode,
+      savings: result.savings,
+      campaigns: result.appliedCampaigns.map((c) => c.type),
+    });
+
+    if (this.history.length > 20) this.history.shift();
+
     return result;
+  }
+  getHistory() {
+    return [...this.history];
+  }
+
+  cleaHistory() {
+    this.history = [];
   }
 }

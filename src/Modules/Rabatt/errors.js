@@ -30,8 +30,7 @@ export class UnknownCampaignError extends ModuleError {
 
 //Thrown when a campaign is not active due to being outside its valid date range.
 export class CampaignIsNotActiveError extends ModuleError {
-  constructor( discountCode, currentDate = new Date(), startDate, endDate) {
-   
+  constructor(discountCode, currentDate = new Date(), startDate, endDate) {
     const from = startDate
       ? new Date(startDate).toISOString().slice(0, 10)
       : "okänt datum";
@@ -47,18 +46,6 @@ export class CampaignIsNotActiveError extends ModuleError {
     this.currentDate = currentDate;
     this.campaignStartDate = startDate;
     this.campaignEndDate = endDate;
-  }
-}
-
-//Thrown when a campaign code exists and is active,
-//but does not cover any product in the cart.
-export class CampaignIsNotApplicableError extends ModuleError {
-  constructor(discountCode) {
-    super(
-      `Kampanjkoden "${discountCode}" gäller inte för varorna i din varukorg.`,
-    );
-    this.name = "CampaignIsNotApplicableError";
-    this.discountCode = discountCode;
   }
 }
 

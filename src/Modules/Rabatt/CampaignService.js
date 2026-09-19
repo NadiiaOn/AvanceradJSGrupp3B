@@ -6,7 +6,6 @@ import fetchPercentageCampaigns from "../../api/fetchPercentageCampaigns.js";
 import {
   ApiError,
   CampaignIsNotActiveError,
-  CampaignIsNotApplicableError,
   ModuleError,
   UnknownCampaignError,
   ValidationError,
@@ -94,7 +93,6 @@ async function findPercentageCampaigns(discountCode, now) {
   }
 }
 
-//add threshold and percentage campaign
 //Loads as little as possible for this cart.
 export async function loadCampaignsForCart(
   cartItems,
@@ -294,8 +292,6 @@ export function calculateDiscount(
   total = step.subtotal;
   applied.push(...step.applied);
 
-  //Step 2: discount the whole purchase (rules 4-6).
-  //Every campaign already applied must allow the combination with THRESHOLD.
   const usedTypes = [...new Set(applied.map((a) => a.campaign.type))];
 
   const threshold = thresholdCampaigns.find(

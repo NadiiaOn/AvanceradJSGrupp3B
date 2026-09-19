@@ -192,7 +192,7 @@ export class PercentageDiscount extends CampaignModule {
       );
     }
   }
-
+  
   isApplicableToCart(discountCode) {
     return discountCode === this.campaignCode; //from Checkout
   }
@@ -262,8 +262,6 @@ export class ThresholdDiscount extends CampaignModule {
     return Math.round(discountedTotalPrice * 100) / 100;
   }
 }
-
-//think about kampaign cod
 
 export function campaignFactory(data) {
   if (!data || typeof data !== "object" || Array.isArray(data)) {
