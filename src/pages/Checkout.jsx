@@ -29,7 +29,6 @@ export default function Checkout() {
   const [selectedCarrierId, setSelectedCarrierId] = useState(null);
 
   const [discountResult, setDiscountResult] = useState(null);
-  const [campaignCode, setCampaignCode] = useState("");
   const [discountSavings, setDiscountSavings] = useState(null);
   const [discountCode, setDiscountCode] = useState("");
 
@@ -125,7 +124,7 @@ export default function Checkout() {
   const handleCampaign = async () => {
     const result = await Module.DiscountCampaignsModule.run({
       cartItems,
-      discountCode,  //campaignCode
+      discountCode,
     });
 
     setDiscountResult(result);
@@ -306,16 +305,26 @@ export default function Checkout() {
 
           {/* Discount */}
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm mb-1 text-text/70">
+            <label
+              htmlFor="discount"
+              className="block text-sm mb-1 text-text/70"
+            >
               Rabatt kod
             </label>
             <input
+              id="discount"
               type="text"
               value={discountCode}
               onChange={handleDiscountChange}
               placeholder="AUG2026"
-              className="w-full p-2 rounded border bg-bg text-text outline-none border-text/20"
+              className="w-full p-2 rounded border bg-bg text-olive outline-none border-olive"
             />
+            <button
+              onClick={handleCampaign}
+              className="w-full mt-2 py-2 rounded border border-olive bg-bg text-olive cursor-pointer hover:bg-text/5"
+            >
+              Bekräfta rabatten
+            </button>
           </div>
 
           <ShippingOptions
