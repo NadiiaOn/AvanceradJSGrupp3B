@@ -367,7 +367,7 @@ export default function Checkout() {
             />
             {codeFeedback && (
               <p
-                className={`text-xs mt-1 transition-opacity duration-500 ${codeFeedback.type === "error" ? "text-red-400" : "text-olive"}`}
+                className={`text-xs mt-1 ${codeFeedback.type === "error" ? "text-red-400" : "text-olive"}`}
               >
                 {codeFeedback.text}{" "}
               </p>
