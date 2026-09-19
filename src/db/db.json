@@ -11348,15 +11348,15 @@
       "type": "PERCENTAGE",
       "campaignCode": "SEP2026",
       "discountPercentage": 20,
-      "startDate": "2026-09-09T00:00:00.000Z",
+      "startDate": "2026-01-01T00:00:00.000Z",
       "endDate": "2026-09-30T00:00:00.000Z"
     },
     {
       "type": "PERCENTAGE",
-      "campaignCode": "LUCKY",
+      "campaignCode": "OKT2026",
       "discountPercentage": 30,
-      "startDate": "2026-09-09T00:00:00.000Z",
-      "endDate": "2026-09-30T00:00:00.000Z"
+      "startDate": "2026-10-02T00:00:00.000Z",
+      "endDate": "2026-10-30T00:00:00.000Z"
     }
   ],
   "carriers": [

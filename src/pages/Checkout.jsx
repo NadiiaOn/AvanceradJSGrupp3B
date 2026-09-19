@@ -17,6 +17,14 @@ function isValidEmail(email) {
   return emailRegex.test(email.trim());
 }
 
+//Validering av user input for discountCode
+function isValidDiscountCode(discountCode) {
+  const enteredCode = String(discountCode ?? "")
+    .trim()
+    .toUpperCase();
+  return /^[A-ZÅÄÖ]{3}\d{4}$/.test(enteredCode);
+}
+
 export default function Checkout() {
   const { cartItems, totalPrice, updateQuantity, removeFromCart } = useCart();
 
@@ -31,6 +39,7 @@ export default function Checkout() {
   const [discountResult, setDiscountResult] = useState(null);
   const [discountSavings, setDiscountSavings] = useState(null);
   const [discountCode, setDiscountCode] = useState("");
+  const [codeFeedback, setCodeFeedback] = useState(null);
 
   // Den fullständiga offerten som matchar användarens val (eller null om
   // inget beräknat/valt än).
@@ -98,6 +107,7 @@ export default function Checkout() {
 
   const handleDiscountChange = (e) => {
     setDiscountCode(e.target.value);
+    setCodeFeedback(null);
   };
 
   const handleCalculateShipping = async () => {
@@ -130,13 +140,41 @@ export default function Checkout() {
   };
 
   const handleCampaign = async () => {
+    const enteredCode = discountCode.trim();
+
+    if (enteredCode && !isValidDiscountCode(enteredCode)) {
+      setCodeFeedback({
+        type: "error",
+        text: "Ogiltigt format. Exempel: AUG2026",
+      });
+      return;
+    }
+
     const result = await Module.DiscountCampaignsModule.run({
       cartItems,
       discountCode,
     });
 
+    console.log("Kod:", enteredCode || "(tom)", {
+      errorType: result.errorType,
+      message: result.message,
+      savings: result.savings,
+      campaigns: result.appliedCampaigns,
+    });
+
     setDiscountResult(result);
     setDiscountSavings(Number(result.savings));
+
+    if (!enteredCode) {
+      setCodeFeedback(null);
+    } else if (result.errorType) {
+      setCodeFeedback({ type: "error", text: result.message });
+    } else {
+      setCodeFeedback({
+        type: "ok",
+        text: "Rabattkoden är tillagd.",
+      });
+    }
   };
 
   const formattedSavings = Module.CurrencyVatModule.formatAmount(
@@ -325,11 +363,19 @@ export default function Checkout() {
               value={discountCode}
               onChange={handleDiscountChange}
               placeholder="AUG2026"
-              className="w-full p-2 rounded border bg-bg text-olive outline-none border-olive"
+              className={`w-full p-2 rounded border bg-bg text-text outline-none ${codeFeedback?.type === "error" ? "border-black text-red-400" : "border-black text-olive"}`}
             />
+            {codeFeedback && (
+              <p
+                className={`text-xs mt-1 transition-opacity duration-500 ${codeFeedback.type === "error" ? "text-red-400" : "text-olive"}`}
+              >
+                {codeFeedback.text}{" "}
+              </p>
+            )}
+
             <button
               onClick={handleCampaign}
-              className="w-full mt-2 py-2 rounded border border-olive bg-bg text-olive cursor-pointer hover:bg-text/5"
+              className="w-full mt-2 py-2 rounded border border-black bg-bg text-olive cursor-pointer hover:bg-text/5"
             >
               Bekräfta rabatten
             </button>
